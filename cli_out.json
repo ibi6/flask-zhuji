@@ -1,0 +1,4308 @@
+{
+  "schema_version": 1,
+  "batch_id": "10ad7e76-5952-4e90-af6b-b97d4d284f3d",
+  "collected_at": "2026-07-31T12:25:35.624239Z",
+  "metrics": {
+    "cpu_percent": 39.9,
+    "memory_percent": 82.9,
+    "disk_percent": 75.1,
+    "network_bytes_sent": 7978788223,
+    "network_bytes_recv": 33703473740
+  },
+  "inventory": {
+    "hostname": "DESKTOP-UL80L8P",
+    "os": "windows",
+    "os_version": "Windows-10-10.0.26200-SP0",
+    "architecture": "AMD64",
+    "agent_version": "0.1.0",
+    "boot_time": "2026-07-31T00:09:48.323920Z",
+    "ip_addresses": [
+      "04-BF-1B-74-16-8E",
+      "169.254.76.82",
+      "fe80::d87a:4f37:52e9:c508",
+      "0A-00-27-00-00-12",
+      "192.168.56.1",
+      "fe80::bf91:3b83:50c7:226e",
+      "02-00-4C-4F-4F-50",
+      "169.254.212.70",
+      "fe80::9292:d1a7:7332:a7b4",
+      "B0-DC-EF-14-84-86",
+      "169.254.249.3",
+      "fe80::1056:bfec:8c0d:7e41",
+      "B2-DC-EF-14-84-85",
+      "169.254.88.50",
+      "fe80::bd10:302f:35dd:521b",
+      "B0-DC-EF-14-84-85",
+      "192.168.1.5",
+      "2409:8a04:322f:9530:4ebd:1497:4a6d:495c",
+      "2409:8a04:322f:9530:5dbc:9933:2fda:1f81",
+      "fe80::7ecb:d264:87c:6978",
+      "B0-DC-EF-14-84-89",
+      "169.254.47.38",
+      "fe80::7374:2af3:41ec:ee50",
+      "00-15-5D-6F-DE-F9",
+      "172.23.64.1",
+      "fe80::d2a3:9159:565d:240e",
+      "198.18.0.1",
+      "fdfe:dcba:9876::1",
+      "127.0.0.1",
+      "::1"
+    ]
+  },
+  "processes": [
+    {
+      "pid": 0,
+      "name": "System Idle Process",
+      "executable": null,
+      "username": "NT AUTHORITY\\SYSTEM",
+      "started_at": "1970-01-01T00:00:00Z"
+    },
+    {
+      "pid": 4,
+      "name": "System",
+      "executable": null,
+      "username": "NT AUTHORITY\\SYSTEM",
+      "started_at": "1970-01-01T00:00:00Z"
+    },
+    {
+      "pid": 320,
+      "name": "Registry",
+      "executable": "Registry",
+      "username": null,
+      "started_at": "2026-07-31T00:09:48.620933Z"
+    },
+    {
+      "pid": 916,
+      "name": "smss.exe",
+      "executable": "C:\\Windows\\System32\\smss.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:09:51.710312Z"
+    },
+    {
+      "pid": 1036,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.507711Z"
+    },
+    {
+      "pid": 1408,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.950367Z"
+    },
+    {
+      "pid": 1428,
+      "name": "csrss.exe",
+      "executable": "C:\\Windows\\System32\\csrss.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:09:58.842205Z"
+    },
+    {
+      "pid": 1544,
+      "name": "wininit.exe",
+      "executable": "C:\\Windows\\System32\\wininit.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.041828Z"
+    },
+    {
+      "pid": 1552,
+      "name": "csrss.exe",
+      "executable": "C:\\Windows\\System32\\csrss.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.044172Z"
+    },
+    {
+      "pid": 1640,
+      "name": "winlogon.exe",
+      "executable": "C:\\Windows\\System32\\winlogon.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.360239Z"
+    },
+    {
+      "pid": 1660,
+      "name": "services.exe",
+      "executable": "C:\\Windows\\System32\\services.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.369213Z"
+    },
+    {
+      "pid": 1692,
+      "name": "lsass.exe",
+      "executable": "C:\\Windows\\System32\\lsass.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.388592Z"
+    },
+    {
+      "pid": 1724,
+      "name": "WUDFHost.exe",
+      "executable": "C:\\Windows\\System32\\WUDFHost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.526403Z"
+    },
+    {
+      "pid": 1732,
+      "name": "chrome.exe",
+      "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T01:43:38.871675Z"
+    },
+    {
+      "pid": 1848,
+      "name": "fontdrvhost.exe",
+      "executable": "C:\\Windows\\System32\\fontdrvhost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.462124Z"
+    },
+    {
+      "pid": 1852,
+      "name": "fontdrvhost.exe",
+      "executable": "C:\\Windows\\System32\\fontdrvhost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.462126Z"
+    },
+    {
+      "pid": 1864,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.462405Z"
+    },
+    {
+      "pid": 1920,
+      "name": "WUDFHost.exe",
+      "executable": "C:\\Windows\\System32\\WUDFHost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.471096Z"
+    },
+    {
+      "pid": 2016,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.491974Z"
+    },
+    {
+      "pid": 2072,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.632493Z"
+    },
+    {
+      "pid": 2088,
+      "name": "dwm.exe",
+      "executable": "C:\\Windows\\System32\\dwm.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.546882Z"
+    },
+    {
+      "pid": 2112,
+      "name": "msedge.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:32:06.007398Z"
+    },
+    {
+      "pid": 2192,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:13:00.949308Z"
+    },
+    {
+      "pid": 2204,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.569009Z"
+    },
+    {
+      "pid": 2224,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.569748Z"
+    },
+    {
+      "pid": 2240,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.569925Z"
+    },
+    {
+      "pid": 2256,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.571644Z"
+    },
+    {
+      "pid": 2276,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.572332Z"
+    },
+    {
+      "pid": 2284,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.572881Z"
+    },
+    {
+      "pid": 2400,
+      "name": "HipsTray.exe",
+      "executable": "C:\\Program Files\\Huorong\\Sysdiag\\bin\\HipsTray.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:21.140138Z"
+    },
+    {
+      "pid": 2440,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.579886Z"
+    },
+    {
+      "pid": 2496,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.583884Z"
+    },
+    {
+      "pid": 2556,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T09:16:22.810555Z"
+    },
+    {
+      "pid": 2560,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.588347Z"
+    },
+    {
+      "pid": 2616,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.593085Z"
+    },
+    {
+      "pid": 2744,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.604427Z"
+    },
+    {
+      "pid": 2752,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.604555Z"
+    },
+    {
+      "pid": 2760,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.605283Z"
+    },
+    {
+      "pid": 2836,
+      "name": "WUDFHost.exe",
+      "executable": "C:\\Windows\\System32\\WUDFHost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.614708Z"
+    },
+    {
+      "pid": 2896,
+      "name": "sandbox-cli.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\WorkBuddy\\resources\\app.asar.unpacked\\cli\\vendor\\sandbox\\sandbox-cli.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:49:33.036033Z"
+    },
+    {
+      "pid": 2956,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.622691Z"
+    },
+    {
+      "pid": 2964,
+      "name": "IntelCpHDCPSvc.exe",
+      "executable": "C:\\Windows\\System32\\DriverStore\\FileRepository\\iigd_dch.inf_amd64_cbfaa9cd064ee779\\IntelCpHDCPSvc.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.623536Z"
+    },
+    {
+      "pid": 2972,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.623584Z"
+    },
+    {
+      "pid": 2988,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.626396Z"
+    },
+    {
+      "pid": 3032,
+      "name": "CrossDeviceResume.exe",
+      "executable": "C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\CrossDeviceResume.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:04.610786Z"
+    },
+    {
+      "pid": 3084,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.636459Z"
+    },
+    {
+      "pid": 3148,
+      "name": "vmms.exe",
+      "executable": "C:\\Windows\\System32\\vmms.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.738837Z"
+    },
+    {
+      "pid": 3288,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.647806Z"
+    },
+    {
+      "pid": 3348,
+      "name": "crashpad_handler.exe",
+      "executable": "C:\\Program Files\\Tencent\\Weixin\\4.1.11.55\\crashpad_handler.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:14:14.681926Z"
+    },
+    {
+      "pid": 3512,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.667188Z"
+    },
+    {
+      "pid": 3520,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.667492Z"
+    },
+    {
+      "pid": 3604,
+      "name": "WeChatAppEx.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Roaming\\Tencent\\xwechat\\XPlugin\\Plugins\\RadiumWMPF\\20089\\extracted\\runtime\\WeChatAppEx.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:14:18.422065Z"
+    },
+    {
+      "pid": 3692,
+      "name": "SystemSettings.exe",
+      "executable": "C:\\Windows\\ImmersiveControlPanel\\SystemSettings.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:23:12.676044Z"
+    },
+    {
+      "pid": 3768,
+      "name": "Weixin.exe",
+      "executable": "C:\\Program Files\\Tencent\\Weixin\\Weixin.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:14:26.217921Z"
+    },
+    {
+      "pid": 3940,
+      "name": "ollama.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\Ollama\\ollama.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:28:14.867082Z"
+    },
+    {
+      "pid": 3964,
+      "name": "HipsDaemon.exe",
+      "executable": "C:\\Program Files\\Huorong\\Sysdiag\\bin\\HipsDaemon.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.714294Z"
+    },
+    {
+      "pid": 3972,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.715754Z"
+    },
+    {
+      "pid": 4000,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.723967Z"
+    },
+    {
+      "pid": 4024,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.151389Z"
+    },
+    {
+      "pid": 4044,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.731607Z"
+    },
+    {
+      "pid": 4060,
+      "name": "Dell.Connected.Service.Delivery.exe",
+      "executable": "C:\\Program Files\\Dell\\Dell Connected Service Delivery\\Service\\Dell.Connected.Service.Delivery.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:12:04.132672Z"
+    },
+    {
+      "pid": 4064,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.150552Z"
+    },
+    {
+      "pid": 4100,
+      "name": "ipfsvc.exe",
+      "executable": "C:\\Windows\\System32\\DriverStore\\FileRepository\\dtt_sw.inf_amd64_4dcbabf4df6e73f7\\ipfsvc.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.150131Z"
+    },
+    {
+      "pid": 4128,
+      "name": "WUDFHost.exe",
+      "executable": "C:\\Windows\\System32\\WUDFHost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.759966Z"
+    },
+    {
+      "pid": 4164,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.764040Z"
+    },
+    {
+      "pid": 4244,
+      "name": "nvcontainer.exe",
+      "executable": "C:\\Program Files\\NVIDIA Corporation\\NvContainer\\nvcontainer.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.150870Z"
+    },
+    {
+      "pid": 4292,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.993470Z"
+    },
+    {
+      "pid": 4320,
+      "name": "PushNotificationsLongRunningTask.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\MicrosoftCorporationII.WinAppRuntime.Singleton_8002.3.0.0_x64__8wekyb3d8bbwe\\PushNotificationsLongRunningTask.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:11:11.549483Z"
+    },
+    {
+      "pid": 4340,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.793588Z"
+    },
+    {
+      "pid": 4360,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.794191Z"
+    },
+    {
+      "pid": 4484,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T06:08:48.363770Z"
+    },
+    {
+      "pid": 4512,
+      "name": "NVDisplay.Container.exe",
+      "executable": "C:\\Windows\\System32\\DriverStore\\FileRepository\\nvdm.inf_amd64_bc4fd94596b9a3f7\\Display.NvContainer\\NVDisplay.Container.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.815966Z"
+    },
+    {
+      "pid": 4572,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.828470Z"
+    },
+    {
+      "pid": 4588,
+      "name": "WUDFHost.exe",
+      "executable": "C:\\Windows\\System32\\WUDFHost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.828979Z"
+    },
+    {
+      "pid": 4660,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.965055Z"
+    },
+    {
+      "pid": 4688,
+      "name": "MarvisSvr.exe",
+      "executable": "C:\\Program Files\\Tencent\\Marvis\\Application\\1.60.1800.115\\MarvisSvr.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.842752Z"
+    },
+    {
+      "pid": 4796,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.883453Z"
+    },
+    {
+      "pid": 4804,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.883524Z"
+    },
+    {
+      "pid": 4848,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.888469Z"
+    },
+    {
+      "pid": 4908,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.898363Z"
+    },
+    {
+      "pid": 4916,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.898557Z"
+    },
+    {
+      "pid": 4924,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.898684Z"
+    },
+    {
+      "pid": 4960,
+      "name": "claude.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\Claude_1.24012.9.0_x64__pzs8sxrjxfjjc\\app\\claude.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:01:12.699750Z"
+    },
+    {
+      "pid": 5036,
+      "name": "WmiPrvSE.exe",
+      "executable": "C:\\Windows\\System32\\wbem\\WmiPrvSE.exe",
+      "username": null,
+      "started_at": "2026-07-31T05:30:42.286879Z"
+    },
+    {
+      "pid": 5052,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.910531Z"
+    },
+    {
+      "pid": 5064,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.911224Z"
+    },
+    {
+      "pid": 5076,
+      "name": "MemCompression",
+      "executable": "MemCompression",
+      "username": null,
+      "started_at": "2026-07-31T00:10:01.911442Z"
+    },
+    {
+      "pid": 5152,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:13:24.722635Z"
+    },
+    {
+      "pid": 5180,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.013545Z"
+    },
+    {
+      "pid": 5192,
+      "name": "vmcompute.exe",
+      "executable": "C:\\Windows\\System32\\vmcompute.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.019500Z"
+    },
+    {
+      "pid": 5208,
+      "name": "RtkAudUService64.exe",
+      "executable": "C:\\Windows\\System32\\DriverStore\\FileRepository\\realtekservice.inf_amd64_a92c6a36ec21763b\\RtkAudUService64.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.148933Z"
+    },
+    {
+      "pid": 5244,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.032907Z"
+    },
+    {
+      "pid": 5256,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T08:24:57.728009Z"
+    },
+    {
+      "pid": 5332,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T09:58:13.731951Z"
+    },
+    {
+      "pid": 5364,
+      "name": "spoolsv.exe",
+      "executable": "C:\\Windows\\System32\\spoolsv.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.068550Z"
+    },
+    {
+      "pid": 5556,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.113400Z"
+    },
+    {
+      "pid": 5680,
+      "name": "NVDisplay.Container.exe",
+      "executable": "C:\\Windows\\System32\\DriverStore\\FileRepository\\nvdm.inf_amd64_bc4fd94596b9a3f7\\Display.NvContainer\\NVDisplay.Container.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.119176Z"
+    },
+    {
+      "pid": 5860,
+      "name": "WeChatAppEx.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Roaming\\Tencent\\xwechat\\XPlugin\\Plugins\\RadiumWMPF\\20089\\extracted\\runtime\\WeChatAppEx.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:42:20.430341Z"
+    },
+    {
+      "pid": 5904,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:04.722991Z"
+    },
+    {
+      "pid": 5920,
+      "name": "WeChatAppEx.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Roaming\\Tencent\\xwechat\\XPlugin\\Plugins\\RadiumWMPF\\20089\\extracted\\runtime\\WeChatAppEx.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:14:27.685562Z"
+    },
+    {
+      "pid": 5960,
+      "name": "Dell.TechHub.exe",
+      "executable": "C:\\Program Files\\Dell\\TechHub\\Dell.TechHub.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.133223Z"
+    },
+    {
+      "pid": 5968,
+      "name": "clash-verge-service.exe",
+      "executable": "C:\\Clash Verge\\Clash Verge\\resources\\clash-verge-service.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.133657Z"
+    },
+    {
+      "pid": 5980,
+      "name": "WeChatAppEx.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Roaming\\Tencent\\xwechat\\XPlugin\\Plugins\\RadiumWMPF\\20089\\extracted\\runtime\\WeChatAppEx.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:14:26.577096Z"
+    },
+    {
+      "pid": 6024,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.137377Z"
+    },
+    {
+      "pid": 6064,
+      "name": "DAX3API.exe",
+      "executable": "C:\\Windows\\System32\\DriverStore\\FileRepository\\dax3_swc_aposvc.inf_amd64_8e54c1bc7d581ad1\\DAX3API.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.139540Z"
+    },
+    {
+      "pid": 6072,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.142525Z"
+    },
+    {
+      "pid": 6080,
+      "name": "GameViewerService.exe",
+      "executable": "C:\\Program Files\\Netease\\GameViewer\\GameViewerService.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.142931Z"
+    },
+    {
+      "pid": 6088,
+      "name": "IntelAudioService.exe",
+      "executable": "C:\\Windows\\System32\\DriverStore\\FileRepository\\intcoed.inf_amd64_1af5af61f22f9a64\\AS\\IAS\\IntelAudioService.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.144030Z"
+    },
+    {
+      "pid": 6096,
+      "name": "ipf_uf.exe",
+      "executable": "C:\\Windows\\System32\\DriverStore\\FileRepository\\ipf_cpu.inf_amd64_5fe37e024ff302b0\\ipf_uf.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.144291Z"
+    },
+    {
+      "pid": 6104,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.147245Z"
+    },
+    {
+      "pid": 6112,
+      "name": "IgoAudioService_x64.exe",
+      "executable": "C:\\Windows\\System32\\DriverStore\\FileRepository\\igoaudioservice.inf_amd64_c020ee4ab15d7d26\\IgoAudioService_x64.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.147625Z"
+    },
+    {
+      "pid": 6152,
+      "name": "WMIRegistrationService.exe",
+      "executable": "C:\\Windows\\System32\\DriverStore\\FileRepository\\mewmiprov.inf_amd64_d7a222f6ce13d429\\WMIRegistrationService.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.151887Z"
+    },
+    {
+      "pid": 6184,
+      "name": "Widgets.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\MicrosoftWindows.Client.WebExperience_526.17301.80.0_x64__cw5n1h2txyewy\\Dashboard\\Widgets.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:05.686750Z"
+    },
+    {
+      "pid": 6188,
+      "name": "wslservice.exe",
+      "executable": "C:\\Program Files\\WSL\\wslservice.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.158291Z"
+    },
+    {
+      "pid": 6208,
+      "name": "ldplayerservice.exe",
+      "executable": "C:\\leidian\\LDPlayer14\\ldplayerservice.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.160805Z"
+    },
+    {
+      "pid": 6220,
+      "name": "jhi_service.exe",
+      "executable": "C:\\Windows\\System32\\DriverStore\\FileRepository\\dal.inf_amd64_8a3f88e34f6b8385\\jhi_service.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.160914Z"
+    },
+    {
+      "pid": 6236,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.163706Z"
+    },
+    {
+      "pid": 6268,
+      "name": "WeChatAppEx.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Roaming\\Tencent\\xwechat\\XPlugin\\Plugins\\RadiumWMPF\\20089\\extracted\\runtime\\WeChatAppEx.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:14:18.413193Z"
+    },
+    {
+      "pid": 6516,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.231952Z"
+    },
+    {
+      "pid": 6600,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:13:00.969674Z"
+    },
+    {
+      "pid": 6684,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:33.305692Z"
+    },
+    {
+      "pid": 6768,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:10:22.725824Z"
+    },
+    {
+      "pid": 6964,
+      "name": "RuntimeBroker.exe",
+      "executable": "C:\\Windows\\System32\\RuntimeBroker.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:05.701392Z"
+    },
+    {
+      "pid": 6984,
+      "name": "crashpad_handler.exe",
+      "executable": "C:\\Program Files\\Netease\\GameViewer\\crashpad_handler.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.277295Z"
+    },
+    {
+      "pid": 7236,
+      "name": "GameViewerServer.exe",
+      "executable": "C:\\Program Files\\Netease\\GameViewer\\bin\\GameViewerServer.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.323195Z"
+    },
+    {
+      "pid": 7408,
+      "name": "GameViewerHealthd.exe",
+      "executable": "C:\\Program Files\\Netease\\GameViewer\\bin\\GameViewerHealthd.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.350286Z"
+    },
+    {
+      "pid": 7600,
+      "name": "crashpad_handler.exe",
+      "executable": "C:\\Program Files\\Netease\\GameViewer\\bin\\crashpad_handler.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.425277Z"
+    },
+    {
+      "pid": 7744,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:13:00.871681Z"
+    },
+    {
+      "pid": 7816,
+      "name": "iGoSwServer.exe",
+      "executable": "C:\\Windows\\System32\\DriverStore\\FileRepository\\igoaudioservice.inf_amd64_c020ee4ab15d7d26\\iGoSwServer.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.485791Z"
+    },
+    {
+      "pid": 7824,
+      "name": "ctfmon.exe",
+      "executable": "C:\\Windows\\System32\\ctfmon.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:02.487195Z"
+    },
+    {
+      "pid": 7832,
+      "name": "ipf_helper.exe",
+      "executable": "C:\\Windows\\System32\\DriverStore\\FileRepository\\ipf_cpu.inf_amd64_5fe37e024ff302b0\\ipf_helper.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:02.488073Z"
+    },
+    {
+      "pid": 7840,
+      "name": "chrome.exe",
+      "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T12:23:39.395483Z"
+    },
+    {
+      "pid": 7884,
+      "name": "TabTip.exe",
+      "executable": "C:\\Program Files\\Common Files\\microsoft shared\\ink\\TabTip.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:02.501152Z"
+    },
+    {
+      "pid": 8168,
+      "name": "DAX3API.exe",
+      "executable": "C:\\Windows\\System32\\DriverStore\\FileRepository\\DAX3_S~2.INF\\DAX3API.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:02.542554Z"
+    },
+    {
+      "pid": 8440,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:26.592298Z"
+    },
+    {
+      "pid": 8640,
+      "name": "sihost.exe",
+      "executable": "C:\\Windows\\System32\\sihost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:03.648715Z"
+    },
+    {
+      "pid": 8672,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:12:04.513321Z"
+    },
+    {
+      "pid": 8800,
+      "name": "verge-mihomo.exe",
+      "executable": "C:\\Clash Verge\\Clash Verge\\verge-mihomo.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:13:00.848016Z"
+    },
+    {
+      "pid": 9284,
+      "name": "Dell.Update.SubAgent.exe",
+      "executable": "C:\\Program Files (x86)\\Dell\\UpdateService\\DCF\\Dell.Update.SubAgent.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.078155Z"
+    },
+    {
+      "pid": 9296,
+      "name": "Dell.TechHub.Instrumentation.SubAgent.exe",
+      "executable": "C:\\Program Files\\Dell\\DTP\\InstrumentationSubAgent\\Dell.TechHub.Instrumentation.SubAgent.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.082128Z"
+    },
+    {
+      "pid": 9304,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.082691Z"
+    },
+    {
+      "pid": 9312,
+      "name": "Dell.UCA.Manager.exe",
+      "executable": "C:\\Program Files\\Dell\\MyDell\\Manager\\Dell.UCA.Manager.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.084944Z"
+    },
+    {
+      "pid": 9320,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.086458Z"
+    },
+    {
+      "pid": 9328,
+      "name": "crashpad_handler.exe",
+      "executable": "C:\\Program Files\\Netease\\GameViewer\\bin\\crashpad_handler.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.448458Z"
+    },
+    {
+      "pid": 9336,
+      "name": "Dell.Connected.Service.Delivery.SubAgent.exe",
+      "executable": "C:\\Program Files\\Dell\\Dell Connected Service Delivery\\SubAgent\\Dell.Connected.Service.Delivery.SubAgent.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.088719Z"
+    },
+    {
+      "pid": 9344,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.089894Z"
+    },
+    {
+      "pid": 9352,
+      "name": "Dell.CoreServices.Client.exe",
+      "executable": "C:\\Program Files\\Dell\\TechHub\\Dell.CoreServices.Client.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.091284Z"
+    },
+    {
+      "pid": 9364,
+      "name": "cowork-svc.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\Claude_1.24012.9.0_x64__pzs8sxrjxfjjc\\app\\resources\\cowork-svc.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.454510Z"
+    },
+    {
+      "pid": 9376,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.092663Z"
+    },
+    {
+      "pid": 9388,
+      "name": "Dell.TechHub.Diagnostics.SubAgent.exe",
+      "executable": "C:\\Program Files\\Dell\\DTP\\DiagnosticsSubAgent\\Dell.TechHub.Diagnostics.SubAgent.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.093590Z"
+    },
+    {
+      "pid": 9416,
+      "name": "Dell.TechHub.DataManager.SubAgent.exe",
+      "executable": "C:\\Program Files\\Dell\\DTP\\DataManagerSubAgent\\Dell.TechHub.DataManager.SubAgent.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.096224Z"
+    },
+    {
+      "pid": 9440,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.097436Z"
+    },
+    {
+      "pid": 9464,
+      "name": "Dell.TechHub.Analytics.SubAgent.exe",
+      "executable": "C:\\Program Files\\Dell\\DTP\\AnalyticsSubAgent\\Dell.TechHub.Analytics.SubAgent.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.099698Z"
+    },
+    {
+      "pid": 9472,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.101007Z"
+    },
+    {
+      "pid": 9520,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.104563Z"
+    },
+    {
+      "pid": 9676,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:11:14.031816Z"
+    },
+    {
+      "pid": 9692,
+      "name": "chrome.exe",
+      "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T05:33:07.165980Z"
+    },
+    {
+      "pid": 9916,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Roaming\\uv\\python\\cpython-3.11.15-windows-x86_64-none\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T12:25:20.448161Z"
+    },
+    {
+      "pid": 9928,
+      "name": "Weixin.exe",
+      "executable": "C:\\Program Files\\Tencent\\Weixin\\Weixin.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:14:26.230694Z"
+    },
+    {
+      "pid": 10052,
+      "name": "sandbox-cli.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\WorkBuddy\\resources\\app.asar.unpacked\\cli\\vendor\\sandbox\\sandbox-cli.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:49:41.572116Z"
+    },
+    {
+      "pid": 10092,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.413832Z"
+    },
+    {
+      "pid": 10100,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.414266Z"
+    },
+    {
+      "pid": 10296,
+      "name": "IntelGraphicsSoftware.Service.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\AppUp.IntelArcSoftware_26.18.2353.0_x64__8j3eq9eme6ctt\\VFS\\ProgramFilesX64\\Intel\\Intel Graphics Software\\IntelGraphicsSoftware.Service.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.467151Z"
+    },
+    {
+      "pid": 10316,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.470462Z"
+    },
+    {
+      "pid": 10336,
+      "name": "bash.exe",
+      "executable": "C:\\Users\\33185\\.workbuddy\\vendor\\PortableGit\\usr\\bin\\bash.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:51:54.899870Z"
+    },
+    {
+      "pid": 10372,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:17:18.509533Z"
+    },
+    {
+      "pid": 10480,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T06:08:47.113577Z"
+    },
+    {
+      "pid": 10504,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T05:32:09.092314Z"
+    },
+    {
+      "pid": 10568,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:09:17.910991Z"
+    },
+    {
+      "pid": 10580,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.514438Z"
+    },
+    {
+      "pid": 10592,
+      "name": "wlanext.exe",
+      "executable": "C:\\Windows\\System32\\wlanext.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.662934Z"
+    },
+    {
+      "pid": 10788,
+      "name": "ChsIME.exe",
+      "executable": "C:\\Windows\\System32\\InputMethod\\CHS\\ChsIME.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:03.559682Z"
+    },
+    {
+      "pid": 10988,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:34.261883Z"
+    },
+    {
+      "pid": 11000,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.585046Z"
+    },
+    {
+      "pid": 11080,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:03.671590Z"
+    },
+    {
+      "pid": 11176,
+      "name": "WeChatAppEx.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Roaming\\Tencent\\xwechat\\XPlugin\\Plugins\\RadiumWMPF\\20089\\extracted\\runtime\\WeChatAppEx.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:14:28.428881Z"
+    },
+    {
+      "pid": 11184,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.622710Z"
+    },
+    {
+      "pid": 11272,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:03.676363Z"
+    },
+    {
+      "pid": 11400,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:03.708127Z"
+    },
+    {
+      "pid": 11424,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:17:53.125101Z"
+    },
+    {
+      "pid": 11440,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Temp\\InboxRelayLauncherTest-4953122f014749aaa6ac2d7c47b097b8\\.venv\\Scripts\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T06:33:32.302363Z"
+    },
+    {
+      "pid": 11488,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:03.732199Z"
+    },
+    {
+      "pid": 11624,
+      "name": "iGoSwServer.exe",
+      "executable": "C:\\Windows\\System32\\DriverStore\\FileRepository\\igoaudioservice.inf_amd64_c020ee4ab15d7d26\\iGoSwServer.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:03.767590Z"
+    },
+    {
+      "pid": 11648,
+      "name": "taskhostw.exe",
+      "executable": "C:\\Windows\\System32\\taskhostw.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:03.773330Z"
+    },
+    {
+      "pid": 11680,
+      "name": "nvsphelper64.exe",
+      "executable": "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\ShadowPlay\\nvsphelper64.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:10.693354Z"
+    },
+    {
+      "pid": 11712,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:06.709221Z"
+    },
+    {
+      "pid": 11740,
+      "name": "PopBlock.exe",
+      "executable": "C:\\Program Files\\Huorong\\Sysdiag\\bin\\PopBlock.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:03.804061Z"
+    },
+    {
+      "pid": 11752,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.804469Z"
+    },
+    {
+      "pid": 11872,
+      "name": "Intel_PIE_Service.exe",
+      "executable": "C:\\Windows\\System32\\DriverStore\\FileRepository\\piecomponent.inf_amd64_c8af063cc2ca3ad0\\Intel_PIE_Service.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.828926Z"
+    },
+    {
+      "pid": 11920,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Roaming\\uv\\python\\cpython-3.11.15-windows-x86_64-none\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T04:55:24.606769Z"
+    },
+    {
+      "pid": 11972,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:30:39.100749Z"
+    },
+    {
+      "pid": 11992,
+      "name": "AggregatorHost.exe",
+      "executable": "C:\\Windows\\System32\\AggregatorHost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:03.856688Z"
+    },
+    {
+      "pid": 12108,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:06.768206Z"
+    },
+    {
+      "pid": 12252,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T07:00:34.757160Z"
+    },
+    {
+      "pid": 12268,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T07:00:34.549695Z"
+    },
+    {
+      "pid": 12280,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:13:01.031592Z"
+    },
+    {
+      "pid": 12420,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:12:08.245607Z"
+    },
+    {
+      "pid": 12440,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:04.122452Z"
+    },
+    {
+      "pid": 12476,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\Desktop\\\u6bd5\u4e1a\u8bbe\u8ba1\\fan\\.omc\\worktrees\\hostguard\\backend\\.venv\\Scripts\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T12:25:20.313056Z"
+    },
+    {
+      "pid": 12512,
+      "name": "WeChatAppEx.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Roaming\\Tencent\\xwechat\\XPlugin\\Plugins\\RadiumWMPF\\20089\\extracted\\runtime\\WeChatAppEx.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:14:26.093309Z"
+    },
+    {
+      "pid": 12524,
+      "name": "explorer.exe",
+      "executable": "C:\\Windows\\explorer.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:04.161134Z"
+    },
+    {
+      "pid": 12580,
+      "name": "PresentMonService.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\AppUp.IntelArcSoftware_26.18.2353.0_x64__8j3eq9eme6ctt\\VFS\\ProgramFilesX64\\Intel\\Intel Graphics Software\\PresentMonService.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:04.193058Z"
+    },
+    {
+      "pid": 12628,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:04.217766Z"
+    },
+    {
+      "pid": 12820,
+      "name": "bash.exe",
+      "executable": "C:\\Users\\33185\\.workbuddy\\vendor\\PortableGit\\usr\\bin\\bash.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T12:25:29.107390Z"
+    },
+    {
+      "pid": 12928,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:04.771437Z"
+    },
+    {
+      "pid": 12980,
+      "name": "WeChatAppEx.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Roaming\\Tencent\\xwechat\\XPlugin\\Plugins\\RadiumWMPF\\20089\\extracted\\runtime\\WeChatAppEx.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:14:26.596162Z"
+    },
+    {
+      "pid": 13080,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:04.487848Z"
+    },
+    {
+      "pid": 13112,
+      "name": "RtkAudUService64.exe",
+      "executable": "C:\\Windows\\System32\\DriverStore\\FileRepository\\realtekservice.inf_amd64_a92c6a36ec21763b\\RtkAudUService64.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:05.548748Z"
+    },
+    {
+      "pid": 13156,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:04.517018Z"
+    },
+    {
+      "pid": 13316,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T07:09:05.015167Z"
+    },
+    {
+      "pid": 13356,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:04.851241Z"
+    },
+    {
+      "pid": 13440,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:10:22.781032Z"
+    },
+    {
+      "pid": 13472,
+      "name": "WmiPrvSE.exe",
+      "executable": "C:\\Windows\\System32\\wbem\\WmiPrvSE.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:04.917945Z"
+    },
+    {
+      "pid": 13524,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:30:43.617642Z"
+    },
+    {
+      "pid": 13828,
+      "name": "NVIDIA Overlay.exe",
+      "executable": "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\CEF\\NVIDIA Overlay.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:11.374730Z"
+    },
+    {
+      "pid": 13972,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:10:21.534935Z"
+    },
+    {
+      "pid": 14060,
+      "name": "IntelNetworkHelperService.exe",
+      "executable": "C:\\Windows\\System32\\drivers\\RivetNetworks\\Killer\\IntelNetworkHelperService.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:12:08.277176Z"
+    },
+    {
+      "pid": 14080,
+      "name": "SearchHost.exe",
+      "executable": "C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\SearchHost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:05.377483Z"
+    },
+    {
+      "pid": 14092,
+      "name": "StartMenuExperienceHost.exe",
+      "executable": "C:\\Windows\\SystemApps\\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\\StartMenuExperienceHost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:05.378882Z"
+    },
+    {
+      "pid": 14152,
+      "name": "WmiPrvSE.exe",
+      "executable": "C:\\Windows\\System32\\wbem\\WmiPrvSE.exe",
+      "username": null,
+      "started_at": "2026-07-31T05:31:42.559645Z"
+    },
+    {
+      "pid": 14340,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:11.127952Z"
+    },
+    {
+      "pid": 14356,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:05.715030Z"
+    },
+    {
+      "pid": 14368,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:05.721290Z"
+    },
+    {
+      "pid": 14440,
+      "name": "ChatGPT.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\OpenAI.Codex_26.721.11231.0_x64__2p2nqsd0c76g0\\app\\ChatGPT.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T05:31:34.423313Z"
+    },
+    {
+      "pid": 14472,
+      "name": "WeChatAppEx.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Roaming\\Tencent\\xwechat\\XPlugin\\Plugins\\RadiumWMPF\\20089\\extracted\\runtime\\WeChatAppEx.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:14:29.723904Z"
+    },
+    {
+      "pid": 14536,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T06:33:32.130997Z"
+    },
+    {
+      "pid": 14540,
+      "name": "extension-host.exe",
+      "executable": "C:\\Users\\33185\\.codex\\plugins\\cache\\openai-bundled\\chrome\\26.721.81911\\extension-host\\windows\\x64\\extension-host.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T05:32:09.125546Z"
+    },
+    {
+      "pid": 14652,
+      "name": "WidgetService.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\Microsoft.WidgetsPlatformRuntime_1.6.19.0_x64__8wekyb3d8bbwe\\WidgetService\\WidgetService.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:05.886160Z"
+    },
+    {
+      "pid": 14896,
+      "name": "clash-verge.exe",
+      "executable": "C:\\Clash Verge\\Clash Verge\\clash-verge.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:12:58.547880Z"
+    },
+    {
+      "pid": 14904,
+      "name": "OneDrive.Sync.Service.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Microsoft\\OneDrive\\26.123.0628.0001\\OneDrive.Sync.Service.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:17:18.312415Z"
+    },
+    {
+      "pid": 15200,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:13:00.847760Z"
+    },
+    {
+      "pid": 15388,
+      "name": "esbuild.exe",
+      "executable": "C:\\Users\\33185\\Desktop\\paypal\\node_modules\\@esbuild\\win32-x64\\esbuild.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T07:00:35.072907Z"
+    },
+    {
+      "pid": 15592,
+      "name": "crashpad_handler.exe",
+      "executable": "C:\\Program Files\\Tencent\\Marvis\\Application\\1.60.1800.115\\crashpad_handler.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:07.031940Z"
+    },
+    {
+      "pid": 15616,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T09:16:23.135673Z"
+    },
+    {
+      "pid": 15868,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:07.083624Z"
+    },
+    {
+      "pid": 15876,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:07.084604Z"
+    },
+    {
+      "pid": 15996,
+      "name": "ServiceShell.exe",
+      "executable": "C:\\Program Files (x86)\\Dell\\UpdateService\\ServiceShell.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:07.259787Z"
+    },
+    {
+      "pid": 16016,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:07.119817Z"
+    },
+    {
+      "pid": 16100,
+      "name": "claude.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\Claude_1.24012.9.0_x64__pzs8sxrjxfjjc\\app\\claude.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:01:09.386612Z"
+    },
+    {
+      "pid": 16176,
+      "name": "claude.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\Claude_1.24012.9.0_x64__pzs8sxrjxfjjc\\app\\claude.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:01:09.766890Z"
+    },
+    {
+      "pid": 16244,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T07:09:05.008812Z"
+    },
+    {
+      "pid": 16304,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:07.221891Z"
+    },
+    {
+      "pid": 16400,
+      "name": "SearchIndexer.exe",
+      "executable": "C:\\Windows\\System32\\SearchIndexer.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:07.901477Z"
+    },
+    {
+      "pid": 16716,
+      "name": "crashpad_handler.exe",
+      "executable": "C:\\Program Files\\Netease\\GameViewer\\bin\\crashpad_handler.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T09:16:02.219932Z"
+    },
+    {
+      "pid": 16740,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:12:10.334911Z"
+    },
+    {
+      "pid": 16748,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:07.451129Z"
+    },
+    {
+      "pid": 16764,
+      "name": "claude.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\Claude_1.24012.9.0_x64__pzs8sxrjxfjjc\\app\\claude.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:01:10.968481Z"
+    },
+    {
+      "pid": 17260,
+      "name": "KillerNetworkService.exe",
+      "executable": "C:\\Windows\\System32\\drivers\\RivetNetworks\\Killer\\KillerNetworkService.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:12:05.762910Z"
+    },
+    {
+      "pid": 17376,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:13:00.807395Z"
+    },
+    {
+      "pid": 17392,
+      "name": "chrome.exe",
+      "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T02:11:10.936618Z"
+    },
+    {
+      "pid": 17436,
+      "name": "nvcontainer.exe",
+      "executable": "C:\\Program Files\\NVIDIA Corporation\\NvContainer\\nvcontainer.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:08.678002Z"
+    },
+    {
+      "pid": 17476,
+      "name": "msedge.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:32:06.116902Z"
+    },
+    {
+      "pid": 17516,
+      "name": "nvcontainer.exe",
+      "executable": "C:\\Program Files\\NVIDIA Corporation\\NvContainer\\nvcontainer.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:08.712896Z"
+    },
+    {
+      "pid": 17540,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:08.018834Z"
+    },
+    {
+      "pid": 17564,
+      "name": "adb.exe",
+      "executable": "C:\\leidian\\LDPlayer14\\adb.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:11:40.385806Z"
+    },
+    {
+      "pid": 17644,
+      "name": "nvcontainer.exe",
+      "executable": "C:\\Program Files\\NVIDIA Corporation\\NvContainer\\nvcontainer.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:08.747007Z"
+    },
+    {
+      "pid": 17852,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:08.272680Z"
+    },
+    {
+      "pid": 18580,
+      "name": "NVIDIA Overlay.exe",
+      "executable": "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\CEF\\NVIDIA Overlay.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:10.707459Z"
+    },
+    {
+      "pid": 18800,
+      "name": "Dell.TechHub.Instrumentation.UserProcess.exe",
+      "executable": "C:\\Program Files\\Dell\\DTP\\InstrumentationSubAgent\\Dell.TechHub.Instrumentation.UserProcess.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:10.922309Z"
+    },
+    {
+      "pid": 18888,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T07:09:05.204038Z"
+    },
+    {
+      "pid": 19196,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T09:58:13.744830Z"
+    },
+    {
+      "pid": 19232,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:11.069176Z"
+    },
+    {
+      "pid": 19244,
+      "name": "unsecapp.exe",
+      "executable": "C:\\Windows\\System32\\wbem\\unsecapp.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:10.091500Z"
+    },
+    {
+      "pid": 19468,
+      "name": "bash.exe",
+      "executable": "C:\\Users\\33185\\.workbuddy\\vendor\\PortableGit\\usr\\bin\\bash.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T12:25:29.783319Z"
+    },
+    {
+      "pid": 19888,
+      "name": "wsctrlsvc.exe",
+      "executable": "C:\\Program Files\\Huorong\\Sysdiag\\bin\\wsctrlsvc.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:12:09.504769Z"
+    },
+    {
+      "pid": 20040,
+      "name": "SecurityHealthSystray.exe",
+      "executable": "C:\\Windows\\System32\\SecurityHealthSystray.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:14.317754Z"
+    },
+    {
+      "pid": 20092,
+      "name": "NVIDIA Overlay.exe",
+      "executable": "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\CEF\\NVIDIA Overlay.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:12.034696Z"
+    },
+    {
+      "pid": 20112,
+      "name": "NVIDIA Overlay.exe",
+      "executable": "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\CEF\\NVIDIA Overlay.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:12.047314Z"
+    },
+    {
+      "pid": 20144,
+      "name": "NVIDIA Overlay.exe",
+      "executable": "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\CEF\\NVIDIA Overlay.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:12.060715Z"
+    },
+    {
+      "pid": 20360,
+      "name": "ChatGPT.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\OpenAI.Codex_26.721.11231.0_x64__2p2nqsd0c76g0\\app\\ChatGPT.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T05:31:20.226186Z"
+    },
+    {
+      "pid": 20632,
+      "name": "Weixin.exe",
+      "executable": "C:\\Program Files\\Tencent\\Weixin\\Weixin.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:14:26.059505Z"
+    },
+    {
+      "pid": 20724,
+      "name": "SecurityHealthService.exe",
+      "executable": "C:\\Windows\\System32\\SecurityHealthService.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:14.459603Z"
+    },
+    {
+      "pid": 20848,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:09:16.552475Z"
+    },
+    {
+      "pid": 20972,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:25.573525Z"
+    },
+    {
+      "pid": 20984,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:26.212974Z"
+    },
+    {
+      "pid": 21232,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:12:07.274365Z"
+    },
+    {
+      "pid": 21340,
+      "name": "chrome.exe",
+      "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T08:05:24.693718Z"
+    },
+    {
+      "pid": 21588,
+      "name": "Weixin.exe",
+      "executable": "C:\\Program Files\\Tencent\\Weixin\\Weixin.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:14:26.243917Z"
+    },
+    {
+      "pid": 21604,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:35:28.984778Z"
+    },
+    {
+      "pid": 21692,
+      "name": "TextInputHost.exe",
+      "executable": "C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\TextInputHost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:15.312727Z"
+    },
+    {
+      "pid": 21836,
+      "name": "RtkAudUService64.exe",
+      "executable": "C:\\Windows\\System32\\DriverStore\\FileRepository\\realtekservice.inf_amd64_a92c6a36ec21763b\\RtkAudUService64.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:18.646291Z"
+    },
+    {
+      "pid": 22084,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:10:21.644938Z"
+    },
+    {
+      "pid": 22132,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Roaming\\uv\\python\\cpython-3.11.15-windows-x86_64-none\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T12:25:19.986006Z"
+    },
+    {
+      "pid": 22184,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:15.787880Z"
+    },
+    {
+      "pid": 22212,
+      "name": "KNDBWMService.exe",
+      "executable": "C:\\Windows\\System32\\drivers\\RivetNetworks\\Killer\\KNDBWMService.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:12:07.178508Z"
+    },
+    {
+      "pid": 22424,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:28:14.885550Z"
+    },
+    {
+      "pid": 22580,
+      "name": "pythonw.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\Python\\Python313\\pythonw.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:27.333489Z"
+    },
+    {
+      "pid": 22620,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:11:41.513139Z"
+    },
+    {
+      "pid": 22684,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T08:15:44.590834Z"
+    },
+    {
+      "pid": 22688,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:30:39.155455Z"
+    },
+    {
+      "pid": 23168,
+      "name": "bash.exe",
+      "executable": "C:\\Users\\33185\\.workbuddy\\vendor\\PortableGit\\bin\\bash.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T12:25:18.924481Z"
+    },
+    {
+      "pid": 23180,
+      "name": "cc-switch.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\CC Switch\\cc-switch.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:32.420046Z"
+    },
+    {
+      "pid": 23204,
+      "name": "Weixin.exe",
+      "executable": "C:\\Program Files\\Tencent\\Weixin\\Weixin.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:14:13.450189Z"
+    },
+    {
+      "pid": 23460,
+      "name": "KillerProviderDataHelperService.exe",
+      "executable": "C:\\Windows\\System32\\drivers\\RivetNetworks\\Killer\\KillerProviderDataHelperService.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:12:06.763125Z"
+    },
+    {
+      "pid": 23636,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:34.378302Z"
+    },
+    {
+      "pid": 23652,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:34.382257Z"
+    },
+    {
+      "pid": 23676,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:34.408996Z"
+    },
+    {
+      "pid": 23856,
+      "name": "SupportAssistAgent.exe",
+      "executable": "C:\\Program Files\\Dell\\SupportAssistAgent\\bin\\SupportAssistAgent.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:12:07.671165Z"
+    },
+    {
+      "pid": 23960,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:34.504378Z"
+    },
+    {
+      "pid": 23984,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:10:19.617648Z"
+    },
+    {
+      "pid": 24388,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T08:15:44.616951Z"
+    },
+    {
+      "pid": 24516,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:12:07.138567Z"
+    },
+    {
+      "pid": 24552,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:30:43.665455Z"
+    },
+    {
+      "pid": 24608,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T08:24:51.676108Z"
+    },
+    {
+      "pid": 24864,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T07:09:05.405234Z"
+    },
+    {
+      "pid": 24924,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:35:26.761439Z"
+    },
+    {
+      "pid": 24964,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:12:07.984740Z"
+    },
+    {
+      "pid": 25052,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:09:17.937792Z"
+    },
+    {
+      "pid": 25068,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T07:00:34.724518Z"
+    },
+    {
+      "pid": 25216,
+      "name": "chrome.exe",
+      "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T12:24:37.656019Z"
+    },
+    {
+      "pid": 25576,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T06:08:48.339320Z"
+    },
+    {
+      "pid": 25668,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T06:08:48.394732Z"
+    },
+    {
+      "pid": 25692,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:10:44.882763Z"
+    },
+    {
+      "pid": 25720,
+      "name": "WeChatAppEx.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Roaming\\Tencent\\xwechat\\XPlugin\\Plugins\\RadiumWMPF\\20089\\extracted\\runtime\\WeChatAppEx.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:14:28.188504Z"
+    },
+    {
+      "pid": 25804,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T09:58:15.302562Z"
+    },
+    {
+      "pid": 25876,
+      "name": "WorkBuddy.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\WorkBuddy\\WorkBuddy.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:46:42.652822Z"
+    },
+    {
+      "pid": 25896,
+      "name": "KNDBWM.exe",
+      "executable": "C:\\Windows\\System32\\drivers\\RivetNetworks\\Killer\\KNDBWM.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:12:07.293828Z"
+    },
+    {
+      "pid": 26376,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:12:07.525706Z"
+    },
+    {
+      "pid": 26540,
+      "name": "ApplicationFrameHost.exe",
+      "executable": "C:\\Windows\\System32\\ApplicationFrameHost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:49.787312Z"
+    },
+    {
+      "pid": 26544,
+      "name": "taskhostw.exe",
+      "executable": "C:\\Windows\\System32\\taskhostw.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:35:04.670592Z"
+    },
+    {
+      "pid": 26816,
+      "name": "chrome.exe",
+      "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T01:43:39.514851Z"
+    },
+    {
+      "pid": 26900,
+      "name": "WeChatAppEx.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Roaming\\Tencent\\xwechat\\XPlugin\\Plugins\\RadiumWMPF\\20089\\extracted\\runtime\\WeChatAppEx.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:14:17.819752Z"
+    },
+    {
+      "pid": 27068,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:13:00.947078Z"
+    },
+    {
+      "pid": 27104,
+      "name": "WorkBuddy.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\WorkBuddy\\WorkBuddy.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:46:43.840102Z"
+    },
+    {
+      "pid": 27116,
+      "name": "chrome.exe",
+      "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T12:24:43.190166Z"
+    },
+    {
+      "pid": 27136,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:32:06.756162Z"
+    },
+    {
+      "pid": 27204,
+      "name": "KillerAnalyticsService.exe",
+      "executable": "C:\\Windows\\System32\\drivers\\RivetNetworks\\Killer\\KillerAnalyticsService.exe",
+      "username": null,
+      "started_at": "2026-07-31T00:12:04.946982Z"
+    },
+    {
+      "pid": 27272,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:24:46.131294Z"
+    },
+    {
+      "pid": 27320,
+      "name": "TranslucentTB.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\28017CharlesMilette.TranslucentTB_2026.1.0.0_x64__v826wp6bftszj\\TranslucentTB.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:54.150067Z"
+    },
+    {
+      "pid": 27396,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:09:16.567631Z"
+    },
+    {
+      "pid": 27476,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:11:07.200696Z"
+    },
+    {
+      "pid": 27580,
+      "name": "RuntimeBroker.exe",
+      "executable": "C:\\Windows\\System32\\RuntimeBroker.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:10:55.122070Z"
+    },
+    {
+      "pid": 27596,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:35:28.955199Z"
+    },
+    {
+      "pid": 27692,
+      "name": "ChatGPT.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\OpenAI.Codex_26.721.11231.0_x64__2p2nqsd0c76g0\\app\\ChatGPT.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T05:31:25.973152Z"
+    },
+    {
+      "pid": 27900,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:47:59.530337Z"
+    },
+    {
+      "pid": 28088,
+      "name": "powershell.exe",
+      "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T06:31:06.202868Z"
+    },
+    {
+      "pid": 28132,
+      "name": "RuntimeBroker.exe",
+      "executable": "C:\\Windows\\System32\\RuntimeBroker.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:22:43.198643Z"
+    },
+    {
+      "pid": 28224,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:09:17.929230Z"
+    },
+    {
+      "pid": 28392,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:28:13.655984Z"
+    },
+    {
+      "pid": 28472,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:36:30.499366Z"
+    },
+    {
+      "pid": 28504,
+      "name": "UserOOBEBroker.exe",
+      "executable": "C:\\Windows\\System32\\oobe\\UserOOBEBroker.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:21:02.082561Z"
+    },
+    {
+      "pid": 28728,
+      "name": "ShellExperienceHost.exe",
+      "executable": "C:\\Windows\\SystemApps\\ShellExperienceHost_cw5n1h2txyewy\\ShellExperienceHost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:22:42.724570Z"
+    },
+    {
+      "pid": 28872,
+      "name": "node.exe",
+      "executable": "C:\\Users\\33185\\.workbuddy\\binaries\\node\\versions\\22.22.2\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:47:59.608981Z"
+    },
+    {
+      "pid": 29280,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:35:26.990315Z"
+    },
+    {
+      "pid": 29420,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:47:07.465618Z"
+    },
+    {
+      "pid": 29748,
+      "name": "msedge.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:32:06.551994Z"
+    },
+    {
+      "pid": 29832,
+      "name": "WorkBuddy.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\WorkBuddy\\WorkBuddy.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:46:43.414155Z"
+    },
+    {
+      "pid": 29840,
+      "name": "chrome.exe",
+      "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T12:13:48.730060Z"
+    },
+    {
+      "pid": 29912,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T06:08:47.351650Z"
+    },
+    {
+      "pid": 30136,
+      "name": "GameViewer.exe",
+      "executable": "C:\\Program Files\\Netease\\GameViewer\\bin\\GameViewer.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T09:16:00.974608Z"
+    },
+    {
+      "pid": 30164,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T09:58:13.963224Z"
+    },
+    {
+      "pid": 30368,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:35:26.752900Z"
+    },
+    {
+      "pid": 30392,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:10:21.682189Z"
+    },
+    {
+      "pid": 30572,
+      "name": "ShellHost.exe",
+      "executable": "C:\\Windows\\System32\\ShellHost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:20:27.515529Z"
+    },
+    {
+      "pid": 30652,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T07:00:34.378680Z"
+    },
+    {
+      "pid": 30784,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:10:19.894429Z"
+    },
+    {
+      "pid": 31016,
+      "name": "chrome.exe",
+      "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:37:42.143145Z"
+    },
+    {
+      "pid": 31080,
+      "name": "ollama app.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\Ollama\\ollama app.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T00:28:13.677250Z"
+    },
+    {
+      "pid": 31104,
+      "name": "bash.exe",
+      "executable": "C:\\Users\\33185\\.workbuddy\\vendor\\PortableGit\\usr\\bin\\bash.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T12:25:19.065128Z"
+    },
+    {
+      "pid": 31164,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:30:39.147190Z"
+    },
+    {
+      "pid": 31176,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T12:25:28.978727Z"
+    },
+    {
+      "pid": 31256,
+      "name": "codex.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\OpenAI.Codex_26.721.11231.0_x64__2p2nqsd0c76g0\\app\\resources\\codex.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T05:31:37.106803Z"
+    },
+    {
+      "pid": 31556,
+      "name": "WorkBuddy.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\WorkBuddy\\WorkBuddy.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:46:41.767954Z"
+    },
+    {
+      "pid": 31648,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T09:58:15.279163Z"
+    },
+    {
+      "pid": 31672,
+      "name": "node_repl.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\OpenAI\\Codex\\runtimes\\cua_node\\f8d2abcb7481383b\\bin\\node_repl.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:30:39.036834Z"
+    },
+    {
+      "pid": 31820,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T06:08:47.375275Z"
+    },
+    {
+      "pid": 32000,
+      "name": "WeChatAppEx.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Roaming\\Tencent\\xwechat\\XPlugin\\Plugins\\RadiumWMPF\\20089\\extracted\\runtime\\WeChatAppEx.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T09:45:55.748526Z"
+    },
+    {
+      "pid": 32104,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:49:33.054331Z"
+    },
+    {
+      "pid": 32148,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:09:16.839463Z"
+    },
+    {
+      "pid": 32156,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T09:16:22.732802Z"
+    },
+    {
+      "pid": 32172,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T06:08:47.121617Z"
+    },
+    {
+      "pid": 32208,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:36:30.441863Z"
+    },
+    {
+      "pid": 32732,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:35:28.972917Z"
+    },
+    {
+      "pid": 32932,
+      "name": "WorkBuddy.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\WorkBuddy\\WorkBuddy.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:47:57.297583Z"
+    },
+    {
+      "pid": 33000,
+      "name": "wpscloudsvr.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Kingsoft\\WPS Office\\11.1.0.10009\\office6\\wpscloudsvr.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:05:09.885184Z"
+    },
+    {
+      "pid": 33056,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T05:31:37.166609Z"
+    },
+    {
+      "pid": 33060,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Roaming\\uv\\python\\cpython-3.11.15-windows-x86_64-none\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T06:33:32.344381Z"
+    },
+    {
+      "pid": 33096,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T06:08:48.367468Z"
+    },
+    {
+      "pid": 33156,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T09:16:23.022794Z"
+    },
+    {
+      "pid": 33524,
+      "name": "chrome.exe",
+      "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T01:43:40.623668Z"
+    },
+    {
+      "pid": 33824,
+      "name": "chrome.exe",
+      "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T01:43:39.171822Z"
+    },
+    {
+      "pid": 33836,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T08:23:43.681345Z"
+    },
+    {
+      "pid": 33844,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:10:19.626279Z"
+    },
+    {
+      "pid": 33940,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T03:20:07.925878Z"
+    },
+    {
+      "pid": 33944,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T05:32:09.074858Z"
+    },
+    {
+      "pid": 33996,
+      "name": "pwsh.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\Microsoft.PowerShell_7.6.4.0_x64__8wekyb3d8bbwe\\pwsh.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T05:34:41.945089Z"
+    },
+    {
+      "pid": 34112,
+      "name": "chrome.exe",
+      "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T01:43:40.623635Z"
+    },
+    {
+      "pid": 34144,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T06:33:32.329154Z"
+    },
+    {
+      "pid": 34440,
+      "name": "bash.exe",
+      "executable": "C:\\Users\\33185\\.workbuddy\\vendor\\PortableGit\\bin\\bash.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T12:25:28.967969Z"
+    },
+    {
+      "pid": 34448,
+      "name": "bash.exe",
+      "executable": "C:\\Users\\33185\\.workbuddy\\vendor\\PortableGit\\usr\\bin\\bash.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:51:57.810684Z"
+    },
+    {
+      "pid": 34624,
+      "name": "claude.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\Claude_1.24012.9.0_x64__pzs8sxrjxfjjc\\app\\claude.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:01:10.069072Z"
+    },
+    {
+      "pid": 34732,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T04:21:59.714881Z"
+    },
+    {
+      "pid": 34776,
+      "name": "node_repl.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\OpenAI\\Codex\\runtimes\\cua_node\\f8d2abcb7481383b\\bin\\node_repl.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T06:08:47.018600Z"
+    },
+    {
+      "pid": 34812,
+      "name": "chrome.exe",
+      "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T01:43:39.161336Z"
+    },
+    {
+      "pid": 34856,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T04:21:59.815264Z"
+    },
+    {
+      "pid": 34888,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:09:17.904222Z"
+    },
+    {
+      "pid": 34896,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\Desktop\\paypal\\backend\\.venv\\Scripts\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:34:20.324079Z"
+    },
+    {
+      "pid": 35028,
+      "name": "chrome.exe",
+      "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T01:43:39.264609Z"
+    },
+    {
+      "pid": 35032,
+      "name": "sandbox-cli-gc.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\WorkBuddy\\resources\\app.asar.unpacked\\cli\\vendor\\sandbox\\sandbox-cli-gc.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:48:00.567876Z"
+    },
+    {
+      "pid": 35084,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:30:43.625829Z"
+    },
+    {
+      "pid": 35148,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T07:00:34.372605Z"
+    },
+    {
+      "pid": 35312,
+      "name": "chrome.exe",
+      "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T09:53:35.094246Z"
+    },
+    {
+      "pid": 35332,
+      "name": "node_repl.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\OpenAI\\Codex\\runtimes\\cua_node\\f8d2abcb7481383b\\bin\\node_repl.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T09:58:13.661958Z"
+    },
+    {
+      "pid": 35356,
+      "name": "editor_sdk.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\WorkBuddy\\resources\\app.asar.unpacked\\node_modules\\@tencent\\tencent-docs-ai-engine\\bin\\win32-x64\\editor_sdk.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:47:07.396166Z"
+    },
+    {
+      "pid": 35380,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T09:16:23.097751Z"
+    },
+    {
+      "pid": 35408,
+      "name": "ChatGPT.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\OpenAI.Codex_26.721.11231.0_x64__2p2nqsd0c76g0\\app\\ChatGPT.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T05:31:25.968624Z"
+    },
+    {
+      "pid": 35512,
+      "name": "chrome.exe",
+      "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T01:43:38.796008Z"
+    },
+    {
+      "pid": 35524,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:35:26.744038Z"
+    },
+    {
+      "pid": 35552,
+      "name": "ChatGPT.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\OpenAI.Codex_26.721.11231.0_x64__2p2nqsd0c76g0\\app\\ChatGPT.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T05:31:20.237781Z"
+    },
+    {
+      "pid": 35812,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:10:21.541497Z"
+    },
+    {
+      "pid": 36080,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T07:09:05.376182Z"
+    },
+    {
+      "pid": 36380,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T09:16:22.996858Z"
+    },
+    {
+      "pid": 36504,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:10:19.516406Z"
+    },
+    {
+      "pid": 36544,
+      "name": "codex-code-mode-host.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\OpenAI.Codex_26.721.11231.0_x64__2p2nqsd0c76g0\\app\\resources\\codex-code-mode-host.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T05:34:36.462827Z"
+    },
+    {
+      "pid": 36808,
+      "name": "ChatGPT.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\OpenAI.Codex_26.721.11231.0_x64__2p2nqsd0c76g0\\app\\ChatGPT.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T05:31:16.077987Z"
+    },
+    {
+      "pid": 36824,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T04:55:24.518672Z"
+    },
+    {
+      "pid": 36980,
+      "name": "ChatGPT.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\OpenAI.Codex_26.721.11231.0_x64__2p2nqsd0c76g0\\app\\ChatGPT.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T05:31:17.341865Z"
+    },
+    {
+      "pid": 36996,
+      "name": "node_repl.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\OpenAI\\Codex\\runtimes\\cua_node\\f8d2abcb7481383b\\bin\\node_repl.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:09:16.496284Z"
+    },
+    {
+      "pid": 37160,
+      "name": "chrome.exe",
+      "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T09:53:35.105802Z"
+    },
+    {
+      "pid": 37304,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:10:21.710536Z"
+    },
+    {
+      "pid": 37508,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T08:23:43.753968Z"
+    },
+    {
+      "pid": 37616,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:09:16.561003Z"
+    },
+    {
+      "pid": 37672,
+      "name": "msedgewebview2.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T09:16:22.998790Z"
+    },
+    {
+      "pid": 37752,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T12:25:18.935246Z"
+    },
+    {
+      "pid": 37828,
+      "name": "claude.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\Claude_1.24012.9.0_x64__pzs8sxrjxfjjc\\app\\claude.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:01:09.816770Z"
+    },
+    {
+      "pid": 37884,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Roaming\\uv\\python\\cpython-3.11.15-windows-x86_64-none\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:34:20.479662Z"
+    },
+    {
+      "pid": 37924,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Roaming\\uv\\python\\cpython-3.11.15-windows-x86_64-none\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T06:33:32.219197Z"
+    },
+    {
+      "pid": 37960,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:09:16.841643Z"
+    },
+    {
+      "pid": 38012,
+      "name": "claude.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\Claude_1.24012.9.0_x64__pzs8sxrjxfjjc\\app\\claude.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:01:12.699588Z"
+    },
+    {
+      "pid": 38036,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T06:08:47.085953Z"
+    },
+    {
+      "pid": 38244,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:10:21.657577Z"
+    },
+    {
+      "pid": 38248,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:49:41.587203Z"
+    },
+    {
+      "pid": 38404,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:32:06.782358Z"
+    },
+    {
+      "pid": 38408,
+      "name": "claude.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\Claude_1.24012.9.0_x64__pzs8sxrjxfjjc\\app\\claude.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:01:09.104945Z"
+    },
+    {
+      "pid": 38452,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:10:21.235007Z"
+    },
+    {
+      "pid": 38648,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Roaming\\uv\\python\\cpython-3.11.15-windows-x86_64-none\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T04:21:59.855055Z"
+    },
+    {
+      "pid": 38660,
+      "name": "ChatGPT.exe",
+      "executable": "C:\\Program Files\\WindowsApps\\OpenAI.Codex_26.721.11231.0_x64__2p2nqsd0c76g0\\app\\ChatGPT.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T05:31:20.285149Z"
+    },
+    {
+      "pid": 38716,
+      "name": "svchost.exe",
+      "executable": "C:\\Windows\\System32\\svchost.exe",
+      "username": null,
+      "started_at": "2026-07-31T08:24:57.743756Z"
+    },
+    {
+      "pid": 38820,
+      "name": "chrome.exe",
+      "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T12:20:41.790108Z"
+    },
+    {
+      "pid": 39332,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T08:24:51.563861Z"
+    },
+    {
+      "pid": 39512,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:10:21.240746Z"
+    },
+    {
+      "pid": 39560,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:10:19.525072Z"
+    },
+    {
+      "pid": 39628,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:10:21.258010Z"
+    },
+    {
+      "pid": 39788,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:30:39.031891Z"
+    },
+    {
+      "pid": 40480,
+      "name": "node_repl.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\OpenAI\\Codex\\runtimes\\cua_node\\f8d2abcb7481383b\\bin\\node_repl.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:10:21.155359Z"
+    },
+    {
+      "pid": 40640,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:10:22.758092Z"
+    },
+    {
+      "pid": 40776,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:10:19.894445Z"
+    },
+    {
+      "pid": 40884,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:10:22.735585Z"
+    },
+    {
+      "pid": 40912,
+      "name": "node_repl.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\OpenAI\\Codex\\runtimes\\cua_node\\f8d2abcb7481383b\\bin\\node_repl.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:10:19.444685Z"
+    },
+    {
+      "pid": 41012,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:30:39.457715Z"
+    },
+    {
+      "pid": 41068,
+      "name": "WorkBuddy.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\WorkBuddy\\WorkBuddy.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:46:45.600431Z"
+    },
+    {
+      "pid": 41192,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:30:39.457717Z"
+    },
+    {
+      "pid": 41252,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\Desktop\\\u6bd5\u4e1a\u8bbe\u8ba1\\fan\\.omc\\worktrees\\hostguard\\backend\\.venv\\Scripts\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T12:25:19.858266Z"
+    },
+    {
+      "pid": 41284,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:35:26.990311Z"
+    },
+    {
+      "pid": 41496,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:47:59.517812Z"
+    },
+    {
+      "pid": 41500,
+      "name": "node.exe",
+      "executable": "C:\\Users\\33185\\.workbuddy\\binaries\\node\\versions\\22.22.2\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:51:57.983871Z"
+    },
+    {
+      "pid": 41764,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\Desktop\\\u6bd5\u4e1a\u8bbe\u8ba1\\fan\\.omc\\worktrees\\hostguard\\agent\\agent\\.venv\\Scripts\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T12:25:33.947077Z"
+    },
+    {
+      "pid": 41812,
+      "name": "bash.exe",
+      "executable": "C:\\Users\\33185\\.workbuddy\\vendor\\PortableGit\\usr\\bin\\bash.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T12:25:19.710421Z"
+    },
+    {
+      "pid": 41844,
+      "name": "WorkBuddy.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\WorkBuddy\\WorkBuddy.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:46:42.702523Z"
+    },
+    {
+      "pid": 42028,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Roaming\\uv\\python\\cpython-3.11.15-windows-x86_64-none\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T12:25:34.063900Z"
+    },
+    {
+      "pid": 42176,
+      "name": "msedge.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:32:06.157923Z"
+    },
+    {
+      "pid": 42264,
+      "name": "node_repl.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\OpenAI\\Codex\\runtimes\\cua_node\\f8d2abcb7481383b\\bin\\node_repl.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:35:26.662284Z"
+    },
+    {
+      "pid": 42348,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:34:20.438790Z"
+    },
+    {
+      "pid": 42376,
+      "name": "tail.exe",
+      "executable": "C:\\Users\\33185\\.workbuddy\\vendor\\PortableGit\\usr\\bin\\tail.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:51:54.934391Z"
+    },
+    {
+      "pid": 42400,
+      "name": "extension-host.exe",
+      "executable": "C:\\Users\\33185\\.codex\\plugins\\cache\\openai-bundled\\chrome\\26.721.81911\\extension-host\\windows\\x64\\extension-host.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:32:06.823569Z"
+    },
+    {
+      "pid": 42504,
+      "name": "chrome.exe",
+      "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T12:24:37.796914Z"
+    },
+    {
+      "pid": 42892,
+      "name": "esbuild.exe",
+      "executable": "C:\\Users\\33185\\Desktop\\paypal\\node_modules\\@esbuild\\win32-x64\\esbuild.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:36:30.794420Z"
+    },
+    {
+      "pid": 42960,
+      "name": "msedge.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:32:10.327599Z"
+    },
+    {
+      "pid": 43112,
+      "name": "msedge.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:32:06.116796Z"
+    },
+    {
+      "pid": 43208,
+      "name": "WorkBuddy.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\WorkBuddy\\WorkBuddy.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:46:47.566702Z"
+    },
+    {
+      "pid": 43216,
+      "name": "conhost.exe",
+      "executable": "C:\\Windows\\System32\\conhost.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:36:30.456439Z"
+    },
+    {
+      "pid": 43220,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:30:43.652310Z"
+    },
+    {
+      "pid": 43356,
+      "name": "node.exe",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:35:28.998987Z"
+    },
+    {
+      "pid": 43444,
+      "name": "WorkBuddy.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\WorkBuddy\\WorkBuddy.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T11:46:47.986593Z"
+    },
+    {
+      "pid": 43680,
+      "name": "codex.exe",
+      "executable": "C:\\Users\\33185\\.codex\\plugins\\.plugin-appserver\\codex.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:11:24.364500Z"
+    },
+    {
+      "pid": 43736,
+      "name": "msedge.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:32:05.817980Z"
+    },
+    {
+      "pid": 43800,
+      "name": "msedge.exe",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:32:10.589927Z"
+    },
+    {
+      "pid": 43888,
+      "name": "python.exe",
+      "executable": "C:\\Users\\33185\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "username": "DESKTOP-UL80L8P\\33185",
+      "started_at": "2026-07-31T10:35:26.738046Z"
+    }
+  ],
+  "listening_ports": [
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 5173,
+      "pid": 12252
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 5174,
+      "pid": 24864
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 14019,
+      "pid": 23204
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "169.254.212.70",
+      "local_port": 139,
+      "pid": 4
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 33331,
+      "pid": 14896
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 17891,
+      "pid": 22580
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "192.168.56.1",
+      "local_port": 139,
+      "pid": 4
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "0.0.0.0",
+      "local_port": 49705,
+      "pid": 1660
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 11434,
+      "pid": 3940
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 62250,
+      "pid": 7236
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "::",
+      "local_port": 49664,
+      "pid": 1692
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 9097,
+      "pid": 8800
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "0.0.0.0",
+      "local_port": 135,
+      "pid": 2016
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "::",
+      "local_port": 49666,
+      "pid": 2560
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 50560,
+      "pid": 41068
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 51042,
+      "pid": 31080
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 14013,
+      "pid": 23204
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "0.0.0.0",
+      "local_port": 49666,
+      "pid": 2560
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "0.0.0.0",
+      "local_port": 7680,
+      "pid": 8672
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 14023,
+      "pid": 23204
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "192.168.1.5",
+      "local_port": 139,
+      "pid": 4
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 50575,
+      "pid": 27104
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 5037,
+      "pid": 17564
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "::",
+      "local_port": 49667,
+      "pid": 4848
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "0.0.0.0",
+      "local_port": 49664,
+      "pid": 1692
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "0.0.0.0",
+      "local_port": 445,
+      "pid": 4
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "0.0.0.0",
+      "local_port": 5040,
+      "pid": 12440
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 64934,
+      "pid": 14540
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "::",
+      "local_port": 49704,
+      "pid": 11184
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "0.0.0.0",
+      "local_port": 3389,
+      "pid": 10100
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "::",
+      "local_port": 49668,
+      "pid": 5364
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 8002,
+      "pid": 37884
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 5175,
+      "pid": 28472
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "0.0.0.0",
+      "local_port": 49668,
+      "pid": 5364
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 18488,
+      "pid": 31556
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "0.0.0.0",
+      "local_port": 8011,
+      "pid": 23204
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 39099,
+      "pid": 35356
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "::",
+      "local_port": 445,
+      "pid": 4
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "::",
+      "local_port": 7680,
+      "pid": 8672
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "::1",
+      "local_port": 49669,
+      "pid": 6220
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "::",
+      "local_port": 135,
+      "pid": 2016
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 38259,
+      "pid": 7236
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 50585,
+      "pid": 27104
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "::",
+      "local_port": 3389,
+      "pid": 10100
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "172.23.64.1",
+      "local_port": 139,
+      "pid": 4
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 32100,
+      "pid": 11920
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 5283,
+      "pid": 4688
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "::",
+      "local_port": 49665,
+      "pid": 1544
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 8884,
+      "pid": 4
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "::",
+      "local_port": 2179,
+      "pid": 3148
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "0.0.0.0",
+      "local_port": 1053,
+      "pid": 8800
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 64324,
+      "pid": 32932
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "0.0.0.0",
+      "local_port": 49704,
+      "pid": 11184
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 14016,
+      "pid": 23204
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "0.0.0.0",
+      "local_port": 49665,
+      "pid": 1544
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "0.0.0.0",
+      "local_port": 2179,
+      "pid": 3148
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 15721,
+      "pid": 23180
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 7897,
+      "pid": 8800
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 8001,
+      "pid": 22684
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "0.0.0.0",
+      "local_port": 23031,
+      "pid": 23204
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 8000,
+      "pid": 38648
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "::",
+      "local_port": 1053,
+      "pid": 8800
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "0.0.0.0",
+      "local_port": 49667,
+      "pid": 4848
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "::1",
+      "local_port": 42050,
+      "pid": 14904
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "198.18.0.1",
+      "local_port": 139,
+      "pid": 4
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "0.0.0.0",
+      "local_port": 24031,
+      "pid": 23204
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 59405,
+      "pid": 3964
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "::",
+      "local_port": 49705,
+      "pid": 1660
+    },
+    {
+      "protocol": "tcp",
+      "local_address": "127.0.0.1",
+      "local_port": 14022,
+      "pid": 23204
+    },
+    {
+      "protocol": "udp",
+      "local_address": "fe80::d2a3:9159:565d:240e",
+      "local_port": 2177,
+      "pid": 5152
+    },
+    {
+      "protocol": "udp",
+      "local_address": "fe80::bf91:3b83:50c7:226e",
+      "local_port": 2177,
+      "pid": 5152
+    },
+    {
+      "protocol": "udp",
+      "local_address": "fe80::7ecb:d264:87c:6978",
+      "local_port": 1900,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "172.23.64.1",
+      "local_port": 68,
+      "pid": 4796
+    },
+    {
+      "protocol": "udp",
+      "local_address": "172.23.64.1",
+      "local_port": 58547,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "169.254.212.70",
+      "local_port": 2177,
+      "pid": 5152
+    },
+    {
+      "protocol": "udp",
+      "local_address": "fe80::7ecb:d264:87c:6978",
+      "local_port": 64477,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "fe80::9292:d1a7:7332:a7b4",
+      "local_port": 1900,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "192.168.1.5",
+      "local_port": 2177,
+      "pid": 5152
+    },
+    {
+      "protocol": "udp",
+      "local_address": "::",
+      "local_port": 3389,
+      "pid": 10100
+    },
+    {
+      "protocol": "udp",
+      "local_address": "0.0.0.0",
+      "local_port": 5050,
+      "pid": 12440
+    },
+    {
+      "protocol": "udp",
+      "local_address": "fe80::bf91:3b83:50c7:226e",
+      "local_port": 1900,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "0.0.0.0",
+      "local_port": 3389,
+      "pid": 10100
+    },
+    {
+      "protocol": "udp",
+      "local_address": "::",
+      "local_port": 5355,
+      "pid": 2496
+    },
+    {
+      "protocol": "udp",
+      "local_address": "192.168.56.1",
+      "local_port": 2177,
+      "pid": 5152
+    },
+    {
+      "protocol": "udp",
+      "local_address": "198.18.0.1",
+      "local_port": 137,
+      "pid": 4
+    },
+    {
+      "protocol": "udp",
+      "local_address": "fe80::d2a3:9159:565d:240e",
+      "local_port": 58541,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "0.0.0.0",
+      "local_port": 63646,
+      "pid": 2496
+    },
+    {
+      "protocol": "udp",
+      "local_address": "0.0.0.0",
+      "local_port": 5353,
+      "pid": 33824
+    },
+    {
+      "protocol": "udp",
+      "local_address": "::",
+      "local_port": 63646,
+      "pid": 2496
+    },
+    {
+      "protocol": "udp",
+      "local_address": "::1",
+      "local_port": 58540,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "192.168.56.1",
+      "local_port": 58543,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "127.0.0.1",
+      "local_port": 58450,
+      "pid": 6104
+    },
+    {
+      "protocol": "udp",
+      "local_address": "127.0.0.1",
+      "local_port": 10010,
+      "pid": 18580
+    },
+    {
+      "protocol": "udp",
+      "local_address": "0.0.0.0",
+      "local_port": 51962,
+      "pid": 2496
+    },
+    {
+      "protocol": "udp",
+      "local_address": "fe80::bf91:3b83:50c7:226e",
+      "local_port": 59956,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "172.23.64.1",
+      "local_port": 138,
+      "pid": 4
+    },
+    {
+      "protocol": "udp",
+      "local_address": "::",
+      "local_port": 1053,
+      "pid": 8800
+    },
+    {
+      "protocol": "udp",
+      "local_address": "::",
+      "local_port": 5353,
+      "pid": 35512
+    },
+    {
+      "protocol": "udp",
+      "local_address": "0.0.0.0",
+      "local_port": 5355,
+      "pid": 2496
+    },
+    {
+      "protocol": "udp",
+      "local_address": "169.254.212.70",
+      "local_port": 1900,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "172.23.64.1",
+      "local_port": 67,
+      "pid": 4796
+    },
+    {
+      "protocol": "udp",
+      "local_address": "0.0.0.0",
+      "local_port": 123,
+      "pid": 38716
+    },
+    {
+      "protocol": "udp",
+      "local_address": "0.0.0.0",
+      "local_port": 59159,
+      "pid": 33000
+    },
+    {
+      "protocol": "udp",
+      "local_address": "2409:8a04:322f:9530:4ebd:1497:4a6d:495c",
+      "local_port": 2177,
+      "pid": 5152
+    },
+    {
+      "protocol": "udp",
+      "local_address": "::",
+      "local_port": 55906,
+      "pid": 8800
+    },
+    {
+      "protocol": "udp",
+      "local_address": "192.168.56.1",
+      "local_port": 138,
+      "pid": 4
+    },
+    {
+      "protocol": "udp",
+      "local_address": "0.0.0.0",
+      "local_port": 52087,
+      "pid": 4796
+    },
+    {
+      "protocol": "udp",
+      "local_address": "169.254.212.70",
+      "local_port": 58544,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "0.0.0.0",
+      "local_port": 52086,
+      "pid": 4796
+    },
+    {
+      "protocol": "udp",
+      "local_address": "192.168.1.5",
+      "local_port": 137,
+      "pid": 4
+    },
+    {
+      "protocol": "udp",
+      "local_address": "0.0.0.0",
+      "local_port": 59160,
+      "pid": 8800
+    },
+    {
+      "protocol": "udp",
+      "local_address": "0.0.0.0",
+      "local_port": 57688,
+      "pid": 23204
+    },
+    {
+      "protocol": "udp",
+      "local_address": "::",
+      "local_port": 5353,
+      "pid": 2496
+    },
+    {
+      "protocol": "udp",
+      "local_address": "::",
+      "local_port": 51962,
+      "pid": 2496
+    },
+    {
+      "protocol": "udp",
+      "local_address": "0.0.0.0",
+      "local_port": 55906,
+      "pid": 8800
+    },
+    {
+      "protocol": "udp",
+      "local_address": "0.0.0.0",
+      "local_port": 5353,
+      "pid": 35512
+    },
+    {
+      "protocol": "udp",
+      "local_address": "::",
+      "local_port": 52088,
+      "pid": 4796
+    },
+    {
+      "protocol": "udp",
+      "local_address": "2409:8a04:322f:9530:5dbc:9933:2fda:1f81",
+      "local_port": 2177,
+      "pid": 5152
+    },
+    {
+      "protocol": "udp",
+      "local_address": "172.23.64.1",
+      "local_port": 2177,
+      "pid": 5152
+    },
+    {
+      "protocol": "udp",
+      "local_address": "::",
+      "local_port": 5353,
+      "pid": 33824
+    },
+    {
+      "protocol": "udp",
+      "local_address": "192.168.56.1",
+      "local_port": 137,
+      "pid": 4
+    },
+    {
+      "protocol": "udp",
+      "local_address": "::",
+      "local_port": 59160,
+      "pid": 8800
+    },
+    {
+      "protocol": "udp",
+      "local_address": "127.0.0.1",
+      "local_port": 10011,
+      "pid": 17644
+    },
+    {
+      "protocol": "udp",
+      "local_address": "198.18.0.1",
+      "local_port": 58542,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "fe80::9292:d1a7:7332:a7b4",
+      "local_port": 2177,
+      "pid": 5152
+    },
+    {
+      "protocol": "udp",
+      "local_address": "198.18.0.1",
+      "local_port": 138,
+      "pid": 4
+    },
+    {
+      "protocol": "udp",
+      "local_address": "fe80::d2a3:9159:565d:240e",
+      "local_port": 1900,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "127.0.0.1",
+      "local_port": 58546,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "fe80::9292:d1a7:7332:a7b4",
+      "local_port": 59957,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "169.254.212.70",
+      "local_port": 138,
+      "pid": 4
+    },
+    {
+      "protocol": "udp",
+      "local_address": "0.0.0.0",
+      "local_port": 53,
+      "pid": 4796
+    },
+    {
+      "protocol": "udp",
+      "local_address": "192.168.1.5",
+      "local_port": 58545,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "::1",
+      "local_port": 1900,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "0.0.0.0",
+      "local_port": 5353,
+      "pid": 2496
+    },
+    {
+      "protocol": "udp",
+      "local_address": "192.168.1.5",
+      "local_port": 1900,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "fe80::7ecb:d264:87c:6978",
+      "local_port": 2177,
+      "pid": 5152
+    },
+    {
+      "protocol": "udp",
+      "local_address": "169.254.212.70",
+      "local_port": 137,
+      "pid": 4
+    },
+    {
+      "protocol": "udp",
+      "local_address": "0.0.0.0",
+      "local_port": 57687,
+      "pid": 23204
+    },
+    {
+      "protocol": "udp",
+      "local_address": "172.23.64.1",
+      "local_port": 1900,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "198.18.0.1",
+      "local_port": 1900,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "::",
+      "local_port": 24011,
+      "pid": 23204
+    },
+    {
+      "protocol": "udp",
+      "local_address": "127.0.0.1",
+      "local_port": 7897,
+      "pid": 8800
+    },
+    {
+      "protocol": "udp",
+      "local_address": "0.0.0.0",
+      "local_port": 24011,
+      "pid": 23204
+    },
+    {
+      "protocol": "udp",
+      "local_address": "172.23.64.1",
+      "local_port": 137,
+      "pid": 4
+    },
+    {
+      "protocol": "udp",
+      "local_address": "192.168.1.5",
+      "local_port": 138,
+      "pid": 4
+    },
+    {
+      "protocol": "udp",
+      "local_address": "127.0.0.1",
+      "local_port": 10012,
+      "pid": 17516
+    },
+    {
+      "protocol": "udp",
+      "local_address": "127.0.0.1",
+      "local_port": 63530,
+      "pid": 17644
+    },
+    {
+      "protocol": "udp",
+      "local_address": "127.0.0.1",
+      "local_port": 1900,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "192.168.56.1",
+      "local_port": 1900,
+      "pid": 14340
+    },
+    {
+      "protocol": "udp",
+      "local_address": "0.0.0.0",
+      "local_port": 1053,
+      "pid": 8800
+    },
+    {
+      "protocol": "udp",
+      "local_address": "::",
+      "local_port": 123,
+      "pid": 38716
+    }
+  ]
+}
