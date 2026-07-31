@@ -1,0 +1,113 @@
+openapi: 3.1.0
+info:
+  title: HostGuard API
+  version: 1.0.0
+servers:
+  - url: /api/v1
+paths:
+  /auth/csrf:
+    get:
+      operationId: getCsrfToken
+      responses:
+        "200": {description: CSRF token}
+  /auth/login:
+    post:
+      operationId: login
+      responses:
+        "200": {description: Authenticated user}
+        "401": {$ref: "#/components/responses/Error"}
+  /auth/logout:
+    post:
+      operationId: logout
+      responses:
+        "204": {description: Logged out}
+  /auth/me:
+    get:
+      operationId: getCurrentUser
+      responses:
+        "200": {description: Current user}
+  /dashboard/summary:
+    get:
+      operationId: getDashboardSummary
+      responses:
+        "200": {description: Current security posture}
+  /hosts:
+    get:
+      operationId: listHosts
+      responses:
+        "200": {description: Paginated hosts}
+  /hosts/{host_id}:
+    get:
+      operationId: getHost
+      parameters:
+        - {$ref: "#/components/parameters/HostId"}
+      responses:
+        "200": {description: Host detail}
+  /alerts:
+    get:
+      operationId: listAlerts
+      responses:
+        "200": {description: Paginated alerts}
+  /alerts/{alert_id}/transitions:
+    post:
+      operationId: transitionAlert
+      parameters:
+        - name: alert_id
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        "200": {description: Updated alert}
+  /rules:
+    get:
+      operationId: listRules
+      responses:
+        "200": {description: Detection rules}
+  /reports:
+    post:
+      operationId: createReport
+      responses:
+        "202": {description: Report task accepted}
+  /agent/enroll:
+    post:
+      operationId: enrollAgent
+      responses:
+        "201": {description: Agent credentials returned once}
+  /agent/batches:
+    post:
+      operationId: ingestTelemetryBatch
+      responses:
+        "202": {description: Batch accepted}
+        "409": {description: Duplicate batch already accepted}
+  /agent/policy:
+    get:
+      operationId: getAgentPolicy
+      responses:
+        "200": {description: Signed agent policy}
+components:
+  parameters:
+    HostId:
+      name: host_id
+      in: path
+      required: true
+      schema: {type: string, format: uuid}
+  responses:
+    Error:
+      description: Structured error response
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+  schemas:
+    ErrorEnvelope:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message, request_id]
+          properties:
+            code: {type: string}
+            message: {type: string}
+            details: {type: object}
+            request_id: {type: string, format: uuid}
