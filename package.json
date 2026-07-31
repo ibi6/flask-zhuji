@@ -1,0 +1,22 @@
+{
+  "name": "hostguard-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "HostGuard 主机安全态势感知平台 - 前端",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "typecheck": "tsc -b --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.101.4",
+    "lucide-react": "^1.28.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.2"
+  }
+}
