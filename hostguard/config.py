@@ -23,6 +23,7 @@ class Config:
     RATELIMIT_HEADERS_ENABLED = True
     MAX_CONTENT_LENGTH = 1024 * 1024
     JSON_SORT_KEYS = False
+    REPORT_STORAGE_DIR = str(BASE_DIR / "instance" / "reports")
 
 
 def validate_config(config: dict[str, object]) -> None:

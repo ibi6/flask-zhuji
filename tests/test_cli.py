@@ -1,8 +1,7 @@
 from __future__ import annotations
 
 from flask import Flask
-from flask.testing import FlaskClient
-from flask.testing import FlaskCliRunner
+from flask.testing import FlaskClient, FlaskCliRunner
 
 from hostguard.extensions import db
 from hostguard.models import EnrollmentToken, User

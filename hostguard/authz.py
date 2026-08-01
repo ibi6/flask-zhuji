@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import functools
+from collections.abc import Callable
 from datetime import timedelta
-from typing import Any, Callable, TypeVar
+from typing import Any, TypeVar
 
 from flask import current_app, g, request
 from sqlalchemy import delete
@@ -45,7 +46,6 @@ def load_user_from_request() -> User | None:
     if user is None or not user.is_active:
         return None
     return user
-
 
 def revoke_current_session() -> None:
     token = request.cookies.get(SESSION_COOKIE, "")

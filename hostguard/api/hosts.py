@@ -7,6 +7,7 @@ from flask import Blueprint, jsonify, request
 from ..authz import require_auth
 from ..errors import ApiError
 from ..extensions import db
+from ..host_status import refresh_host_statuses
 from ..models import Host, InventorySnapshot, MetricSample, isoformat_utc
 from ..schemas import PaginationInput
 from . import paginate
@@ -17,6 +18,7 @@ bp = Blueprint("hosts", __name__, url_prefix="/api/v1/hosts")
 @bp.get("")
 @require_auth
 def list_hosts() -> tuple[Any, int]:
+    refresh_host_statuses()
     params = PaginationInput.model_validate(
         {"page": request.args.get("page", 1), "page_size": request.args.get("page_size", 20)}
     )
@@ -40,6 +42,7 @@ def list_hosts() -> tuple[Any, int]:
 @bp.get("/<host_id>")
 @require_auth
 def get_host(host_id: str) -> tuple[Any, int]:
+    refresh_host_statuses()
     host = db.session.get(Host, host_id)
     if host is None:
         raise ApiError("host_not_found", "The host was not found.", 404)

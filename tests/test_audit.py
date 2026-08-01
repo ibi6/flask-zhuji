@@ -3,7 +3,6 @@ from __future__ import annotations
 from flask import Flask
 from flask.testing import FlaskClient
 
-from hostguard.extensions import db
 from hostguard.models import AuditLog, User
 
 from .conftest import csrf_token, login_as_admin

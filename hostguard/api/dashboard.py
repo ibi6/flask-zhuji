@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import timedelta
 from typing import Any
 
 from flask import Blueprint, jsonify
@@ -7,9 +8,12 @@ from sqlalchemy import func
 
 from ..authz import require_auth
 from ..extensions import db
-from ..models import Alert, Host, SecurityEvent
+from ..host_status import refresh_host_statuses
+from ..models import Alert, Host, SecurityEvent, isoformat_utc, utcnow
 
 bp = Blueprint("dashboard", __name__, url_prefix="/api/v1/dashboard")
+
+RISK_TREND_DAYS = 7
 
 
 def _severity_breakdown() -> dict[str, int]:
@@ -21,9 +25,29 @@ def _severity_breakdown() -> dict[str, int]:
     return {severity: int(count) for severity, count in rows}
 
 
+def _risk_trend(days: int = RISK_TREND_DAYS) -> list[dict[str, Any]]:
+    """Alerts created per day over the trailing window (for risk trending)."""
+    start = (utcnow() - timedelta(days=days - 1)).replace(
+        hour=0, minute=0, second=0, microsecond=0
+    )
+    rows = (
+        db.session.query(func.date(Alert.first_seen_at), func.count(Alert.id))
+        .filter(Alert.first_seen_at >= start)
+        .group_by(func.date(Alert.first_seen_at))
+        .all()
+    )
+    counts = {str(day): int(count) for day, count in rows}
+    trend = []
+    for offset in range(days):
+        day = (start + timedelta(days=offset)).date().isoformat()
+        trend.append({"date": day, "count": counts.get(day, 0)})
+    return trend
+
+
 @bp.get("/summary")
 @require_auth
 def get_dashboard_summary() -> tuple[Any, int]:
+    refresh_host_statuses()
     hosts_by_status = {
         status: int(count)
         for status, count in (
@@ -55,9 +79,10 @@ def get_dashboard_summary() -> tuple[Any, int]:
                 "event_type": event.event_type,
                 "severity": event.severity,
                 "summary": event.summary,
-                "occurred_at": event.occurred_at.isoformat().replace("+00:00", "Z"),
+                "occurred_at": isoformat_utc(event.occurred_at),
             }
             for event in recent_events
         ],
+        "risk_trend": _risk_trend(),
     }
     return jsonify({"summary": summary}), 200

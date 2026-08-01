@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 from flask import Flask
@@ -101,7 +101,9 @@ def test_ingest_rejects_bad_signature(client: FlaskClient, app: Flask) -> None:
     token = create_enrollment_token(app)
     agent = enroll_agent(client, token)
     body = json.dumps(valid_batch()).encode()
-    headers = agent_headers(agent["agent_id"], agent["agent_secret"], "POST", "/api/v1/agent/batches", body)
+    headers = agent_headers(
+        agent["agent_id"], agent["agent_secret"], "POST", "/api/v1/agent/batches", body
+    )
     headers["X-HG-Signature"] = "f" * 64
 
     response = client.post(
@@ -116,10 +118,15 @@ def test_ingest_rejects_stale_timestamp(client: FlaskClient, app: Flask) -> None
     agent = enroll_agent(client, token)
     body = json.dumps(valid_batch()).encode()
     stale = (
-        datetime.now(timezone.utc) - timedelta(seconds=AGENT_CLOCK_SKEW_SECONDS + 60)
+        datetime.now(UTC) - timedelta(seconds=AGENT_CLOCK_SKEW_SECONDS + 60)
     ).isoformat().replace("+00:00", "Z")
     headers = agent_headers(
-        agent["agent_id"], agent["agent_secret"], "POST", "/api/v1/agent/batches", body, timestamp=stale
+        agent["agent_id"],
+        agent["agent_secret"],
+        "POST",
+        "/api/v1/agent/batches",
+        body,
+        timestamp=stale,
     )
 
     response = client.post(
@@ -193,10 +200,15 @@ def test_duplicate_event_id_is_rejected(client: FlaskClient, app: Flask) -> None
     event_id = str(uuid4())
     first_payload = valid_batch(events=[_event(event_id)])
 
-    assert post_signed_batch(client, agent["agent_id"], agent["agent_secret"], first_payload).status_code == 202
+    first_resp = post_signed_batch(
+        client, agent["agent_id"], agent["agent_secret"], first_payload
+    )
+    assert first_resp.status_code == 202
 
     second_payload = valid_batch(events=[_event(event_id)])
-    response = post_signed_batch(client, agent["agent_id"], agent["agent_secret"], second_payload)
+    response = post_signed_batch(
+        client, agent["agent_id"], agent["agent_secret"], second_payload
+    )
     assert response.status_code == 409
     assert response.get_json()["error"]["code"] == "duplicate_event"
 

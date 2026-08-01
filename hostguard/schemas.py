@@ -5,7 +5,6 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, ValidationError, model_validator
 
-
 USERNAME_PATTERN = re.compile(r"^[a-zA-Z0-9_.-]+$")
 ROLE_LITERAL = Literal["admin", "analyst", "viewer"]
 
@@ -76,6 +75,25 @@ class RuleUpdateInput(StrictModel):
 class ReportCreateInput(StrictModel):
     report_type: str = Field(min_length=1, max_length=64)
     parameters: dict[str, Any] = Field(default_factory=dict, max_length=64)
+
+
+class NotificationChannelCreateInput(StrictModel):
+    name: str = Field(min_length=1, max_length=128)
+    channel_type: Literal["webhook", "email"]
+    config: dict[str, Any] = Field(default_factory=dict, max_length=32)
+    enabled: bool = True
+
+    @model_validator(mode="after")
+    def validate_channel_config(self) -> NotificationChannelCreateInput:
+        if self.channel_type == "webhook" and not self.config.get("url"):
+            raise ValueError("webhook channels require a config.url")
+        if self.channel_type == "email":
+            recipients = self.config.get("recipients")
+            if not self.config.get("host"):
+                raise ValueError("email channels require a config.host")
+            if not isinstance(recipients, list) or not recipients:
+                raise ValueError("email channels require a config.recipients list")
+        return self
 
 
 class AgentEnrollInput(StrictModel):

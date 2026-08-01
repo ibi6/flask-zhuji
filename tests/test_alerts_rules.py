@@ -6,7 +6,7 @@ from flask.testing import FlaskClient
 from hostguard.extensions import db
 from hostguard.models import Alert, DetectionRule, User
 
-from .conftest import csrf_token, login, login_as_admin
+from .conftest import csrf_token, login_as_admin
 
 
 def _seed(client: FlaskClient, app: Flask) -> tuple[Alert, DetectionRule]:

@@ -3,7 +3,7 @@ from __future__ import annotations
 import hashlib
 import hmac
 from collections.abc import Iterator
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from uuid import uuid4
 
@@ -17,7 +17,7 @@ from hostguard.extensions import db
 from hostguard.models import EnrollmentToken, User, utcnow
 from hostguard.security import hash_token
 
-TEST_SECRET_KEY = "test-secret-key-with-at-least-32-characters"
+TEST_SECRET_KEY = "test-secret-key-with-at-least-32-characters"  # noqa: S105 - test fixture
 
 
 @pytest.fixture(autouse=True)
@@ -127,7 +127,7 @@ def agent_headers(
 ) -> dict[str, str]:
     """Build valid HMAC signing headers for an agent request."""
     secret = bytes.fromhex(secret_hex)
-    ts = timestamp or datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    ts = timestamp or datetime.now(UTC).isoformat().replace("+00:00", "Z")
     nonce = nonce or str(uuid4())
     body_digest = hashlib.sha256(body).hexdigest()
     message = f"{ts}\n{nonce}\n{method}\n{path}\n{body_digest}"
@@ -183,7 +183,7 @@ def valid_batch(batch_id: str | None = None, **overrides: object) -> dict[str, o
             }
         ],
         "listening_ports": [
-            {"protocol": "tcp", "local_address": "0.0.0.0", "local_port": 443, "pid": 1234}
+            {"protocol": "tcp", "local_address": "0.0.0.0", "local_port": 443, "pid": 1234}  # noqa: S104 - test fixture
         ],
         "events": [
             {

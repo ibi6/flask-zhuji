@@ -2,10 +2,9 @@ from __future__ import annotations
 
 from typing import Any
 
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
 
 from ..authz import require_auth
-from ..extensions import db
 from ..models import AuditLog
 from ..schemas import PaginationInput
 from . import paginate

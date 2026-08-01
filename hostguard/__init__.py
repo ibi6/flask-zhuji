@@ -116,6 +116,7 @@ def _register_blueprints(app: Flask) -> None:
     from .api.auth import bp as auth_bp
     from .api.dashboard import bp as dashboard_bp
     from .api.hosts import bp as hosts_bp
+    from .api.notifications import bp as notifications_bp
     from .api.reports import bp as reports_bp
     from .api.rules import bp as rules_bp
     from .api.users import bp as users_bp
@@ -124,6 +125,7 @@ def _register_blueprints(app: Flask) -> None:
     app.register_blueprint(users_bp)
     app.register_blueprint(hosts_bp)
     app.register_blueprint(dashboard_bp)
+    app.register_blueprint(notifications_bp)
     app.register_blueprint(alerts_bp)
     app.register_blueprint(rules_bp)
     app.register_blueprint(reports_bp)

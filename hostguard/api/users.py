@@ -72,7 +72,11 @@ def update_user(user_id: str) -> tuple[Any, int]:
     actor = g.current_user
     if actor.id == user.id:
         if payload.is_active is False:
-            raise ApiError("self_deactivation_forbidden", "You cannot deactivate your own account.", 409)
+            raise ApiError(
+                "self_deactivation_forbidden",
+                "You cannot deactivate your own account.",
+                409,
+            )
         if payload.role is not None and user.role == "admin" and payload.role != "admin":
             raise ApiError("self_demotion_forbidden", "You cannot remove your own admin role.", 409)
 

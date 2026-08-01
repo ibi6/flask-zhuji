@@ -4,7 +4,7 @@ import base64
 import hashlib
 import hmac
 import secrets
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from functools import lru_cache
 from uuid import UUID
 
@@ -82,8 +82,8 @@ def parse_agent_timestamp(value: str) -> datetime:
     except ValueError as exc:
         raise ApiError("agent_timestamp_invalid", "The agent timestamp is invalid.", 403) from exc
     if parsed.tzinfo is None:
-        parsed = parsed.replace(tzinfo=timezone.utc)
-    return parsed.astimezone(timezone.utc)
+        parsed = parsed.replace(tzinfo=UTC)
+    return parsed.astimezone(UTC)
 
 
 def _delete_expired_nonces() -> None:

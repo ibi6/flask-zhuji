@@ -26,7 +26,9 @@ def register_cli(app: Flask) -> None:
             (User.username == username.lower()) | (User.email == email.lower())
         ).first()
         if existing is not None:
-            raise click.ClickException(f"a user with username '{username}' or email '{email}' already exists")
+            raise click.ClickException(
+                f"a user with username '{username}' or email '{email}' already exists"
+            )
 
         secret = password or os.environ.get("HOSTGUARD_ADMIN_PASSWORD")
         if secret is None:
@@ -57,3 +59,22 @@ def register_cli(app: Flask) -> None:
         )
         db.session.commit()
         click.echo(token)
+
+    @app.cli.command("run-workers")
+    @click.option("--once", is_flag=True, help="Run a single pass and exit.")
+    def run_workers(once: bool) -> None:
+        """Run one maintenance pass: host status, rule evaluation, reports, notifications."""
+        from .host_status import refresh_host_statuses
+        from .notifications import process_deliveries
+        from .reporting import run_pending_report_jobs
+        from .rule_engine import run_rule_evaluation
+
+        click.echo("refreshing host statuses...")
+        refresh_host_statuses()
+        click.echo("evaluating detection rules...")
+        run_rule_evaluation()
+        click.echo("executing report jobs...")
+        run_pending_report_jobs()
+        click.echo("delivering notifications...")
+        process_deliveries()
+        click.echo("workers pass complete.")

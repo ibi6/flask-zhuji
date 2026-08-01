@@ -4,7 +4,7 @@ import hashlib
 import secrets
 from typing import Any
 
-from flask import Blueprint, g, jsonify, request
+from flask import Blueprint, current_app, g, jsonify, request
 from pydantic import ValidationError
 from sqlalchemy.exc import IntegrityError
 
@@ -24,6 +24,7 @@ from ..models import (
     SecurityEvent,
     utcnow,
 )
+from ..rule_engine import run_rule_evaluation
 from ..schemas import AgentEnrollInput
 from ..security import (
     agent_canonical_message,
@@ -132,7 +133,6 @@ def enroll_agent() -> tuple[Any, int]:
 
 @bp.get("/policy")
 def get_agent_policy() -> tuple[Any, int]:
-    host = g.agent_host
     body = jsonify(POLICY).get_data()
     message = agent_canonical_message(
         g.agent_timestamp, g.agent_nonce, request.method, request.path, body
@@ -160,9 +160,13 @@ def ingest_telemetry_batch() -> tuple[Any, int]:
     event_ids += [change.event_id for change in payload.file_changes]
     if event_ids:
         if SecurityEvent.query.filter(SecurityEvent.id.in_(event_ids)).first() is not None:
-            raise ApiError("duplicate_event", "An event in this batch has already been accepted.", 409)
+            raise ApiError(
+                "duplicate_event", "An event in this batch has already been accepted.", 409
+            )
         if FileChange.query.filter(FileChange.id.in_(event_ids)).first() is not None:
-            raise ApiError("duplicate_event", "An event in this batch has already been accepted.", 409)
+            raise ApiError(
+                "duplicate_event", "An event in this batch has already been accepted.", 409
+            )
 
     _persist_batch(host, payload)
 
@@ -172,7 +176,18 @@ def ingest_telemetry_batch() -> tuple[Any, int]:
         db.session.commit()
     except IntegrityError:
         db.session.rollback()
-        raise ApiError("duplicate_batch", "This batch has already been accepted.", 409)
+        raise ApiError(
+            "duplicate_batch", "This batch has already been accepted.", 409
+        ) from None
+
+    try:
+        run_rule_evaluation(host_id=host.id, batch_id=payload.batch_id)
+    except Exception:
+        db.session.rollback()
+        current_app.logger.exception(
+            "rule_evaluation_failed",
+            extra={"request_id": getattr(g, "request_id", ""), "host_id": host.id},
+        )
     return jsonify({"accepted": True, "batch_id": payload.batch_id}), 202
 
 
