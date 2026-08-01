@@ -23,7 +23,8 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from . import __version__
-from .adapters import default_baseline_provider, default_event_source, default_fim_provider
+from .adapters import default_event_source, default_fim_provider
+from .baseline import InventoryBaselineProvider
 from .buffer import SQLiteBatchBuffer
 from .collector import SystemCollector
 from .config import AgentConfig, load_config
@@ -159,8 +160,9 @@ def cmd_run(args: argparse.Namespace) -> int:
         buffer=buffer,
         client=client,
         event_source=default_event_source(),
-        baseline_provider=default_baseline_provider(),
+        baseline_provider=InventoryBaselineProvider(config.data_dir),
         fim_provider=default_fim_provider(config.data_dir, config.fim_watch_dirs),
+        fim_factory=lambda dirs: default_fim_provider(config.data_dir, dirs),
     )
     for sig in (signal.SIGINT, signal.SIGTERM):
         signal.signal(sig, lambda *_: orchestrator.stop())

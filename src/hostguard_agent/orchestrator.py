@@ -25,6 +25,7 @@ from .buffer import SQLiteBatchBuffer
 from .collector import build_batch
 from .config import AgentConfig
 from .http_client import HttpClient
+from .policy import AgentPolicy
 
 logger = logging.getLogger(__name__)
 
@@ -94,6 +95,7 @@ class Orchestrator:
         baseline_provider: BaselineProvider,
         fim_provider: FIMProvider,
         clock: Callable[[], datetime] | None = None,
+        fim_factory: Callable[[tuple[str, ...]], FIMProvider] | None = None,
     ) -> None:
         self._config = config
         self._collector = collector
@@ -105,10 +107,14 @@ class Orchestrator:
         self._clock = clock or (lambda: datetime.now(UTC))
         self._stop_event = threading.Event()
         self._next_run: dict[str, datetime] = {}
+        self._next_interval: dict[str, int] = {}
         self._last_events_poll: datetime | None = None
         self._last_fim_poll: datetime | None = None
         self._health = HealthState(started_at=self._clock())
         self._policy_path = config.data_dir / "policy.json"
+        self._policy = AgentPolicy.from_payload({})
+        self._policy_failures = 0
+        self._fim_factory = fim_factory
 
     # -- public control ----------------------------------------------------
 
@@ -136,17 +142,22 @@ class Orchestrator:
         """Execute every job that is due; individual jobs are isolated."""
         sections: dict[str, Any] = {}
         adapter_checks: list[dict[str, Any]] = []
+        policy = self._policy
 
         self._run_job("purge", lambda: self._buffer.purge(now=now), now)
 
-        if self._due("metrics", self._config.collection_interval_seconds, now):
+        if policy.enable_metrics and self._due(
+            "metrics", self._interval("collection_interval_seconds"), now
+        ):
             self._run_job(
                 "metrics",
                 self._collector.collect_metrics,
                 now,
                 callback=lambda v: sections.update(metrics=v),
             )
-            if self._due("details", self._config.details_interval_seconds, now):
+            if policy.enable_details and self._due(
+                "details", self._interval("details_interval_seconds"), now
+            ):
                 self._run_job(
                     "processes",
                     self._collector.collect_processes,
@@ -159,25 +170,36 @@ class Orchestrator:
                     now,
                     callback=lambda v: sections.update(listening_ports=v),
                 )
+            if policy.enable_events and self._due(
+                "events", self._interval("details_interval_seconds"), now
+            ):
                 self._run_job(
                     "events",
                     self._poll_events,
                     now,
                     callback=self._attach("events", sections, adapter_checks),
                 )
+            if policy.enable_fim and self._due(
+                "fim", self._interval("details_interval_seconds"), now
+            ):
                 self._run_job(
                     "fim",
                     self._poll_fim,
                     now,
                     callback=self._attach("file_changes", sections, adapter_checks),
                 )
+            if policy.enable_baseline and self._due(
+                "baseline", self._interval("details_interval_seconds"), now
+            ):
                 self._run_job(
                     "baseline",
                     lambda: self._collect_baseline(now),
                     now,
                     callback=lambda v: adapter_checks.extend(v[0]),
                 )
-            if self._due("inventory", self._config.inventory_interval_seconds, now):
+            if policy.enable_inventory and self._due(
+                "inventory", self._interval("inventory_interval_seconds"), now
+            ):
                 self._run_job(
                     "inventory",
                     self._collector.collect_inventory,
@@ -185,7 +207,7 @@ class Orchestrator:
                     callback=lambda v: sections.update(inventory=v),
                 )
 
-        if self._due("policy", self._config.policy_refresh_interval_seconds, now):
+        if self._due("policy", self._interval("policy_refresh_interval_seconds"), now):
             self._run_job("policy", lambda: self._refresh_policy(), now)
 
         if "metrics" in sections:
@@ -199,10 +221,24 @@ class Orchestrator:
 
     # -- jobs --------------------------------------------------------------
 
+    def _interval(self, name: str) -> int:
+        """Resolve a scheduling interval, preferring the remote policy value."""
+        value = getattr(self._policy, name)
+        if value is not None:
+            return int(value)
+        return int(getattr(self._config, name))
+
     def _due(self, name: str, interval_seconds: int, now: datetime) -> bool:
+        previous_interval = self._next_interval.get(name)
         next_run = self._next_run.get(name)
+        if previous_interval is not None and previous_interval != interval_seconds:
+            # The schedule changed (e.g. a fresh policy); re-schedule from now.
+            self._next_run[name] = _add_seconds(now, interval_seconds)
+            self._next_interval[name] = interval_seconds
+            return True
         if next_run is None or now >= next_run:
             self._next_run[name] = _add_seconds(now, interval_seconds)
+            self._next_interval[name] = interval_seconds
             return True
         return False
 
@@ -272,13 +308,48 @@ class Orchestrator:
             logger.warning("adapter %s unavailable: %s", name, outcome.reason)
 
     def _refresh_policy(self) -> None:
-        response = self._client.get(POLICY_PATH)
+        """Fetch and apply the remote policy; on failure keep the last one.
+
+        Failures back off exponentially (``base_backoff * 2 ** failures``
+        capped at ``max_backoff_seconds``) by re-scheduling the next attempt.
+        """
+        now = self._clock()
+        try:
+            response = self._client.get(POLICY_PATH)
+        except Exception as exc:  # noqa: BLE001 -- network boundary
+            self._backoff_policy(now)
+            raise RuntimeError(f"policy refresh failed: {exc}") from exc
         if response.status_code != 200:
+            self._backoff_policy(now)
             raise RuntimeError(f"policy refresh returned HTTP {response.status_code}")
         payload = response.json()
+        self._policy = AgentPolicy.from_payload(payload)
+        self._policy_failures = 0
+        self._apply_policy_to_providers()
         self._policy_path.parent.mkdir(parents=True, exist_ok=True)
         self._policy_path.write_text(json.dumps(payload, sort_keys=True), encoding="utf-8")
-        self._health.policy_refreshed_at = _iso(self._clock())
+        self._health.policy_refreshed_at = _iso(now)
+
+    def _backoff_policy(self, now: datetime) -> None:
+        """Schedule the next policy attempt after an exponential backoff."""
+        self._policy_failures += 1
+        delay = min(
+            self._config.base_backoff_seconds * (2 ** (self._policy_failures - 1)),
+            self._config.max_backoff_seconds,
+        )
+        self._next_run["policy"] = _add_seconds(now, delay)
+
+    def _apply_policy_to_providers(self) -> None:
+        """Push policy-driven FIM directories / event channels to adapters."""
+        watch_dirs = self._policy.fim_watch_dirs
+        if watch_dirs:
+            if self._fim_factory is not None:
+                self._fim_provider = self._fim_factory(watch_dirs)
+            elif hasattr(self._fim_provider, "configure"):
+                self._fim_provider.configure(watch_dirs)
+        channels = self._policy.event_channels
+        if channels and hasattr(self._event_source, "set_channels"):
+            self._event_source.set_channels(channels)
 
     # -- shipping -----------------------------------------------------------
 
