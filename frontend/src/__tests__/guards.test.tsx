@@ -90,33 +90,33 @@ describe("路由守卫", () => {
     expect(screen.getByText("登录页")).toBeInTheDocument();
   });
 
-  it("已登录用户可以访问受保护页面", () => {
+  it("已登录用户可以访问受保护页面", async () => {
     setUser(viewerUser);
     renderRouter("/dashboard");
-    expect(screen.getByText("仪表盘")).toBeInTheDocument();
+    expect(await screen.findByText("仪表盘")).toBeInTheDocument();
   });
 
-  it("viewer 角色不能访问 admin 页面，重定向到总览", () => {
+  it("viewer 角色不能访问 admin 页面，重定向到总览", async () => {
     setUser(viewerUser);
     renderRouter("/admin-only");
-    expect(screen.getByText("总览页")).toBeInTheDocument();
+    expect(await screen.findByText("总览页")).toBeInTheDocument();
   });
 
-  it("admin 角色可以访问 admin 页面", () => {
+  it("admin 角色可以访问 admin 页面", async () => {
     setUser(adminUser);
     renderRouter("/admin-only");
-    expect(screen.getByText("admin 内容")).toBeInTheDocument();
+    expect(await screen.findByText("admin 内容")).toBeInTheDocument();
   });
 
-  it("viewer 不能访问 analyst 页面，重定向到总览", () => {
+  it("viewer 不能访问 analyst 页面，重定向到总览", async () => {
     setUser(viewerUser);
     renderRouter("/analyst-only");
-    expect(screen.getByText("总览页")).toBeInTheDocument();
+    expect(await screen.findByText("总览页")).toBeInTheDocument();
   });
 
-  it("analyst 可以访问 analyst 页面", () => {
+  it("analyst 可以访问 analyst 页面", async () => {
     setUser(analystUser);
     renderRouter("/analyst-only");
-    expect(screen.getByText("analyst 内容")).toBeInTheDocument();
+    expect(await screen.findByText("analyst 内容")).toBeInTheDocument();
   });
 });

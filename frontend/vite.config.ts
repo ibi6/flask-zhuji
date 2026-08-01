@@ -42,5 +42,8 @@ export default defineConfig({
     setupFiles: ["./vitest.setup.ts"],
     css: false,
     include: ["src/**/*.{test,spec}.{ts,tsx}"],
+    env: {
+      VITE_USE_MOCK: "true",
+    },
   },
 });
