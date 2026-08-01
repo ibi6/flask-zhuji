@@ -1,1 +1,70 @@
-# HostGuard 路 涓绘満瀹夊叏鎬佸娍鎰熺煡骞冲彴  鍩轰簬 Flask + React 鐨勬瘯涓氳璁￠」鐩細**涓绘満瀹夊叏鎬佸娍鎰熺煡绯荤粺**锛圚ostGuard锛夈€傚寘鍚?Agent 閲囬泦銆佸悗绔?API銆丼OC 鍓嶇浠〃鐩樸€? ## 鍦ㄧ嚎婕旂ず锛堟帹鑽愶級  鍓嶇宸查儴缃?GitHub Pages锛?*Mock 妯″紡**锛屾棤闇€鍚庣鍗冲彲浣撻獙瀹屾暣 UI锛? **https://ibi6.github.io/flask-zhuji/**  鐧诲綍椤电偣鍑讳笁瑙掕壊鍗＄墖涓€閿櫥褰曪細  | 瑙掕壊 | 璐﹀彿 | 鏉冮檺姒傝 | |------|------|----------| | 绠＄悊鍛?| `admin` | 鐢ㄦ埛绠＄悊銆侀€氱煡閰嶇疆 | | 鍒嗘瀽鍛?| `analyst` | 濞佽儊鎯呮姤銆丄I 鍒嗘瀽銆佹姤鍛?| | 鍙 | `viewer` | 鎬昏銆佷富鏈恒€佸憡璀︺€佸璁?|  Mock 妯″紡涓嬩换鎰忓瘑鐮佸潎鍙櫥褰曘€? ## 浠撳簱鍒嗘敮  | 鍒嗘敮 | 鍐呭 | |------|------| | [`codex/hostguard-frontend`](https://github.com/ibi6/flask-zhuji/tree/codex/hostguard-frontend) | React 19 鍓嶇 + GitHub Pages 閮ㄧ讲 | | [`codex/hostguard-backend`](https://github.com/ibi6/flask-zhuji/tree/codex/hostguard-backend) | Flask 3 鍚庣 API | | [`codex/hostguard-agent`](https://github.com/ibi6/flask-zhuji/tree/codex/hostguard-agent) | 涓绘満 Agent锛圥ython锛?| | [`codex/hostguard-system`](https://github.com/ibi6/flask-zhuji/tree/codex/hostguard-system) | 绯荤粺鏁村悎 / 濂戠害 |  ## 鏈湴寮€鍙戯紙鍓嶇锛? ```powershell cd frontend npm ci $env:VITE_USE_MOCK = "true" npm run dev ```  娴忚鍣ㄦ墦寮€ http://127.0.0.1:5180  鏇村璇存槑瑙?[`frontend/README.md`](https://github.com/ibi6/flask-zhuji/blob/codex/hostguard-frontend/frontend/README.md)锛坄codex/hostguard-frontend` 鍒嗘敮锛夈€? ## 鏈湴寮€鍙戯紙Agent锛? ```powershell cd agent uv sync uv run pytest uv run hostguard-agent --help ```  ## 濂戠害涓?API  - `contracts/openapi.yaml` 鈥?REST API 瀹氫箟 - `contracts/conventions.md` 鈥?閿欒淇″皝銆佸垎椤电瓑绾﹀畾 - `contracts/telemetry.schema.json` 鈥?Agent 閬ユ祴 schema  ## 鎶€鏈爤  - **鍓嶇**锛歊eact 19銆乂ite銆乀anStack Query銆乀ailwindCSS - **鍚庣**锛欶lask 3銆丮ySQL/PostgreSQL锛堣閮ㄧ讲鑰屽畾锛?- **Agent**锛歅ython 3.11+銆乭ttpx  ---  姣曚笟璁捐 路 鍩轰簬 Flask 鐨勪富鏈哄畨鍏ㄦ€佸娍鎰熺煡绯荤粺
+# HostGuard · 主机安全态势感知平台
+
+基于 Flask + React 的毕业设计项目：**主机安全态势感知系统**（HostGuard）。包含 Agent 采集、后端 API、SOC 前端仪表盘。
+
+## 在线演示
+
+前端已部署 GitHub Pages，**Mock 模式**，无需后端即可体验完整 UI：
+
+**https://ibi6.github.io/flask-zhuji/**
+
+登录页点击三角色卡片一键登录：
+
+| 角色 | 账号 | 权限概要 |
+|------|------|----------|
+| 管理员 | admin | 用户管理、通知配置 |
+| 分析员 | analyst | 威胁情报、AI 分析、报告 |
+| 只读 | viewer | 总览、主机、告警、审计 |
+
+Mock 模式下任意密码均可登录。
+
+## 仓库分支
+
+| 分支 | 内容 |
+|------|------|
+| [codex/hostguard-frontend](https://github.com/ibi6/flask-zhuji/tree/codex/hostguard-frontend) | React 19 前端 + GitHub Pages 部署 |
+| [codex/hostguard-backend](https://github.com/ibi6/flask-zhuji/tree/codex/hostguard-backend) | Flask 3 后端 API |
+| [codex/hostguard-agent](https://github.com/ibi6/flask-zhuji/tree/codex/hostguard-agent) | 主机 Agent（Python） |
+| [codex/hostguard-system](https://github.com/ibi6/flask-zhuji/tree/codex/hostguard-system) | 系统整合 / 契约 |
+
+## 本地开发（前端）
+
+```bash
+cd frontend
+npm ci
+npm run dev
+```
+
+PowerShell 下启用 Mock：
+
+```powershell
+$env:VITE_USE_MOCK = "true"
+npm run dev
+```
+
+浏览器打开 http://127.0.0.1:5180
+
+## 本地开发（Agent）
+
+```bash
+cd agent
+uv sync
+uv run pytest
+uv run hostguard-agent --help
+```
+
+## 契约与 API
+
+- `contracts/openapi.yaml` — REST API 定义
+- `contracts/conventions.md` — 错误信封、分页等约定
+- `contracts/telemetry.schema.json` — Agent 遥测 schema
+
+## 技术栈
+
+- **前端**：React 19、Vite、TanStack Query、TailwindCSS
+- **后端**：Flask 3
+- **Agent**：Python 3.11+、httpx
+
+---
+
+毕业设计 · 基于 Flask 的主机安全态势感知系统
