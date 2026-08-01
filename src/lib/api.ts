@@ -1,4 +1,5 @@
 // API 客户端：同源凭据、CSRF、结构化错误，与 contracts/conventions.md 对齐
+// mock 分支仅在 VITE_USE_MOCK === "true" 时激活，默认走真实 API。
 
 import { handleMock, MOCK_ACTIVE } from "./mock";
 import type { ErrorEnvelope } from "./types";
@@ -59,22 +60,39 @@ function buildUrl(path: string, query?: RequestOptions["query"]): string {
   return url.toString();
 }
 
+/** 构造传给 mock 适配器的查询参数 */
+function toSearchParams(query?: RequestOptions["query"]): URLSearchParams {
+  const q = new URLSearchParams();
+  if (query) {
+    for (const [key, value] of Object.entries(query)) {
+      if (value !== undefined) q.set(key, String(value));
+    }
+  }
+  return q;
+}
+
+async function mockInvoke<T>(path: string, options: RequestOptions): Promise<T> {
+  const result = await handleMock({
+    method: options.method ?? "GET",
+    path,
+    params: toSearchParams(options.query),
+    body: options.body,
+  });
+  return result as T;
+}
+
 async function request<T>(path: string, options: RequestOptions = {}): Promise<T> {
   // 开发 mock 模式：走本地适配器，不发出真实网络请求
   if (MOCK_ACTIVE) {
-    const query = new URLSearchParams();
-    if (options.query) {
-      for (const [key, value] of Object.entries(options.query)) {
-        if (value !== undefined) query.set(key, String(value));
-      }
-    }
-    return (await handleMock({
-      method: options.method ?? "GET",
-      path,
-      params: query,
-    })) as T;
+    return mockInvoke<T>(path, options);
   }
+  const res = await rawRequest(path, options);
+  if (res.status === 204) return undefined as T;
+  return (await res.json()) as T;
+}
 
+/** 底层 fetch，统一错误信封解析（仅真实 API 模式使用） */
+async function rawRequest(path: string, options: RequestOptions = {}): Promise<Response> {
   const headers: Record<string, string> = {
     Accept: "application/json",
     ...(options.body !== undefined ? { "Content-Type": "application/json" } : {}),
@@ -99,9 +117,7 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
     const envelope = await parseEnvelope(res);
     throw new ApiError(envelope, res.status);
   }
-
-  if (res.status === 204) return undefined as T;
-  return (await res.json()) as T;
+  return res;
 }
 
 // ---- CSRF 处理 ----
@@ -123,7 +139,13 @@ export function clearCsrfToken(): void {
 
 /** 显式刷新 CSRF token（登录前调用） */
 export async function refreshCsrf(): Promise<void> {
-  const data = await request<{ token: string }>("/auth/csrf");
+  if (MOCK_ACTIVE) {
+    const data = await mockInvoke<{ token: string }>("/auth/csrf", { method: "GET" });
+    setCsrfToken(data.token);
+    return;
+  }
+  const res = await rawRequest("/auth/csrf", { method: "GET" });
+  const data = (await res.json()) as { token: string };
   setCsrfToken(data.token);
 }
 
@@ -142,15 +164,28 @@ export const apiGet = <T>(path: string, options?: RequestOptions) =>
 export const apiPost = <T>(path: string, body?: unknown, options?: RequestOptions) =>
   request<T>(path, { ...options, method: "POST", body });
 
+export const apiPut = <T>(path: string, body?: unknown, options?: RequestOptions) =>
+  request<T>(path, { ...options, method: "PUT", body });
+
 export const apiPatch = <T>(path: string, body?: unknown, options?: RequestOptions) =>
   request<T>(path, { ...options, method: "PATCH", body });
 
 export const apiDelete = <T>(path: string, options?: RequestOptions) =>
   request<T>(path, { ...options, method: "DELETE" });
 
+/** 以二进制方式下载文件（报告下载等） */
+export async function apiGetBlob(path: string, options?: RequestOptions): Promise<Blob> {
+  if (MOCK_ACTIVE) {
+    return mockInvoke<Blob>(path, { ...options, method: "GET" });
+  }
+  const res = await rawRequest(path, options);
+  return res.blob();
+}
+
 export const api = {
   get: apiGet,
   post: apiPost,
+  put: apiPut,
   patch: apiPatch,
   delete: apiDelete,
 };

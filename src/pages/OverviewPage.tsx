@@ -1,20 +1,18 @@
-// 安全总览页
+// 安全总览页：真实 KPI（在线主机、告警分布、风险趋势）
 
 import { useQuery } from "@tanstack/react-query";
 import {
   Activity,
   AlertTriangle,
-  Cpu,
-  FileWarning,
-  HardDrive,
-  MemoryStick,
   Server,
   ShieldCheck,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { apiGet } from "@/lib/api";
-import type { DashboardSummary } from "@/lib/types";
-import { AlertStatusBadge, Card, QueryState, SeverityBadge, formatTime, percentColor } from "@/components/ui";
+import type { DashboardSummary, Severity } from "@/lib/types";
+import { AlertStatusBadge, Card, QueryState, SeverityBadge, formatTime } from "@/components/ui";
+import { RiskTrendChart } from "@/components/charts";
+import type { MultiSeriesPoint } from "@/components/charts";
 
 function StatCard({
   label,
@@ -49,6 +47,13 @@ function StatCard({
   );
 }
 
+const SEVERITY_META: { key: Severity; label: string; color: string }[] = [
+  { key: "critical", label: "严重", color: "bg-rose-500" },
+  { key: "high", label: "高危", color: "bg-orange-500" },
+  { key: "medium", label: "中危", color: "bg-amber-400" },
+  { key: "low", label: "低危", color: "bg-sky-400" },
+];
+
 export function OverviewPage() {
   const { data, isPending, error, refetch } = useQuery({
     queryKey: ["dashboard", "summary"],
@@ -63,109 +68,101 @@ export function OverviewPage() {
       </div>
 
       <QueryState data={data} isPending={isPending} error={error} onRetry={() => refetch()}>
-        {(summary) => (
-          <div className="space-y-6">
-            {/* 指标卡 */}
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-              <StatCard
-                label="主机总数"
-                value={summary.hosts_total}
-                sub={`在线 ${summary.hosts_online} · 降级 ${summary.hosts_degraded} · 离线 ${summary.hosts_offline}`}
-                icon={Server}
-              />
-              <StatCard
-                label="未处理告警"
-                value={summary.alerts_open}
-                sub={`严重 ${summary.alerts_critical} · 高危 ${summary.alerts_high}`}
-                icon={AlertTriangle}
-                tone={summary.alerts_critical > 0 ? "danger" : "warn"}
-              />
-              <StatCard label="今日新增事件" value={summary.events_today.toLocaleString()} sub="含登录、文件、端口事件" icon={Activity} />
-              <StatCard label="启用规则" value={summary.rules_enabled} sub="检测规则实时生效" icon={ShieldCheck} />
-            </div>
+        {(summary) => {
+          const distribution = summary.alert_distribution;
+          const maxSeverity = Math.max(1, ...SEVERITY_META.map((s) => distribution[s.key] ?? 0));
+          const trend: MultiSeriesPoint[] = summary.risk_trend.map((p) => ({
+            label: p.date,
+            values: { critical: p.critical, high: p.high, medium: p.medium, low: p.low },
+          }));
+          return (
+            <div className="space-y-6">
+              {/* 指标卡 */}
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                <StatCard
+                  label="主机总数"
+                  value={summary.hosts_total}
+                  sub={`在线 ${summary.hosts_online} · 降级 ${summary.hosts_degraded} · 离线 ${summary.hosts_offline}`}
+                  icon={Server}
+                />
+                <StatCard
+                  label="未处理告警"
+                  value={summary.alerts_open}
+                  sub={`严重 ${summary.alerts_critical} · 高危 ${summary.alerts_high}`}
+                  icon={AlertTriangle}
+                  tone={summary.alerts_critical > 0 ? "danger" : "warn"}
+                />
+                <StatCard label="今日新增事件" value={summary.events_today.toLocaleString()} sub="含登录、文件、端口事件" icon={Activity} />
+                <StatCard label="启用规则" value={summary.rules_enabled} sub="检测规则实时生效" icon={ShieldCheck} />
+              </div>
 
-            {/* 风险分布与最近告警 */}
-            <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
-              <Card className="xl:col-span-2">
-                <div className="mb-4 flex items-center justify-between">
-                  <h2 className="text-sm font-semibold text-slate-800">最近告警</h2>
-                  <Link to="/alerts" className="text-xs font-medium text-brand-600 hover:text-brand-700">
-                    查看全部 →
-                  </Link>
-                </div>
-                <div className="divide-y divide-slate-100">
-                  {summary.recent_alerts.map((alert) => (
-                    <div key={alert.id} className="flex items-center gap-3 py-3">
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-medium text-slate-800">{alert.summary}</p>
-                        <p className="mt-0.5 text-xs text-slate-400">
-                          {alert.hostname} · {alert.rule_name} · {formatTime(alert.occurred_at)}
-                        </p>
+              {/* 最近告警 + 告警分布 */}
+              <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
+                <Card className="xl:col-span-2">
+                  <div className="mb-4 flex items-center justify-between">
+                    <h2 className="text-sm font-semibold text-slate-800">最近告警</h2>
+                    <Link to="/alerts" className="text-xs font-medium text-brand-600 hover:text-brand-700">
+                      查看全部 →
+                    </Link>
+                  </div>
+                  <div className="divide-y divide-slate-100">
+                    {summary.recent_alerts.length === 0 && (
+                      <p className="py-6 text-center text-xs text-slate-400">暂无告警</p>
+                    )}
+                    {summary.recent_alerts.map((alert) => (
+                      <div key={alert.id} className="flex items-center gap-3 py-3">
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-sm font-medium text-slate-800">{alert.summary}</p>
+                          <p className="mt-0.5 text-xs text-slate-400">
+                            {alert.hostname} · {alert.rule_name} · {formatTime(alert.occurred_at)}
+                          </p>
+                        </div>
+                        <SeverityBadge severity={alert.severity} />
+                        <AlertStatusBadge status={alert.status} />
                       </div>
-                      <SeverityBadge severity={alert.severity} />
-                      <AlertStatusBadge status={alert.status} />
-                    </div>
-                  ))}
-                </div>
-              </Card>
+                    ))}
+                  </div>
+                </Card>
 
+                <Card>
+                  <h2 className="mb-4 text-sm font-semibold text-slate-800">风险等级分布</h2>
+                  <div className="space-y-4">
+                    {SEVERITY_META.map((s) => {
+                      const count = distribution[s.key] ?? 0;
+                      const width = Math.min(100, (count / maxSeverity) * 100);
+                      return (
+                        <div key={s.key}>
+                          <div className="mb-1 flex items-center justify-between text-xs">
+                            <span className="text-slate-500">{s.label}</span>
+                            <span className={`font-mono font-medium ${count > 0 ? "text-slate-700" : "text-slate-400"}`}>{count}</span>
+                          </div>
+                          <div className="h-2 overflow-hidden rounded-full bg-slate-100">
+                            <div className={`h-full rounded-full ${s.color}`} style={{ width: `${width}%` }} />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <p className="mt-4 border-t border-slate-100 pt-3 text-xs text-slate-400">
+                    按当前全部告警的严重级别统计
+                  </p>
+                </Card>
+              </div>
+
+              {/* 风险趋势 */}
               <Card>
-                <h2 className="mb-4 text-sm font-semibold text-slate-800">风险等级分布</h2>
-                <div className="space-y-4">
-                  <RiskRow label="严重" count={summary.alerts_critical} color="bg-rose-500" />
-                  <RiskRow label="高危" count={summary.alerts_high} color="bg-orange-500" />
-                  <RiskRow
-                    label="中危"
-                    count={Math.max(0, summary.recent_alerts.filter((a) => a.severity === "medium").length)}
-                    color="bg-amber-400"
-                  />
-                  <RiskRow
-                    label="低危"
-                    count={Math.max(0, summary.recent_alerts.filter((a) => a.severity === "low").length)}
-                    color="bg-sky-400"
-                  />
+                <div className="mb-3 flex items-center justify-between">
+                  <h2 className="text-sm font-semibold text-slate-800">风险趋势（近 14 天）</h2>
+                  <span className="text-xs text-slate-400">各严重级别每日新增告警量</span>
                 </div>
-                <div className="mt-6 space-y-3 border-t border-slate-100 pt-4">
-                  <MiniRow icon={Cpu} label="平均 CPU 负载" value="—" />
-                  <MiniRow icon={MemoryStick} label="平均内存占用" value="—" />
-                  <MiniRow icon={HardDrive} label="平均磁盘占用" value="—" />
-                  <MiniRow icon={FileWarning} label="文件变更事件" value={`${summary.alerts_today} 次`} />
-                </div>
+                <RiskTrendChart points={trend} ariaLabel="近 14 天风险趋势" />
               </Card>
             </div>
-          </div>
-        )}
+          );
+        }}
       </QueryState>
     </div>
   );
 }
 
-function RiskRow({ label, count, color }: { label: string; count: number; color: string }) {
-  const max = 10;
-  const width = Math.min(100, (count / max) * 100);
-  return (
-    <div>
-      <div className="mb-1 flex items-center justify-between text-xs">
-        <span className="text-slate-500">{label}</span>
-        <span className={`font-mono font-medium ${count > 0 ? "text-slate-700" : "text-slate-400"}`}>{count}</span>
-      </div>
-      <div className="h-2 overflow-hidden rounded-full bg-slate-100">
-        <div className={`h-full rounded-full ${color}`} style={{ width: `${width}%` }} />
-      </div>
-    </div>
-  );
-}
-
-function MiniRow({ icon: Icon, label, value }: { icon: typeof Cpu; label: string; value: string }) {
-  return (
-    <div className="flex items-center justify-between">
-      <span className="flex items-center gap-2 text-xs text-slate-500">
-        <Icon className="h-3.5 w-3.5 text-slate-400" aria-hidden />
-        {label}
-      </span>
-      <span className="font-mono text-xs text-slate-700">{value}</span>
-    </div>
-  );
-}
-
-export { percentColor };
+export { percentColor } from "@/components/ui";

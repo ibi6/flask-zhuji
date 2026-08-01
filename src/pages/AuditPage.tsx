@@ -19,16 +19,18 @@ const PAGE_SIZE = 20;
 export function AuditPage() {
   const { user } = useAuth();
   const [page, setPage] = useState(1);
-
-  // 二次角色防御：路由守卫已拦截，此处兜底
-  if (user && user.role !== "admin") {
-    return <Navigate to="/overview" replace />;
-  }
+  const canAccess = !user || user.role === "admin";
 
   const { data, isPending, error, refetch } = useQuery({
     queryKey: ["audit", page],
     queryFn: () => apiGet<Page<AuditEvent>>("/audit", { query: { page, page_size: PAGE_SIZE } }),
+    enabled: canAccess,
   });
+
+  // 二次角色防御：路由守卫已拦截，此处兜底
+  if (!canAccess) {
+    return <Navigate to="/overview" replace />;
+  }
 
   const outcomeStyle: Record<string, string> = {
     success: "bg-emerald-50 text-emerald-700 ring-emerald-200",

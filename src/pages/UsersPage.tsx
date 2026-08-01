@@ -20,15 +20,17 @@ const PAGE_SIZE = 20;
 export function UsersPage() {
   const { user } = useAuth();
   const [page, setPage] = useState(1);
-
-  if (user && user.role !== "admin") {
-    return <Navigate to="/overview" replace />;
-  }
+  const canAccess = !user || user.role === "admin";
 
   const { data, isPending, error, refetch } = useQuery({
     queryKey: ["users", page],
     queryFn: () => apiGet<Page<User>>("/users", { query: { page, page_size: PAGE_SIZE } }),
+    enabled: canAccess,
   });
+
+  if (!canAccess) {
+    return <Navigate to="/overview" replace />;
+  }
 
   return (
     <div className="animate-fade-in">

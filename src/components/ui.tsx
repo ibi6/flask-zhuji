@@ -1,8 +1,9 @@
 // 共享 UI 组件：状态徽标、卡片、空态/错误态/加载态、分页等
 
-import { AlertTriangle, Inbox, RefreshCw } from "lucide-react";
+import { AlertTriangle, Inbox, RefreshCw, X } from "lucide-react";
+import { useEffect, useRef } from "react";
 import type { ReactNode } from "react";
-import type { AlertStatus, HostStatus, ReportStatus, Role, Severity } from "../lib/types";
+import type { AlertStatus, DeliveryStatus, HostStatus, ReportStatus, Role, Severity } from "../lib/types";
 
 // ---- 语义状态徽标 ----
 
@@ -266,6 +267,120 @@ export function Pagination({
         </button>
       </div>
     </nav>
+  );
+}
+
+// ---- 表单辅助与弹窗 ----
+
+export function Field({ label, children, hint }: { label: string; children: ReactNode; hint?: string }) {
+  return (
+    <div>
+      <label className="mb-1.5 block text-sm font-medium text-slate-700">{label}</label>
+      {children}
+      {hint && <p className="mt-1 text-xs text-slate-400">{hint}</p>}
+    </div>
+  );
+}
+
+export function Toggle({
+  checked,
+  onChange,
+  label,
+  disabled,
+}: {
+  checked: boolean;
+  onChange: (next: boolean) => void;
+  label: string;
+  disabled?: boolean;
+}) {
+  return (
+    <button
+      type="button"
+      disabled={disabled}
+      onClick={() => onChange(!checked)}
+      className={`relative inline-flex h-5 w-9 items-center rounded-full transition ${checked ? "bg-brand-600" : "bg-slate-300"} ${disabled ? "cursor-not-allowed opacity-50" : ""}`}
+      role="switch"
+      aria-checked={checked}
+      aria-label={label}
+    >
+      <span
+        className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition ${checked ? "translate-x-4" : "translate-x-0.5"}`}
+      />
+    </button>
+  );
+}
+
+export function Modal({
+  title,
+  onClose,
+  children,
+  footer,
+  wide,
+}: {
+  title: string;
+  onClose: () => void;
+  children: ReactNode;
+  footer?: ReactNode;
+  wide?: boolean;
+}) {
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handler);
+    panelRef.current?.focus();
+    return () => window.removeEventListener("keydown", handler);
+  }, [onClose]);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center" role="dialog" aria-modal="true" aria-label={title}>
+      <div className="absolute inset-0 bg-slate-900/40" onClick={onClose} />
+      <div
+        ref={panelRef}
+        tabIndex={-1}
+        className={`relative w-full overflow-hidden rounded-t-2xl bg-white shadow-pop outline-none sm:rounded-2xl ${wide ? "sm:max-w-2xl" : "sm:max-w-md"}`}
+      >
+        <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4">
+          <h2 className="text-sm font-semibold text-slate-800">{title}</h2>
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-lg p-1.5 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
+            aria-label="关闭"
+          >
+            <X className="h-4 w-4" aria-hidden />
+          </button>
+        </div>
+        <div className="max-h-[70vh] overflow-y-auto px-5 py-4">{children}</div>
+        {footer && <div className="flex justify-end gap-2 border-t border-slate-100 px-5 py-3">{footer}</div>}
+      </div>
+    </div>
+  );
+}
+
+const deliveryStatusStyles: Record<DeliveryStatus, string> = {
+  pending: "bg-slate-100 text-slate-600 ring-slate-200",
+  retrying: "bg-amber-50 text-amber-700 ring-amber-200",
+  sent: "bg-emerald-50 text-emerald-700 ring-emerald-200",
+  failed: "bg-rose-50 text-rose-700 ring-rose-200",
+};
+
+const deliveryStatusLabels: Record<DeliveryStatus, string> = {
+  pending: "待发送",
+  retrying: "重试中",
+  sent: "已送达",
+  failed: "失败",
+};
+
+export function DeliveryStatusBadge({ status }: { status: DeliveryStatus }) {
+  return (
+    <span
+      className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ring-1 ${deliveryStatusStyles[status]}`}
+    >
+      {deliveryStatusLabels[status] ?? status}
+    </span>
   );
 }
 

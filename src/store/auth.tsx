@@ -1,8 +1,8 @@
 // 认证 store/context：登录、登出、当前用户、角色判断
 
-import { createContext, useCallback, useContext, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
-import { clearCsrfToken, isMockMode, apiPost } from "@/lib/api";
+import { clearCsrfToken, isMockMode, refreshCsrf, apiPost } from "@/lib/api";
 import { mockLogin } from "@/lib/mock";
 import type { CurrentUserLike } from "@/lib/mock";
 import type { Role } from "@/lib/types";
@@ -44,6 +44,14 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(loadStoredUser);
 
+  // 真实 API 模式：应用启动时获取 CSRF token（HttpOnly 会话 + X-CSRF-Token）
+  useEffect(() => {
+    if (isMockMode()) return;
+    refreshCsrf().catch(() => {
+      // 未登录时 CSRF 端点不可用属于正常情况，登录流程会再次刷新
+    });
+  }, []);
+
   const login = useCallback(async (username: string, password: string): Promise<AuthUser> => {
     let next: AuthUser;
     if (isMockMode()) {
@@ -52,6 +60,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } else {
       const res = await apiPost<{ user: CurrentUserLike }>("/auth/login", { username, password });
       next = toAuthUser(res.user);
+      // 会话建立后 token 可能轮换，重新获取
+      await refreshCsrf().catch(() => undefined);
     }
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(next));
     setUser(next);

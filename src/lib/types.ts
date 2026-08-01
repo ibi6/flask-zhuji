@@ -7,6 +7,7 @@ export type HostSource = "real" | "simulated";
 export type AlertStatus = "open" | "investigating" | "resolved" | "ignored";
 export type ReportStatus = "pending" | "running" | "completed" | "failed" | "expired";
 export type NotificationType = "email" | "webhook" | "wecom";
+export type DeliveryStatus = "pending" | "retrying" | "sent" | "failed";
 
 /** 结构化错误信封，见 contracts/conventions.md */
 export interface ErrorEnvelope {
@@ -85,6 +86,10 @@ export interface DetectionRule {
   severity: Severity;
   enabled: boolean;
   kind: string;
+  /** 触发条件的指标/事件字段，例如 cpu_percent、login_failures */
+  condition_field: string;
+  /** 触发条件比较符，例如 >=、>、<、== */
+  condition_op: string;
   window_seconds: number;
   threshold: number;
   updated_at: string;
@@ -94,6 +99,12 @@ export interface ReportJob {
   id: string;
   title: string;
   status: ReportStatus;
+  /** 报告范围，例如 all_hosts / alerts / hosts / baseline */
+  scope: string;
+  /** 报告类型，例如 summary / alert_analysis / baseline_compliance */
+  report_type: string;
+  /** 导出格式，例如 pdf / csv / html */
+  format: string;
   requested_by: string;
   requested_at: string;
   expires_at: string | null;
@@ -113,7 +124,7 @@ export interface NotificationDelivery {
   id: string;
   channel_id: string;
   channel_name: string;
-  status: "pending" | "retrying" | "sent" | "failed";
+  status: DeliveryStatus;
   subject: string;
   attempted_at: string;
   error: string | null;
@@ -131,6 +142,15 @@ export interface AuditEvent {
   ip: string | null;
 }
 
+export interface RiskTrendPoint {
+  /** 日期标签，例如 "07-20" 或完整 ISO 日期 */
+  date: string;
+  critical: number;
+  high: number;
+  medium: number;
+  low: number;
+}
+
 export interface DashboardSummary {
   hosts_total: number;
   hosts_online: number;
@@ -142,6 +162,10 @@ export interface DashboardSummary {
   alerts_today: number;
   events_today: number;
   rules_enabled: number;
+  /** 按严重级别统计的真实告警分布 */
+  alert_distribution: Record<Severity, number>;
+  /** 风险趋势（近 N 天每日告警量） */
+  risk_trend: RiskTrendPoint[];
   recent_alerts: Alert[];
 }
 
@@ -159,7 +183,32 @@ export interface ListeningPort {
   pid: number | null;
 }
 
+/** 遥测时间序列点，用于真实趋势图 */
+export interface TelemetryPoint {
+  collected_at: string;
+  cpu_percent: number;
+  memory_percent: number;
+  network_bytes_sent: number;
+  network_bytes_recv: number;
+}
+
+/** 告警状态流转记录 */
+export interface AlertTransition {
+  id: string;
+  from_status: AlertStatus;
+  to_status: AlertStatus;
+  comment: string | null;
+  actor: string;
+  occurred_at: string;
+}
+
+/** 告警详情：列表项 + 状态历史 */
+export interface AlertDetail extends Alert {
+  transitions: AlertTransition[];
+}
+
 export interface HostDetail extends Host {
+  telemetry: TelemetryPoint[];
   process_snapshot: ProcessSnapshot[];
   listening_ports: ListeningPort[];
   file_changes: Array<{

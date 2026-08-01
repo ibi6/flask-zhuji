@@ -1,8 +1,11 @@
-// 本地 mock 适配器 —— 仅供开发模式使用（VITE_USE_MOCK 默认开启，设 "false" 关闭）。
+// 本地 mock 适配器 —— 仅供显式开发模式使用（VITE_USE_MOCK === "true" 才开启）。
 // 所有数据均为模拟数据，绝不可伪装为真实遥测；界面会常驻"开发模式"标注。
+// 默认走真实 API：mock 与真实数据绝不混用。
 
 import type {
   Alert,
+  AlertDetail,
+  AlertTransition,
   AuditEvent,
   DashboardSummary,
   DetectionRule,
@@ -12,10 +15,11 @@ import type {
   NotificationDelivery,
   Page,
   ReportJob,
+  TelemetryPoint,
   User,
 } from "./types";
 
-export const MOCK_ACTIVE = import.meta.env.VITE_USE_MOCK !== "false";
+export const MOCK_ACTIVE = import.meta.env.VITE_USE_MOCK === "true";
 
 export interface CurrentUserLike {
   id: string;
@@ -32,6 +36,16 @@ function uuid(seed: number): string {
 const now = Date.now();
 const iso = (offsetMin: number) => new Date(now - offsetMin * 60_000).toISOString();
 const delay = (ms = 150) => new Promise((r) => setTimeout(r, ms));
+let mockSeq = 9000;
+
+/** 确定性伪随机（基于种子），避免每次渲染波动 */
+function seeded(seed: number): () => number {
+  let s = seed;
+  return () => {
+    s = (s * 1103515245 + 12345) & 0x7fffffff;
+    return s / 0x7fffffff;
+  };
+}
 
 // ---- 模拟数据 ----
 
@@ -55,13 +69,13 @@ export const mockHosts: Host[] = [
 ];
 
 export const mockRules: DetectionRule[] = [
-  { id: uuid(300), name: "CPU 持续高负载", description: "CPU 使用率超过 85% 且持续 5 分钟", severity: "high", enabled: true, kind: "metric", window_seconds: 300, threshold: 85, updated_at: iso(60 * 24 * 3) },
-  { id: uuid(310), name: "内存接近耗尽", description: "内存使用率超过 90%", severity: "high", enabled: true, kind: "metric", window_seconds: 300, threshold: 90, updated_at: iso(60 * 24 * 3) },
-  { id: uuid(320), name: "磁盘空间告警", description: "磁盘使用率超过 85%", severity: "medium", enabled: true, kind: "metric", window_seconds: 600, threshold: 85, updated_at: iso(60 * 24 * 3) },
-  { id: uuid(330), name: "异常登录尝试", description: "单台主机 10 分钟内超过 5 次登录失败", severity: "critical", enabled: true, kind: "event", window_seconds: 600, threshold: 5, updated_at: iso(60 * 24 * 2) },
-  { id: uuid(340), name: "敏感文件变更", description: "/etc/passwd、/etc/shadow 等关键文件被修改", severity: "critical", enabled: true, kind: "fim", window_seconds: 60, threshold: 1, updated_at: iso(60 * 24 * 2) },
-  { id: uuid(350), name: "新开放高危端口", description: "出现新的 22/3389/3306 等端口监听", severity: "medium", enabled: false, kind: "port", window_seconds: 600, threshold: 1, updated_at: iso(60 * 24 * 6) },
-  { id: uuid(360), name: "基线合规项失败", description: "安全基线检查出现失败项", severity: "medium", enabled: true, kind: "baseline", window_seconds: 86400, threshold: 1, updated_at: iso(60 * 24 * 1) },
+  { id: uuid(300), name: "CPU 持续高负载", description: "CPU 使用率超过 85% 且持续 5 分钟", severity: "high", enabled: true, kind: "metric", condition_field: "cpu_percent", condition_op: ">=", window_seconds: 300, threshold: 85, updated_at: iso(60 * 24 * 3) },
+  { id: uuid(310), name: "内存接近耗尽", description: "内存使用率超过 90%", severity: "high", enabled: true, kind: "metric", condition_field: "memory_percent", condition_op: ">=", window_seconds: 300, threshold: 90, updated_at: iso(60 * 24 * 3) },
+  { id: uuid(320), name: "磁盘空间告警", description: "磁盘使用率超过 85%", severity: "medium", enabled: true, kind: "metric", condition_field: "disk_percent", condition_op: ">=", window_seconds: 600, threshold: 85, updated_at: iso(60 * 24 * 3) },
+  { id: uuid(330), name: "异常登录尝试", description: "单台主机 10 分钟内超过 5 次登录失败", severity: "critical", enabled: true, kind: "event", condition_field: "login_failures", condition_op: ">=", window_seconds: 600, threshold: 5, updated_at: iso(60 * 24 * 2) },
+  { id: uuid(340), name: "敏感文件变更", description: "/etc/passwd、/etc/shadow 等关键文件被修改", severity: "critical", enabled: true, kind: "fim", condition_field: "file_changes", condition_op: ">=", window_seconds: 60, threshold: 1, updated_at: iso(60 * 24 * 2) },
+  { id: uuid(350), name: "新开放高危端口", description: "出现新的 22/3389/3306 等端口监听", severity: "medium", enabled: false, kind: "port", condition_field: "high_risk_port", condition_op: ">=", window_seconds: 600, threshold: 1, updated_at: iso(60 * 24 * 6) },
+  { id: uuid(360), name: "基线合规项失败", description: "安全基线检查出现失败项", severity: "medium", enabled: true, kind: "baseline", condition_field: "baseline_fails", condition_op: ">=", window_seconds: 86400, threshold: 1, updated_at: iso(60 * 24 * 1) },
 ];
 
 export const mockAlerts: Alert[] = [
@@ -76,11 +90,11 @@ export const mockAlerts: Alert[] = [
 ];
 
 export const mockReports: ReportJob[] = [
-  { id: uuid(500), title: "7 月安全态势周报", status: "completed", requested_by: "admin", requested_at: iso(60 * 24 * 2), expires_at: iso(60 * 24 * 12), error: null },
-  { id: uuid(501), title: "全量主机基线合规报告", status: "running", requested_by: "li.wei", requested_at: iso(30), expires_at: null, error: null },
-  { id: uuid(502), title: "告警统计月报", status: "pending", requested_by: "zhang.yu", requested_at: iso(5), expires_at: null, error: null },
-  { id: uuid(503), title: "异常登录专项分析", status: "failed", requested_by: "li.wei", requested_at: iso(60 * 24 * 1), expires_at: null, error: "导出阶段超时" },
-  { id: uuid(504), title: "季度风险清单", status: "expired", requested_by: "admin", requested_at: iso(60 * 24 * 40), expires_at: iso(60 * 24 * 10), error: null },
+  { id: uuid(500), title: "7 月安全态势周报", status: "completed", scope: "all_hosts", report_type: "summary", format: "pdf", requested_by: "admin", requested_at: iso(60 * 24 * 2), expires_at: iso(60 * 24 * 12), error: null },
+  { id: uuid(501), title: "全量主机基线合规报告", status: "running", scope: "baseline", report_type: "baseline_compliance", format: "csv", requested_by: "li.wei", requested_at: iso(30), expires_at: null, error: null },
+  { id: uuid(502), title: "告警统计月报", status: "pending", scope: "alerts", report_type: "alert_analysis", format: "html", requested_by: "zhang.yu", requested_at: iso(5), expires_at: null, error: null },
+  { id: uuid(503), title: "异常登录专项分析", status: "failed", scope: "alerts", report_type: "alert_analysis", format: "pdf", requested_by: "li.wei", requested_at: iso(60 * 24 * 1), expires_at: null, error: "导出阶段超时" },
+  { id: uuid(504), title: "季度风险清单", status: "expired", scope: "all_hosts", report_type: "summary", format: "pdf", requested_by: "admin", requested_at: iso(60 * 24 * 40), expires_at: iso(60 * 24 * 10), error: null },
 ];
 
 export const mockChannels: NotificationChannel[] = [
@@ -105,6 +119,30 @@ export const mockAudit: AuditEvent[] = [
   { id: uuid(705), actor: "li.wei", action: "alert.transition", resource_type: "alert", resource_id: uuid(406), outcome: "success", detail: "告警状态 open → investigating", occurred_at: iso(60 * 4), ip: "10.0.0.3" },
 ];
 
+// ---- 由静态数据派生：告警状态历史 ----
+
+function transitionsFor(alert: Alert): AlertTransition[] {
+  switch (alert.status) {
+    case "resolved":
+      return [
+        { id: uuid(800 + mockAlerts.indexOf(alert) * 10), from_status: "open", to_status: "investigating", comment: "开始排查", actor: alert.assignee ?? "li.wei", occurred_at: iso(60 * 27) },
+        { id: uuid(801 + mockAlerts.indexOf(alert) * 10), from_status: "investigating", to_status: "resolved", comment: "确认安全，关闭告警", actor: alert.assignee ?? "li.wei", occurred_at: iso(60 * 25) },
+      ];
+    case "ignored":
+      return [
+        { id: uuid(810 + mockAlerts.indexOf(alert) * 10), from_status: "open", to_status: "ignored", comment: "误报，忽略", actor: alert.assignee ?? "admin", occurred_at: iso(60 * 49) },
+      ];
+    case "investigating":
+      return [
+        { id: uuid(820 + mockAlerts.indexOf(alert) * 10), from_status: "open", to_status: "investigating", comment: "开始排查", actor: alert.assignee ?? "li.wei", occurred_at: iso(60 * 24) },
+      ];
+    default:
+      return [];
+  }
+}
+
+// ---- 派生 dashboard 数据 ----
+
 export const mockDashboard: DashboardSummary = {
   hosts_total: mockHosts.length,
   hosts_online: mockHosts.filter((h) => h.status === "online").length,
@@ -116,11 +154,60 @@ export const mockDashboard: DashboardSummary = {
   alerts_today: 8,
   events_today: 1243,
   rules_enabled: mockRules.filter((r) => r.enabled).length,
+  alert_distribution: {
+    critical: mockAlerts.filter((a) => a.severity === "critical").length,
+    high: mockAlerts.filter((a) => a.severity === "high").length,
+    medium: mockAlerts.filter((a) => a.severity === "medium").length,
+    low: mockAlerts.filter((a) => a.severity === "low").length,
+  },
+  risk_trend: buildRiskTrend(),
   recent_alerts: mockAlerts.slice(0, 5),
 };
 
+function buildRiskTrend() {
+  const rnd = seeded(42);
+  const days: { date: string; critical: number; high: number; medium: number; low: number }[] = [];
+  for (let i = 13; i >= 0; i -= 1) {
+    const d = new Date(now - i * 24 * 60 * 60 * 1000);
+    const date = `${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    days.push({
+      date,
+      critical: Math.round(rnd() * 2),
+      high: Math.round(1 + rnd() * 4),
+      medium: Math.round(2 + rnd() * 5),
+      low: Math.round(1 + rnd() * 4),
+    });
+  }
+  return days;
+}
+
+// ---- 主机详情与遥测 ----
+
+function genTelemetry(host: Host, points = 30, intervalMin = 2): TelemetryPoint[] {
+  const rnd = seeded(Number(host.id.slice(0, 4)) || 7);
+  const baseCpu = host.metrics?.cpu_percent ?? 20;
+  const baseMem = host.metrics?.memory_percent ?? 40;
+  const baseSent = host.metrics?.network_bytes_sent ?? 1_000_000;
+  const baseRecv = host.metrics?.network_bytes_recv ?? 3_000_000;
+  const out: TelemetryPoint[] = [];
+  for (let i = points; i > 0; i -= 1) {
+    const wave = Math.sin(i / 3) * 6;
+    const cpu = Math.max(0, Math.min(99, baseCpu + wave + (rnd() - 0.5) * 10));
+    const mem = Math.max(0, Math.min(99, baseMem + (rnd() - 0.5) * 6));
+    out.push({
+      collected_at: new Date(now - i * intervalMin * 60_000).toISOString(),
+      cpu_percent: Number(cpu.toFixed(1)),
+      memory_percent: Number(mem.toFixed(1)),
+      network_bytes_sent: Math.round(baseSent * (0.9 + rnd() * 0.2)),
+      network_bytes_recv: Math.round(baseRecv * (0.9 + rnd() * 0.2)),
+    });
+  }
+  return out;
+}
+
 export const mockHostDetail = (host: Host): HostDetail => ({
   ...host,
+  telemetry: genTelemetry(host),
   process_snapshot: [
     { pid: 1, name: "systemd", username: "root", started_at: iso(60 * 24 * 3) },
     { pid: 892, name: "mysqld", username: "mysql", started_at: iso(60 * 24 * 20) },
@@ -184,23 +271,30 @@ export async function mockLogin(username: string, password: string): Promise<{ t
   };
 }
 
-interface MockContext {
+export interface MockContext {
   method: string;
   path: string;
   params: URLSearchParams;
+  body?: unknown;
 }
 
-/** 匹配 /hosts/{id} 形式路径 */
-function matchHostId(path: string): string | null {
-  const m = /^\/hosts\/([0-9a-f-]{36})$/.exec(path);
-  return m?.[1] ?? null;
+const UUID_RE = "[0-9a-f-]{36}";
+
+function matcher(pattern: RegExp, path: string): RegExpMatchArray | null {
+  return pattern.exec(path);
 }
 
 export async function handleMock(ctx: MockContext): Promise<unknown> {
-  const { path, params } = ctx;
+  const { path, params, method, body } = ctx;
   await delay();
 
   switch (path) {
+    case "/auth/csrf":
+      return { token: `mock-csrf-${Date.now()}` };
+    case "/auth/logout":
+      return undefined;
+    case "/auth/me":
+      return { user: { id: uuid(999), username: "admin", display_name: "安全管理员", role: "admin" } };
     case "/dashboard/summary":
       return mockDashboard;
     case "/hosts":
@@ -219,14 +313,157 @@ export async function handleMock(ctx: MockContext): Promise<unknown> {
       return paginate(mockUsers, params);
     case "/audit":
       return paginate(mockAudit, params);
-    default: {
-      const hostId = matchHostId(path);
-      if (hostId) {
-        const host = mockHosts.find((h) => h.id === hostId);
-        if (!host) throw new MockNotFoundError(path);
-        return mockHostDetail(host);
-      }
+    default:
+      break;
+  }
+
+  // /reports/{id}/download
+  const reportDownload = matcher(new RegExp(`^/reports/(${UUID_RE})/download$`), path);
+  if (reportDownload) {
+    const report = mockReports.find((r) => r.id === reportDownload[1]);
+    if (!report || report.status !== "completed") {
       throw new MockNotFoundError(path);
     }
+    return new Blob([`HostGuard 报告：${report.title}\n这是一份由本地 mock 生成的演示报告。`], {
+      type: "application/pdf",
+    });
   }
+
+  // /notifications/channels/{id}/test
+  const channelTest = matcher(new RegExp(`^/notifications/channels/(${UUID_RE})/test$`), path);
+  if (channelTest) {
+    const channel = mockChannels.find((c) => c.id === channelTest[1]);
+    if (!channel) throw new MockNotFoundError(path);
+    const delivery: NotificationDelivery = {
+      id: uuid(++mockSeq),
+      channel_id: channel.id,
+      channel_name: channel.name,
+      status: "sent",
+      subject: "【HostGuard】渠道测试消息",
+      attempted_at: new Date().toISOString(),
+      error: null,
+    };
+    mockDeliveries.unshift(delivery);
+    return delivery;
+  }
+
+  // /notifications/channels/{id}
+  const channelId = matcher(new RegExp(`^/notifications/channels/(${UUID_RE})$`), path);
+  if (channelId) {
+    const channel = mockChannels.find((c) => c.id === channelId[1]);
+    if (!channel) throw new MockNotFoundError(path);
+    if (method === "PATCH") {
+      Object.assign(channel, body ?? {});
+      return channel;
+    }
+    return channel;
+  }
+
+  // /notifications/channels (POST 新建)
+  if (path === "/notifications/channels" && method === "POST") {
+    const b = (body ?? {}) as Partial<NotificationChannel>;
+    const channel: NotificationChannel = {
+      id: uuid(++mockSeq),
+      name: String(b.name ?? "未命名渠道"),
+      type: (b.type as NotificationChannel["type"]) ?? "email",
+      enabled: b.enabled ?? true,
+      target: String(b.target ?? ""),
+      created_at: new Date().toISOString(),
+    };
+    mockChannels.push(channel);
+    return channel;
+  }
+
+  // /rules/{id} (PATCH)
+  const ruleId = matcher(new RegExp(`^/rules/(${UUID_RE})$`), path);
+  if (ruleId) {
+    const rule = mockRules.find((r) => r.id === ruleId[1]);
+    if (!rule) throw new MockNotFoundError(path);
+    if (method === "PATCH") {
+      Object.assign(rule, body ?? {});
+      rule.updated_at = new Date().toISOString();
+      return rule;
+    }
+    return rule;
+  }
+
+  // /rules (POST 新建)
+  if (path === "/rules" && method === "POST") {
+    const b = (body ?? {}) as Partial<DetectionRule>;
+    const rule: DetectionRule = {
+      id: uuid(++mockSeq),
+      name: String(b.name ?? "未命名规则"),
+      description: String(b.description ?? ""),
+      severity: (b.severity as DetectionRule["severity"]) ?? "medium",
+      enabled: b.enabled ?? true,
+      kind: String(b.kind ?? "metric"),
+      condition_field: String(b.condition_field ?? "cpu_percent"),
+      condition_op: String(b.condition_op ?? ">="),
+      window_seconds: Number(b.window_seconds ?? 300),
+      threshold: Number(b.threshold ?? 1),
+      updated_at: new Date().toISOString(),
+    };
+    mockRules.push(rule);
+    return rule;
+  }
+
+  // /reports (POST 创建)
+  if (path === "/reports" && method === "POST") {
+    const b = (body ?? {}) as Partial<ReportJob>;
+    const report: ReportJob = {
+      id: uuid(++mockSeq),
+      title: String(b.title ?? "安全报告"),
+      status: "pending",
+      scope: String(b.scope ?? "all_hosts"),
+      report_type: String(b.report_type ?? "summary"),
+      format: String(b.format ?? "pdf"),
+      requested_by: "admin",
+      requested_at: new Date().toISOString(),
+      expires_at: null,
+      error: null,
+    };
+    mockReports.unshift(report);
+    return report;
+  }
+
+  // /alerts/{id}/transitions (POST)
+  const alertTransition = matcher(new RegExp(`^/alerts/(${UUID_RE})/transitions$`), path);
+  if (alertTransition && method === "POST") {
+    const alert = mockAlerts.find((a) => a.id === alertTransition[1]);
+    if (!alert) throw new MockNotFoundError(path);
+    const b = (body ?? {}) as { to_status?: Alert["status"]; comment?: string };
+    const toStatus = b.to_status ?? "resolved";
+    const history = transitionsFor(alert);
+    const transition: AlertTransition = {
+      id: uuid(++mockSeq),
+      from_status: alert.status,
+      to_status: toStatus,
+      comment: b.comment ?? null,
+      actor: "admin",
+      occurred_at: new Date().toISOString(),
+    };
+    alert.status = toStatus;
+    alert.updated_at = transition.occurred_at;
+    const detail: AlertDetail = { ...alert, transitions: [...history, transition] };
+    return detail;
+  }
+
+  // /alerts/{id}
+  const alertId = matcher(new RegExp(`^/alerts/(${UUID_RE})$`), path);
+  if (alertId) {
+    const alert = mockAlerts.find((a) => a.id === alertId[1]);
+    if (!alert) throw new MockNotFoundError(path);
+    const detail: AlertDetail = { ...alert, transitions: transitionsFor(alert) };
+    return detail;
+  }
+
+  // /hosts/{id}
+  const hostId = matcher(new RegExp(`^/hosts/(${UUID_RE})$`), path);
+  if (hostId) {
+    const host = mockHosts.find((h) => h.id === hostId[1]);
+    if (!host) throw new MockNotFoundError(path);
+    return mockHostDetail(host);
+  }
+
+  throw new MockNotFoundError(path);
 }
