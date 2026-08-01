@@ -23,6 +23,23 @@ HEADER_NONCE = "X-HG-Nonce"
 HEADER_SIGNATURE = "X-HG-Signature"
 
 
+def _secret_bytes(secret: str) -> bytes:
+    """Return the raw key bytes for HMAC signing.
+
+    The enrollment endpoint returns the agent secret as a lowercase hex
+    string; the server derives the HMAC key from the raw 32 bytes, so the
+    agent must convert the hex back to bytes before signing. Plain-string
+    secrets (used in tests) fall back to UTF-8 encoding.
+    """
+    try:
+        decoded = bytes.fromhex(secret)
+    except ValueError:
+        return secret.encode("utf-8")
+    if len(decoded) == 32:
+        return decoded
+    return secret.encode("utf-8")
+
+
 def build_signature(
     *,
     secret: str,
@@ -47,7 +64,9 @@ def build_signature(
             body_digest,
         )
     )
-    return hmac.new(secret.encode("utf-8"), canonical.encode("utf-8"), hashlib.sha256).hexdigest()
+    return hmac.new(
+        _secret_bytes(secret), canonical.encode("utf-8"), hashlib.sha256
+    ).hexdigest()
 
 
 def signed_headers(

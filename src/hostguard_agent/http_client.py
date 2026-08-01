@@ -14,9 +14,9 @@ payloads are serialized deterministically before signing.
 from __future__ import annotations
 
 import json
-import time
 import uuid
 from collections.abc import Callable
+from datetime import UTC, datetime
 from typing import Any, Protocol
 
 import httpx
@@ -41,7 +41,13 @@ class HttpClient(Protocol):
 
 
 def _default_clock() -> str:
-    return str(int(time.time()))
+    """Return the current UTC time in ISO-8601 with a trailing ``Z``.
+
+    The shared conventions (``contracts/conventions.md``) require every
+    timestamp to be UTC ISO-8601; the server parses the header with
+    ``datetime.fromisoformat`` and rejects epoch integers.
+    """
+    return datetime.now(UTC).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
 def _default_nonce() -> str:

@@ -1,9 +1,25 @@
 from __future__ import annotations
 
+import re
+from datetime import UTC, datetime
+
 import httpx
 
-from hostguard_agent.http_client import APIClientError, SignedHTTPClient
+from hostguard_agent.http_client import APIClientError, SignedHTTPClient, _default_clock
 from hostguard_agent.signing import build_signature
+
+
+def test_default_clock_emits_iso8601_utc_with_z() -> None:
+    """The shared conventions require UTC ISO-8601 with a trailing ``Z``.
+
+    The server parses ``X-HG-Timestamp`` with ``datetime.fromisoformat``,
+    so epoch integers are rejected. Guard against regressions here.
+    """
+    value = _default_clock()
+    assert re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z", value)
+    parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    assert parsed.tzinfo == UTC
+
 
 
 def test_post_json_sends_signed_headers_and_body() -> None:

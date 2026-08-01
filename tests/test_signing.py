@@ -41,3 +41,24 @@ def test_signed_headers_include_agent_identity_and_lowercase_hex_signature() -> 
     assert len(headers["X-HG-Signature"]) == 64
     assert headers["X-HG-Signature"].isalnum()
     assert headers["X-HG-Signature"] == headers["X-HG-Signature"].lower()
+
+
+def test_hex_secret_is_used_as_raw_bytes_for_hmac_key() -> None:
+    """Enrollment returns the secret as hex; the server signs with raw bytes."""
+    raw = bytes(range(32))
+    secret_hex = raw.hex()
+    body = b'{"batch_id":"b1"}'
+    canonical = (
+        "1700000000\nnonce-hex\nPOST\n/api/v1/agent/batches\n" + hashlib.sha256(body).hexdigest()
+    )
+
+    result = build_signature(
+        secret=secret_hex,
+        timestamp="1700000000",
+        nonce="nonce-hex",
+        method="POST",
+        path="/api/v1/agent/batches",
+        body=body,
+    )
+
+    assert result == hmac.new(raw, canonical.encode(), hashlib.sha256).hexdigest()

@@ -1,1 +1,0 @@
-server not configured; collecting locally (server_url is required (set HOSTGUARD_SERVER_URL, a config file, or --server))
