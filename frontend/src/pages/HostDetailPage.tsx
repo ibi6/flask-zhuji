@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import {
+  Activity,
   ArrowLeft,
   Cpu,
   FileWarning,
@@ -23,6 +24,9 @@ import {
   SeverityBadge,
   formatTime,
 } from "@/components/ui";
+import { DualTrendChart, TrendChart } from "@/components/charts";
+import type { ChartPoint } from "@/components/charts";
+import { formatBytes } from "@/components/ui";
 
 type Tab = "overview" | "processes" | "ports" | "events" | "baseline";
 
@@ -33,6 +37,12 @@ const TABS: { key: Tab; label: string }[] = [
   { key: "events", label: "事件" },
   { key: "baseline", label: "基线" },
 ];
+
+/** 时间戳 → HH:mm 图表标签 */
+function toLabel(iso: string): string {
+  const d = new Date(iso);
+  return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+}
 
 export function HostDetailPage() {
   const { hostId } = useParams<{ hostId: string }>();
@@ -141,6 +151,15 @@ export function HostDetailPage() {
 }
 
 function OverviewTab({ host }: { host: HostDetail }) {
+  const cpuSeries: ChartPoint[] = host.telemetry.map((t) => ({ label: toLabel(t.collected_at), value: t.cpu_percent }));
+  const memSeries: ChartPoint[] = host.telemetry.map((t) => ({ label: toLabel(t.collected_at), value: t.memory_percent }));
+  const networkSeries = host.telemetry.length > 0
+    ? [
+        { name: "下行", color: "#4f46e5", points: host.telemetry.map((t) => ({ label: toLabel(t.collected_at), value: t.network_bytes_recv })) },
+        { name: "上行", color: "#7a63d8", points: host.telemetry.map((t) => ({ label: toLabel(t.collected_at), value: t.network_bytes_sent })) },
+      ]
+    : [];
+
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
       {host.metrics ? (
@@ -177,6 +196,28 @@ function OverviewTab({ host }: { host: HostDetail }) {
           )}
         </dl>
       </Card>
+
+      {host.telemetry.length > 0 && (
+        <Card className="lg:col-span-2">
+          <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-slate-800">
+            <Activity className="h-4 w-4 text-brand-500" aria-hidden /> 资源趋势（近 1 小时遥测）
+          </h3>
+          <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+            <div>
+              <p className="mb-2 text-xs font-medium text-slate-500">CPU 使用率</p>
+              <TrendChart points={cpuSeries} color="#6a4cc8" ariaLabel="CPU 使用率趋势" />
+            </div>
+            <div>
+              <p className="mb-2 text-xs font-medium text-slate-500">内存使用率</p>
+              <TrendChart points={memSeries} color="#4f46e5" ariaLabel="内存使用率趋势" />
+            </div>
+            <div className="xl:col-span-2">
+              <p className="mb-2 text-xs font-medium text-slate-500">网络流量</p>
+              <DualTrendChart series={networkSeries} formatValue={(v) => formatBytes(v)} ariaLabel="网络流量趋势" />
+            </div>
+          </div>
+        </Card>
+      )}
 
       {host.file_changes.length > 0 && (
         <Card className="lg:col-span-2">

@@ -1,7 +1,7 @@
-// 审计日志页：仅 admin 可访问（路由层已做 RoleGuard，这里做二次防御）
+// 审计日志页：viewer 及以上可读（与 contracts 一致）
 
 import { useQuery } from "@tanstack/react-query";
-import { Navigate } from "react-router-dom";
+import { Search } from "lucide-react";
 import { useState } from "react";
 import { apiGet } from "@/lib/api";
 import type { AuditEvent, Page } from "@/lib/types";
@@ -12,22 +12,19 @@ import {
   QueryState,
   formatTime,
 } from "@/components/ui";
-import { useAuth } from "@/store/auth";
 
 const PAGE_SIZE = 20;
 
 export function AuditPage() {
-  const { user } = useAuth();
   const [page, setPage] = useState(1);
-
-  // 二次角色防御：路由守卫已拦截，此处兜底
-  if (user && user.role !== "admin") {
-    return <Navigate to="/overview" replace />;
-  }
+  const [search, setSearch] = useState("");
 
   const { data, isPending, error, refetch } = useQuery({
-    queryKey: ["audit", page],
-    queryFn: () => apiGet<Page<AuditEvent>>("/audit", { query: { page, page_size: PAGE_SIZE } }),
+    queryKey: ["audit", page, search],
+    queryFn: () =>
+      apiGet<Page<AuditEvent>>("/audit", {
+        query: { page, page_size: PAGE_SIZE, q: search || undefined },
+      }),
   });
 
   const outcomeStyle: Record<string, string> = {
@@ -38,6 +35,20 @@ export function AuditPage() {
   return (
     <div className="animate-fade-in">
       <PageHeader title="审计日志" description="平台所有用户操作与安全事件的审计记录" />
+
+      <div className="mb-4 flex items-center gap-3">
+        <div className="relative max-w-xs flex-1">
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" style={{ color: "var(--input-icon)" }} aria-hidden />
+          <input
+            type="search"
+            className="input pl-9"
+            placeholder="搜索操作人、动作…"
+            value={search}
+            onChange={(e) => { setSearch(e.target.value); setPage(1); }}
+            aria-label="搜索审计日志"
+          />
+        </div>
+      </div>
 
       <div className="card overflow-hidden p-0">
         <QueryState data={data} isPending={isPending} error={error} onRetry={() => refetch()}>

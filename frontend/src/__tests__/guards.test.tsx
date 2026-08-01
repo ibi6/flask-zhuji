@@ -3,9 +3,26 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ProtectedRoute, RoleRoute } from "@/routes/guards";
 import { AuthProvider, type AuthUser } from "@/store/auth";
+
+// 拦截 CSRF / 会话校验，避免测试环境发起真实网络请求
+vi.mock("@/lib/api", async (orig) => {
+  const actual = await orig<typeof import("@/lib/api")>();
+  return {
+    ...actual,
+    refreshCsrf: vi.fn(async () => undefined),
+    apiGet: vi.fn(async (path: string) => {
+      if (path === "/auth/me") {
+        const raw = sessionStorage.getItem("hostguard.user");
+        if (!raw) throw new actual.ApiError({ error: { code: "UNAUTHORIZED", message: "未登录", request_id: "t" } }, 401);
+        return { user: JSON.parse(raw) };
+      }
+      return actual.apiGet(path);
+    }),
+  };
+});
 
 function setUser(user: AuthUser | null) {
   if (user) {
@@ -25,6 +42,9 @@ function renderRouter(initialPath: string, extra?: React.ReactNode) {
             <Route element={<ProtectedRoute />}>
               <Route element={<RoleRoute minRole="admin" />}>
                 <Route path="/admin-only" element={<p>admin 内容</p>} />
+              </Route>
+              <Route element={<RoleRoute minRole="analyst" />}>
+                <Route path="/analyst-only" element={<p>analyst 内容</p>} />
               </Route>
               <Route path="/dashboard" element={<p>仪表盘</p>} />
             </Route>
@@ -50,6 +70,13 @@ const viewerUser: AuthUser = {
   username: "viewer",
   display_name: "访客",
   role: "viewer",
+};
+
+const analystUser: AuthUser = {
+  id: "u3",
+  username: "analyst",
+  display_name: "分析员",
+  role: "analyst",
 };
 
 describe("路由守卫", () => {
@@ -79,5 +106,17 @@ describe("路由守卫", () => {
     setUser(adminUser);
     renderRouter("/admin-only");
     expect(screen.getByText("admin 内容")).toBeInTheDocument();
+  });
+
+  it("viewer 不能访问 analyst 页面，重定向到总览", () => {
+    setUser(viewerUser);
+    renderRouter("/analyst-only");
+    expect(screen.getByText("总览页")).toBeInTheDocument();
+  });
+
+  it("analyst 可以访问 analyst 页面", () => {
+    setUser(analystUser);
+    renderRouter("/analyst-only");
+    expect(screen.getByText("analyst 内容")).toBeInTheDocument();
   });
 });

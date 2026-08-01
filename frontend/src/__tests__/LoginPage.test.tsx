@@ -7,6 +7,7 @@ import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { LoginPage } from "@/pages/LoginPage";
 import { AuthProvider } from "@/store/auth";
+import { ThemeProvider } from "@/store/theme";
 
 // mock 模式下 mockLogin 会被调用
 vi.mock("@/lib/mock", () => ({
@@ -32,9 +33,11 @@ function renderLogin() {
   return render(
     <QueryClientProvider client={qc}>
       <MemoryRouter>
-        <AuthProvider>
-          <LoginPage />
-        </AuthProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <LoginPage />
+          </AuthProvider>
+        </ThemeProvider>
       </MemoryRouter>
     </QueryClientProvider>,
   );
@@ -45,18 +48,22 @@ describe("LoginPage", () => {
     sessionStorage.clear();
   });
 
-  it("渲染登录表单", () => {
+  it("渲染登录表单与角色入口", () => {
     renderLogin();
-    expect(screen.getByRole("heading", { name: "HostGuard" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "安全登录" })).toBeInTheDocument();
     expect(screen.getByLabelText("用户名")).toBeInTheDocument();
     expect(screen.getByLabelText("密码")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /登/ })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "登 录" })).toBeInTheDocument();
+    expect(screen.getByRole("group", { name: "演示角色选择" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /以管理员身份登录/ })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /以分析员身份登录/ })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /以只读用户身份登录/ })).toBeInTheDocument();
   });
 
   it("空表单提交显示错误", async () => {
     const user = userEvent.setup();
     renderLogin();
-    await user.click(screen.getByRole("button", { name: /登/ }));
+    await user.click(screen.getByRole("button", { name: "登 录" }));
     expect(screen.getByText("请输入用户名和密码")).toBeInTheDocument();
   });
 
@@ -67,7 +74,7 @@ describe("LoginPage", () => {
     expect(screen.getByText(/开发模式/)).toBeInTheDocument();
     await user.type(screen.getByLabelText("用户名"), "admin");
     await user.type(screen.getByLabelText("密码"), "admin123");
-    await user.click(screen.getByRole("button", { name: /登/ }));
+    await user.click(screen.getByRole("button", { name: "登 录" }));
     // 登录成功后 user 信息写入 sessionStorage
     const stored = sessionStorage.getItem("hostguard.user");
     expect(stored).toBeTruthy();
@@ -79,7 +86,7 @@ describe("LoginPage", () => {
     const user = userEvent.setup();
     renderLogin();
     await user.type(screen.getByLabelText("用户名"), "admin");
-    await user.click(screen.getByRole("button", { name: /登/ }));
+    await user.click(screen.getByRole("button", { name: "登 录" }));
     expect(screen.getByText("请输入用户名和密码")).toBeInTheDocument();
   });
 });

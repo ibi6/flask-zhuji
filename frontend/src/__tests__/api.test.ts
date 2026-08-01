@@ -1,7 +1,7 @@
 // API 客户端错误处理测试
 
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { ApiError, apiGet } from "@/lib/api";
+import { ApiError, apiGet, refreshCsrf, clearCsrfToken } from "@/lib/api";
 import type { ErrorEnvelope } from "@/lib/types";
 
 // 关闭 mock 模式，让 apiGet 走真实 fetch 分支
@@ -65,5 +65,18 @@ describe("API 客户端错误处理", () => {
     );
 
     await expect(apiGet("/dashboard/summary")).resolves.toEqual(data);
+  });
+
+  it("refreshCsrf 从 csrf_token 字段读取真实后端 token", async () => {
+    clearCsrfToken();
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify({ csrf_token: "real-csrf-abc" }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+
+    await refreshCsrf();
+    expect(window.sessionStorage.getItem("hostguard.csrf")).toBe("real-csrf-abc");
   });
 });

@@ -1,8 +1,13 @@
-// 本地 mock 适配器 —— 仅供开发模式使用（VITE_USE_MOCK 默认开启，设 "false" 关闭）。
+// 本地 mock 适配器 —— 仅供显式开发模式使用（VITE_USE_MOCK === "true" 才开启）。
 // 所有数据均为模拟数据，绝不可伪装为真实遥测；界面会常驻"开发模式"标注。
+// 默认走真实 API：mock 与真实数据绝不混用。
 
 import type {
+  AiAnalysisReport,
   Alert,
+  AlertDetail,
+  AlertTransition,
+  AssetRecord,
   AuditEvent,
   DashboardSummary,
   DetectionRule,
@@ -12,10 +17,13 @@ import type {
   NotificationDelivery,
   Page,
   ReportJob,
+  TelemetryPoint,
+  ThreatIndicator,
   User,
+  Vulnerability,
 } from "./types";
 
-export const MOCK_ACTIVE = import.meta.env.VITE_USE_MOCK !== "false";
+export const MOCK_ACTIVE = import.meta.env.VITE_USE_MOCK === "true";
 
 export interface CurrentUserLike {
   id: string;
@@ -24,14 +32,33 @@ export interface CurrentUserLike {
   role: "admin" | "analyst" | "viewer";
 }
 
+/** 确定性 UUID（标准 8-4-4-4-12，与后端 uuid4 格式一致） */
 function uuid(seed: number): string {
-  const hex = (n: number) => Math.abs(n).toString(16).padStart(8, "0").slice(-8);
-  return `${hex(seed)}-${hex(seed + 1)}-${hex(seed + 2)}-${hex(seed + 3)}-${hex(seed + 4)}`;
+  const mix = (base: number, len: number): string => {
+    let acc = "";
+    let n = base;
+    while (acc.length < len) {
+      acc += Math.abs(n).toString(16).padStart(8, "0");
+      n = (n * 1103515245 + 12345) & 0x7fffffff;
+    }
+    return acc.slice(0, len);
+  };
+  return `${mix(seed, 8)}-${mix(seed + 1, 4)}-${mix(seed + 2, 4)}-${mix(seed + 3, 4)}-${mix(seed + 4, 12)}`;
 }
 
 const now = Date.now();
 const iso = (offsetMin: number) => new Date(now - offsetMin * 60_000).toISOString();
 const delay = (ms = 150) => new Promise((r) => setTimeout(r, ms));
+let mockSeq = 9000;
+
+/** 确定性伪随机（基于种子），避免每次渲染波动 */
+function seeded(seed: number): () => number {
+  let s = seed;
+  return () => {
+    s = (s * 1103515245 + 12345) & 0x7fffffff;
+    return s / 0x7fffffff;
+  };
+}
 
 // ---- 模拟数据 ----
 
@@ -55,13 +82,13 @@ export const mockHosts: Host[] = [
 ];
 
 export const mockRules: DetectionRule[] = [
-  { id: uuid(300), name: "CPU 持续高负载", description: "CPU 使用率超过 85% 且持续 5 分钟", severity: "high", enabled: true, kind: "metric", window_seconds: 300, threshold: 85, updated_at: iso(60 * 24 * 3) },
-  { id: uuid(310), name: "内存接近耗尽", description: "内存使用率超过 90%", severity: "high", enabled: true, kind: "metric", window_seconds: 300, threshold: 90, updated_at: iso(60 * 24 * 3) },
-  { id: uuid(320), name: "磁盘空间告警", description: "磁盘使用率超过 85%", severity: "medium", enabled: true, kind: "metric", window_seconds: 600, threshold: 85, updated_at: iso(60 * 24 * 3) },
-  { id: uuid(330), name: "异常登录尝试", description: "单台主机 10 分钟内超过 5 次登录失败", severity: "critical", enabled: true, kind: "event", window_seconds: 600, threshold: 5, updated_at: iso(60 * 24 * 2) },
-  { id: uuid(340), name: "敏感文件变更", description: "/etc/passwd、/etc/shadow 等关键文件被修改", severity: "critical", enabled: true, kind: "fim", window_seconds: 60, threshold: 1, updated_at: iso(60 * 24 * 2) },
-  { id: uuid(350), name: "新开放高危端口", description: "出现新的 22/3389/3306 等端口监听", severity: "medium", enabled: false, kind: "port", window_seconds: 600, threshold: 1, updated_at: iso(60 * 24 * 6) },
-  { id: uuid(360), name: "基线合规项失败", description: "安全基线检查出现失败项", severity: "medium", enabled: true, kind: "baseline", window_seconds: 86400, threshold: 1, updated_at: iso(60 * 24 * 1) },
+  { id: uuid(300), name: "CPU 持续高负载", description: "CPU 使用率超过 85% 且持续 5 分钟", severity: "high", enabled: true, kind: "metric", condition_field: "cpu_percent", condition_op: ">=", window_seconds: 300, threshold: 85, updated_at: iso(60 * 24 * 3) },
+  { id: uuid(310), name: "内存接近耗尽", description: "内存使用率超过 90%", severity: "high", enabled: true, kind: "metric", condition_field: "memory_percent", condition_op: ">=", window_seconds: 300, threshold: 90, updated_at: iso(60 * 24 * 3) },
+  { id: uuid(320), name: "磁盘空间告警", description: "磁盘使用率超过 85%", severity: "medium", enabled: true, kind: "metric", condition_field: "disk_percent", condition_op: ">=", window_seconds: 600, threshold: 85, updated_at: iso(60 * 24 * 3) },
+  { id: uuid(330), name: "异常登录尝试", description: "单台主机 10 分钟内超过 5 次登录失败", severity: "critical", enabled: true, kind: "event", condition_field: "login_failures", condition_op: ">=", window_seconds: 600, threshold: 5, updated_at: iso(60 * 24 * 2) },
+  { id: uuid(340), name: "敏感文件变更", description: "/etc/passwd、/etc/shadow 等关键文件被修改", severity: "critical", enabled: true, kind: "fim", condition_field: "file_changes", condition_op: ">=", window_seconds: 60, threshold: 1, updated_at: iso(60 * 24 * 2) },
+  { id: uuid(350), name: "新开放高危端口", description: "出现新的 22/3389/3306 等端口监听", severity: "medium", enabled: false, kind: "port", condition_field: "high_risk_port", condition_op: ">=", window_seconds: 600, threshold: 1, updated_at: iso(60 * 24 * 6) },
+  { id: uuid(360), name: "基线合规项失败", description: "安全基线检查出现失败项", severity: "medium", enabled: true, kind: "baseline", condition_field: "baseline_fails", condition_op: ">=", window_seconds: 86400, threshold: 1, updated_at: iso(60 * 24 * 1) },
 ];
 
 export const mockAlerts: Alert[] = [
@@ -76,11 +103,11 @@ export const mockAlerts: Alert[] = [
 ];
 
 export const mockReports: ReportJob[] = [
-  { id: uuid(500), title: "7 月安全态势周报", status: "completed", requested_by: "admin", requested_at: iso(60 * 24 * 2), expires_at: iso(60 * 24 * 12), error: null },
-  { id: uuid(501), title: "全量主机基线合规报告", status: "running", requested_by: "li.wei", requested_at: iso(30), expires_at: null, error: null },
-  { id: uuid(502), title: "告警统计月报", status: "pending", requested_by: "zhang.yu", requested_at: iso(5), expires_at: null, error: null },
-  { id: uuid(503), title: "异常登录专项分析", status: "failed", requested_by: "li.wei", requested_at: iso(60 * 24 * 1), expires_at: null, error: "导出阶段超时" },
-  { id: uuid(504), title: "季度风险清单", status: "expired", requested_by: "admin", requested_at: iso(60 * 24 * 40), expires_at: iso(60 * 24 * 10), error: null },
+  { id: uuid(500), title: "7 月安全态势周报", status: "completed", scope: "all_hosts", report_type: "summary", format: "pdf", requested_by: "admin", requested_at: iso(60 * 24 * 2), expires_at: iso(60 * 24 * 12), error: null },
+  { id: uuid(501), title: "全量主机基线合规报告", status: "running", scope: "baseline", report_type: "baseline_compliance", format: "csv", requested_by: "li.wei", requested_at: iso(30), expires_at: null, error: null },
+  { id: uuid(502), title: "告警统计月报", status: "pending", scope: "alerts", report_type: "alert_analysis", format: "html", requested_by: "zhang.yu", requested_at: iso(5), expires_at: null, error: null },
+  { id: uuid(503), title: "异常登录专项分析", status: "failed", scope: "alerts", report_type: "alert_analysis", format: "pdf", requested_by: "li.wei", requested_at: iso(60 * 24 * 1), expires_at: null, error: "导出阶段超时" },
+  { id: uuid(504), title: "季度风险清单", status: "expired", scope: "all_hosts", report_type: "summary", format: "pdf", requested_by: "admin", requested_at: iso(60 * 24 * 40), expires_at: iso(60 * 24 * 10), error: null },
 ];
 
 export const mockChannels: NotificationChannel[] = [
@@ -105,6 +132,100 @@ export const mockAudit: AuditEvent[] = [
   { id: uuid(705), actor: "li.wei", action: "alert.transition", resource_type: "alert", resource_id: uuid(406), outcome: "success", detail: "告警状态 open → investigating", occurred_at: iso(60 * 4), ip: "10.0.0.3" },
 ];
 
+// ---- 由静态数据派生：告警状态历史 ----
+
+export const mockVulnerabilities: Vulnerability[] = [
+  { id: uuid(800), cve_id: "CVE-2024-1086", title: "Linux 内核 nf_tables 提权漏洞", severity: "critical", fix_status: "open", host_id: uuid(220), hostname: "db-mysql-01", cvss_score: 9.8, published_at: iso(60 * 24 * 30), discovered_at: iso(60 * 24 * 2) },
+  { id: uuid(801), cve_id: "CVE-2023-48795", title: "Terrapin SSH 协议降级攻击", severity: "high", fix_status: "in_progress", host_id: uuid(200), hostname: "web-prod-01", cvss_score: 7.5, published_at: iso(60 * 24 * 60), discovered_at: iso(60 * 24 * 5) },
+  { id: uuid(802), cve_id: "CVE-2024-3400", title: "Palo Alto PAN-OS 命令注入", severity: "critical", fix_status: "fixed", host_id: uuid(230), hostname: "app-pay-01", cvss_score: 10.0, published_at: iso(60 * 24 * 45), discovered_at: iso(60 * 24 * 20) },
+  { id: uuid(803), cve_id: "CVE-2023-44487", title: "HTTP/2 Rapid Reset 拒绝服务", severity: "high", fix_status: "open", host_id: uuid(210), hostname: "web-prod-02", cvss_score: 7.5, published_at: iso(60 * 24 * 90), discovered_at: iso(60 * 24 * 8) },
+  { id: uuid(804), cve_id: "CVE-2024-21413", title: "Microsoft Outlook 权限提升", severity: "medium", fix_status: "accepted", host_id: uuid(250), hostname: "win-terminal-02", cvss_score: 6.5, published_at: iso(60 * 24 * 40), discovered_at: iso(60 * 24 * 15) },
+  { id: uuid(805), cve_id: "CVE-2024-21762", title: "FortiOS SSL-VPN 越界写入", severity: "high", fix_status: "in_progress", host_id: uuid(240), hostname: "win-dc-01", cvss_score: 8.1, published_at: iso(60 * 24 * 25), discovered_at: iso(60 * 24 * 3) },
+];
+
+export const mockAssets: AssetRecord[] = mockHosts.map((h, i) => ({
+  id: h.id,
+  hostname: h.hostname,
+  os: h.os,
+  os_version: h.os_version,
+  tags: h.source === "simulated" ? ["实验室", "模拟"] : i % 2 === 0 ? ["生产", "核心"] : ["生产", "支付区"],
+  status: h.status,
+  ip_addresses: h.ip_addresses,
+  agent_version: h.agent_version ?? null,
+  last_seen_at: h.last_seen_at,
+  department: ["运维部", "研发部", "安全部", "支付业务部", "数据中心"][i % 5]!,
+}));
+
+export const mockThreatIndicators: ThreatIndicator[] = [
+  { id: uuid(900), ioc_type: "ip", value: "203.0.113.77", threat_type: "SSH 暴力破解", confidence: 92, source: "内部蜜罐", first_seen: iso(60 * 24 * 14), last_seen: iso(80), blocked: true },
+  { id: uuid(901), ioc_type: "ip", value: "198.51.100.14", threat_type: "WebShell 扫描", confidence: 85, source: "开源情报", first_seen: iso(60 * 24 * 30), last_seen: iso(60 * 12), blocked: true },
+  { id: uuid(902), ioc_type: "domain", value: "malware-c2.evil.example", threat_type: "C2 域名", confidence: 78, source: "威胁情报联盟", first_seen: iso(60 * 24 * 20), last_seen: iso(60 * 6), blocked: false },
+  { id: uuid(903), ioc_type: "domain", value: "phish-login.fake-bank.cn", threat_type: "钓鱼", confidence: 95, source: "PhishTank", first_seen: iso(60 * 24 * 10), last_seen: iso(60 * 2), blocked: true },
+  { id: uuid(904), ioc_type: "hash", value: "a3f5b8c2…e91d", threat_type: "勒索软件样本", confidence: 88, source: "VirusTotal", first_seen: iso(60 * 24 * 7), last_seen: iso(60 * 24), blocked: false },
+  { id: uuid(905), ioc_type: "ip", value: "185.220.101.42", threat_type: "Tor 出口节点", confidence: 60, source: "Tor Project", first_seen: iso(60 * 24 * 60), last_seen: iso(60 * 48), blocked: false },
+];
+
+export const mockAiReports: AiAnalysisReport[] = [
+  {
+    id: uuid(950),
+    title: "支付区 SSH 暴力破解关联分析",
+    generated_at: iso(30),
+    risk_score: 82,
+    risk_level: "high",
+    summary: "检测到来自 203.0.113.77 的 SSH 暴力破解与 app-pay-01 异常登录告警高度关联，攻击窗口集中在 08:00–20:00，疑似自动化扫描工具。",
+    attack_chain: ["外部扫描", "SSH 暴力破解", "异常登录失败", "潜在横向移动"],
+    affected_hosts: ["app-pay-01", "web-prod-01"],
+    recommendations: ["立即封禁 203.0.113.77", "启用 SSH 密钥认证并禁用密码登录", "对支付区主机启用 MFA"],
+    related_alert_count: 3,
+  },
+  {
+    id: uuid(951),
+    title: "数据库主机资源耗尽风险",
+    generated_at: iso(60 * 3),
+    risk_score: 71,
+    risk_level: "high",
+    summary: "db-mysql-01 磁盘与内存使用率持续超阈值，同时存在未修复高危 CVE，存在服务中断与数据泄露双重风险。",
+    attack_chain: ["资源监控告警", "漏洞未修复", "潜在数据外泄"],
+    affected_hosts: ["db-mysql-01"],
+    recommendations: ["清理 binlog 与归档日志", "优先修复 CVE-2024-1086", "配置磁盘自动扩容告警"],
+    related_alert_count: 2,
+  },
+  {
+    id: uuid(952),
+    title: "Windows 终端基线合规偏离",
+    generated_at: iso(60 * 8),
+    risk_score: 55,
+    risk_level: "medium",
+    summary: "win-terminal-02 基线检查 2 项失败，密码策略与自动更新未达标，可能被利用进行本地提权。",
+    attack_chain: ["基线检查失败", "弱密码策略", "本地提权风险"],
+    affected_hosts: ["win-terminal-02"],
+    recommendations: ["强制组策略更新", "启用 BitLocker", "安排补丁窗口"],
+    related_alert_count: 1,
+  },
+];
+
+function transitionsFor(alert: Alert): AlertTransition[] {
+  switch (alert.status) {
+    case "resolved":
+      return [
+        { id: uuid(800 + mockAlerts.indexOf(alert) * 10), from_status: "open", to_status: "investigating", comment: "开始排查", actor: alert.assignee ?? "li.wei", occurred_at: iso(60 * 27) },
+        { id: uuid(801 + mockAlerts.indexOf(alert) * 10), from_status: "investigating", to_status: "resolved", comment: "确认安全，关闭告警", actor: alert.assignee ?? "li.wei", occurred_at: iso(60 * 25) },
+      ];
+    case "ignored":
+      return [
+        { id: uuid(810 + mockAlerts.indexOf(alert) * 10), from_status: "open", to_status: "ignored", comment: "误报，忽略", actor: alert.assignee ?? "admin", occurred_at: iso(60 * 49) },
+      ];
+    case "investigating":
+      return [
+        { id: uuid(820 + mockAlerts.indexOf(alert) * 10), from_status: "open", to_status: "investigating", comment: "开始排查", actor: alert.assignee ?? "li.wei", occurred_at: iso(60 * 24) },
+      ];
+    default:
+      return [];
+  }
+}
+
+// ---- 派生 dashboard 数据 ----
+
 export const mockDashboard: DashboardSummary = {
   hosts_total: mockHosts.length,
   hosts_online: mockHosts.filter((h) => h.status === "online").length,
@@ -116,11 +237,117 @@ export const mockDashboard: DashboardSummary = {
   alerts_today: 8,
   events_today: 1243,
   rules_enabled: mockRules.filter((r) => r.enabled).length,
+  alert_distribution: {
+    critical: mockAlerts.filter((a) => a.severity === "critical").length,
+    high: mockAlerts.filter((a) => a.severity === "high").length,
+    medium: mockAlerts.filter((a) => a.severity === "medium").length,
+    low: mockAlerts.filter((a) => a.severity === "low").length,
+  },
+  risk_trend: buildRiskTrend(),
   recent_alerts: mockAlerts.slice(0, 5),
+  security_score: 78,
+  agent_online_rate: Math.round((mockHosts.filter((h) => h.status === "online").length / mockHosts.length) * 100),
+  attack_events: 156,
+  high_vulnerabilities: 23,
+  abnormal_logins: 47,
+  brute_force: 31,
+  malicious_processes: 8,
+  attack_trend_24h: buildAttackTrend24h(),
+  attack_types: [
+    { name: "SSH 爆破", count: 42 },
+    { name: "异常登录", count: 35 },
+    { name: "文件篡改", count: 18 },
+    { name: "WebShell", count: 12 },
+    { name: "异常进程", count: 9 },
+    { name: "提权尝试", count: 6 },
+  ],
+  top_attack_ips: [
+    { label: "203.0.113.77", value: 89, meta: "美国" },
+    { label: "198.51.100.14", value: 56, meta: "俄罗斯" },
+    { label: "192.0.2.55", value: 34, meta: "未知" },
+    { label: "185.220.101.42", value: 28, meta: "荷兰" },
+    { label: "103.21.244.0", value: 19, meta: "新加坡" },
+  ],
+  top_attacked_hosts: [
+    { label: "app-pay-01", value: 67 },
+    { label: "db-mysql-01", value: 45 },
+    { label: "web-prod-01", value: 32 },
+    { label: "win-terminal-02", value: 21 },
+    { label: "web-prod-02", value: 14 },
+  ],
+  attack_regions: [
+    { region: "亚太", count: 98 },
+    { region: "北美", count: 76 },
+    { region: "欧洲", count: 54 },
+    { region: "其他", count: 28 },
+  ],
+  ai_insight: {
+    summary: "过去 24 小时检测到 SSH 暴力破解与异常登录上升，支付区主机 app-pay-01 为首要攻击目标，建议优先加固 SSH 与 MFA。",
+    risk_level: "high",
+    recommendations: [
+      "对 app-pay-01 启用登录失败锁定与 IP 黑名单",
+      "检查 db-mysql-01 磁盘与内存告警关联项",
+      "更新「异常登录尝试」规则阈值并开启通知",
+    ],
+  },
 };
+
+function buildRiskTrend() {
+  const rnd = seeded(42);
+  const days: { date: string; critical: number; high: number; medium: number; low: number }[] = [];
+  for (let i = 13; i >= 0; i -= 1) {
+    const d = new Date(now - i * 24 * 60 * 60 * 1000);
+    const date = `${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    days.push({
+      date,
+      critical: Math.round(rnd() * 2),
+      high: Math.round(1 + rnd() * 4),
+      medium: Math.round(2 + rnd() * 5),
+      low: Math.round(1 + rnd() * 4),
+    });
+  }
+  return days;
+}
+
+function buildAttackTrend24h() {
+  const rnd = seeded(77);
+  const points: { hour: string; count: number }[] = [];
+  for (let i = 23; i >= 0; i -= 1) {
+    const d = new Date(now - i * 60 * 60 * 1000);
+    const hour = `${String(d.getHours()).padStart(2, "0")}:00`;
+    const base = i >= 8 && i <= 20 ? 8 : 3;
+    points.push({ hour, count: Math.round(base + rnd() * 6) });
+  }
+  return points;
+}
+
+// ---- 主机详情与遥测 ----
+
+function genTelemetry(host: Host, points = 30, intervalMin = 2): TelemetryPoint[] {
+  const rnd = seeded(Number(host.id.slice(0, 4)) || 7);
+  const baseCpu = host.metrics?.cpu_percent ?? 20;
+  const baseMem = host.metrics?.memory_percent ?? 40;
+  const baseSent = host.metrics?.network_bytes_sent ?? 1_000_000;
+  const baseRecv = host.metrics?.network_bytes_recv ?? 3_000_000;
+  const out: TelemetryPoint[] = [];
+  for (let i = points; i > 0; i -= 1) {
+    const wave = Math.sin(i / 3) * 6;
+    const cpu = Math.max(0, Math.min(99, baseCpu + wave + (rnd() - 0.5) * 10));
+    const mem = Math.max(0, Math.min(99, baseMem + (rnd() - 0.5) * 6));
+    out.push({
+      collected_at: new Date(now - i * intervalMin * 60_000).toISOString(),
+      cpu_percent: Number(cpu.toFixed(1)),
+      memory_percent: Number(mem.toFixed(1)),
+      network_bytes_sent: Math.round(baseSent * (0.9 + rnd() * 0.2)),
+      network_bytes_recv: Math.round(baseRecv * (0.9 + rnd() * 0.2)),
+    });
+  }
+  return out;
+}
 
 export const mockHostDetail = (host: Host): HostDetail => ({
   ...host,
+  telemetry: genTelemetry(host),
   process_snapshot: [
     { pid: 1, name: "systemd", username: "root", started_at: iso(60 * 24 * 3) },
     { pid: 892, name: "mysqld", username: "mysql", started_at: iso(60 * 24 * 20) },
@@ -171,36 +398,49 @@ export class MockNotFoundError extends Error {
   }
 }
 
-/** 模拟登录：admin/admin123 为管理员，其余任意账号按前缀分配角色 */
+/** 模拟登录：admin/analyst/viewer 映射对应角色，其余账号默认为 viewer */
 export async function mockLogin(username: string, password: string): Promise<{ token: string; user: CurrentUserLike }> {
   await delay(220);
   if (!username || !password) {
     throw new Error("请输入用户名和密码");
   }
-  const role = username === "admin" ? "admin" : username === "analyst" ? "analyst" : "viewer";
+  const role: CurrentUserLike["role"] =
+    username === "admin" ? "admin" : username === "analyst" ? "analyst" : "viewer";
+  const displayNames: Record<CurrentUserLike["role"], string> = {
+    admin: "安全管理员",
+    analyst: "安全分析员",
+    viewer: "只读观察员",
+  };
   return {
     token: `mock-token-${username}`,
-    user: { id: uuid(999), username, display_name: username === "admin" ? "安全管理员" : username, role },
+    user: { id: uuid(999), username, display_name: displayNames[role], role },
   };
 }
 
-interface MockContext {
+export interface MockContext {
   method: string;
   path: string;
   params: URLSearchParams;
+  body?: unknown;
 }
 
-/** 匹配 /hosts/{id} 形式路径 */
-function matchHostId(path: string): string | null {
-  const m = /^\/hosts\/([0-9a-f-]{36})$/.exec(path);
-  return m?.[1] ?? null;
+const UUID_RE = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}";
+
+function matcher(pattern: RegExp, path: string): RegExpMatchArray | null {
+  return pattern.exec(path);
 }
 
 export async function handleMock(ctx: MockContext): Promise<unknown> {
-  const { path, params } = ctx;
+  const { path, params, method, body } = ctx;
   await delay();
 
   switch (path) {
+    case "/auth/csrf":
+      return { token: `mock-csrf-${Date.now()}` };
+    case "/auth/logout":
+      return undefined;
+    case "/auth/me":
+      return { user: { id: uuid(999), username: "admin", display_name: "安全管理员", role: "admin" } };
     case "/dashboard/summary":
       return mockDashboard;
     case "/hosts":
@@ -215,18 +455,276 @@ export async function handleMock(ctx: MockContext): Promise<unknown> {
       return mockChannels;
     case "/notifications/deliveries":
       return paginate(mockDeliveries, params);
-    case "/users":
-      return paginate(mockUsers, params);
+    case "/users": {
+      const q = (params.get("search") ?? params.get("q") ?? "").trim().toLowerCase();
+      const filtered = q
+        ? mockUsers.filter(
+            (u) =>
+              u.username.toLowerCase().includes(q) ||
+              u.display_name.toLowerCase().includes(q) ||
+              (u.email?.toLowerCase().includes(q) ?? false),
+          )
+        : mockUsers;
+      return paginate(filtered, params);
+    }
     case "/audit":
       return paginate(mockAudit, params);
-    default: {
-      const hostId = matchHostId(path);
-      if (hostId) {
-        const host = mockHosts.find((h) => h.id === hostId);
-        if (!host) throw new MockNotFoundError(path);
-        return mockHostDetail(host);
+    case "/vulnerabilities": {
+      const sev = params.get("severity");
+      const fix = params.get("fix_status");
+      let list = mockVulnerabilities;
+      if (sev) list = list.filter((v) => v.severity === sev);
+      if (fix) list = list.filter((v) => v.fix_status === fix);
+      return paginate(list, params);
+    }
+    case "/assets": {
+      const q = (params.get("search") ?? params.get("q") ?? "").trim().toLowerCase();
+      const st = params.get("status");
+      let list = mockAssets;
+      if (st) list = list.filter((a) => a.status === st);
+      if (q) {
+        list = list.filter(
+          (a) =>
+            a.hostname.toLowerCase().includes(q) ||
+            a.os.toLowerCase().includes(q) ||
+            a.department.toLowerCase().includes(q) ||
+            a.tags.some((t) => t.toLowerCase().includes(q)),
+        );
       }
+      return paginate(list, params);
+    }
+    case "/threat-intel": {
+      const ioc = params.get("ioc_type");
+      let list = mockThreatIndicators;
+      if (ioc) list = list.filter((t) => t.ioc_type === ioc);
+      return paginate(list, params);
+    }
+    case "/ai-analysis":
+      return paginate(mockAiReports, params);
+    default:
+      break;
+  }
+
+  // /vulnerabilities/{id} (PATCH)
+  const vulnId = matcher(new RegExp(`^/vulnerabilities/(${UUID_RE})$`), path);
+  if (vulnId && method === "PATCH") {
+    const vuln = mockVulnerabilities.find((v) => v.id === vulnId[1]);
+    if (!vuln) throw new MockNotFoundError(path);
+    const b = (body ?? {}) as { fix_status?: Vulnerability["fix_status"] };
+    if (b.fix_status) vuln.fix_status = b.fix_status;
+    return vuln;
+  }
+
+  // /threat-intel/{id} (PATCH)
+  const tiId = matcher(new RegExp(`^/threat-intel/(${UUID_RE})$`), path);
+  if (tiId && method === "PATCH") {
+    const ti = mockThreatIndicators.find((t) => t.id === tiId[1]);
+    if (!ti) throw new MockNotFoundError(path);
+    const b = (body ?? {}) as { blocked?: boolean };
+    if (typeof b.blocked === "boolean") ti.blocked = b.blocked;
+    return ti;
+  }
+
+  // /ai-analysis/{id}
+  const aiId = matcher(new RegExp(`^/ai-analysis/(${UUID_RE})$`), path);
+  if (aiId) {
+    const report = mockAiReports.find((r) => r.id === aiId[1]);
+    if (!report) throw new MockNotFoundError(path);
+    return report;
+  }
+
+  // /reports/{id}/download
+  const reportDownload = matcher(new RegExp(`^/reports/(${UUID_RE})/download$`), path);
+  if (reportDownload) {
+    const report = mockReports.find((r) => r.id === reportDownload[1]);
+    if (!report || report.status !== "completed") {
       throw new MockNotFoundError(path);
     }
+    return new Blob([`HostGuard 报告：${report.title}\n这是一份由本地 mock 生成的演示报告。`], {
+      type: "application/pdf",
+    });
   }
+
+  // /notifications/channels/{id}/test
+  const channelTest = matcher(new RegExp(`^/notifications/channels/(${UUID_RE})/test$`), path);
+  if (channelTest) {
+    const channel = mockChannels.find((c) => c.id === channelTest[1]);
+    if (!channel) throw new MockNotFoundError(path);
+    const delivery: NotificationDelivery = {
+      id: uuid(++mockSeq),
+      channel_id: channel.id,
+      channel_name: channel.name,
+      status: "sent",
+      subject: "【HostGuard】渠道测试消息",
+      attempted_at: new Date().toISOString(),
+      error: null,
+    };
+    mockDeliveries.unshift(delivery);
+    return delivery;
+  }
+
+  // /notifications/channels/{id}
+  const channelId = matcher(new RegExp(`^/notifications/channels/(${UUID_RE})$`), path);
+  if (channelId) {
+    const channel = mockChannels.find((c) => c.id === channelId[1]);
+    if (!channel) throw new MockNotFoundError(path);
+    if (method === "PATCH") {
+      Object.assign(channel, body ?? {});
+      return channel;
+    }
+    return channel;
+  }
+
+  // /notifications/channels (POST 新建)
+  if (path === "/notifications/channels" && method === "POST") {
+    const b = (body ?? {}) as Partial<NotificationChannel>;
+    const channel: NotificationChannel = {
+      id: uuid(++mockSeq),
+      name: String(b.name ?? "未命名渠道"),
+      type: (b.type as NotificationChannel["type"]) ?? "email",
+      enabled: b.enabled ?? true,
+      target: String(b.target ?? ""),
+      created_at: new Date().toISOString(),
+    };
+    mockChannels.push(channel);
+    return channel;
+  }
+
+  // /rules/{id} (PATCH)
+  const ruleId = matcher(new RegExp(`^/rules/(${UUID_RE})$`), path);
+  if (ruleId) {
+    const rule = mockRules.find((r) => r.id === ruleId[1]);
+    if (!rule) throw new MockNotFoundError(path);
+    if (method === "PATCH") {
+      Object.assign(rule, body ?? {});
+      rule.updated_at = new Date().toISOString();
+      return rule;
+    }
+    return rule;
+  }
+
+  // /rules (POST 新建)
+  if (path === "/rules" && method === "POST") {
+    const b = (body ?? {}) as Partial<DetectionRule>;
+    const rule: DetectionRule = {
+      id: uuid(++mockSeq),
+      name: String(b.name ?? "未命名规则"),
+      description: String(b.description ?? ""),
+      severity: (b.severity as DetectionRule["severity"]) ?? "medium",
+      enabled: b.enabled ?? true,
+      kind: String(b.kind ?? "metric"),
+      condition_field: String(b.condition_field ?? "cpu_percent"),
+      condition_op: String(b.condition_op ?? ">="),
+      window_seconds: Number(b.window_seconds ?? 300),
+      threshold: Number(b.threshold ?? 1),
+      updated_at: new Date().toISOString(),
+    };
+    mockRules.push(rule);
+    return rule;
+  }
+
+  // /reports (POST 创建)
+  if (path === "/reports" && method === "POST") {
+    const b = (body ?? {}) as Partial<ReportJob>;
+    const report: ReportJob = {
+      id: uuid(++mockSeq),
+      title: String(b.title ?? "安全报告"),
+      status: "pending",
+      scope: String(b.scope ?? "all_hosts"),
+      report_type: String(b.report_type ?? "summary"),
+      format: String(b.format ?? "pdf"),
+      requested_by: "admin",
+      requested_at: new Date().toISOString(),
+      expires_at: null,
+      error: null,
+    };
+    mockReports.unshift(report);
+    return report;
+  }
+
+  // /alerts/{id}/transitions (POST)
+  const alertTransition = matcher(new RegExp(`^/alerts/(${UUID_RE})/transitions$`), path);
+  if (alertTransition && method === "POST") {
+    const alert = mockAlerts.find((a) => a.id === alertTransition[1]);
+    if (!alert) throw new MockNotFoundError(path);
+    const b = (body ?? {}) as { to_status?: Alert["status"]; comment?: string };
+    const toStatus = b.to_status ?? "resolved";
+    const history = transitionsFor(alert);
+    const transition: AlertTransition = {
+      id: uuid(++mockSeq),
+      from_status: alert.status,
+      to_status: toStatus,
+      comment: b.comment ?? null,
+      actor: "admin",
+      occurred_at: new Date().toISOString(),
+    };
+    alert.status = toStatus;
+    alert.updated_at = transition.occurred_at;
+    const detail: AlertDetail = { ...alert, transitions: [...history, transition] };
+    return detail;
+  }
+
+  // /alerts/{id}
+  const alertId = matcher(new RegExp(`^/alerts/(${UUID_RE})$`), path);
+  if (alertId) {
+    const alert = mockAlerts.find((a) => a.id === alertId[1]);
+    if (!alert) throw new MockNotFoundError(path);
+    const detail: AlertDetail = { ...alert, transitions: transitionsFor(alert) };
+    return detail;
+  }
+
+  // /hosts/{id}
+  const hostId = matcher(new RegExp(`^/hosts/(${UUID_RE})$`), path);
+  if (hostId) {
+    const host = mockHosts.find((h) => h.id === hostId[1]);
+    if (!host) throw new MockNotFoundError(path);
+    return mockHostDetail(host);
+  }
+
+  // /users/{id}
+  const userId = matcher(new RegExp(`^/users/(${UUID_RE})$`), path);
+  if (userId) {
+    const target = mockUsers.find((u) => u.id === userId[1]);
+    if (!target) throw new MockNotFoundError(path);
+    if (method === "DELETE") {
+      target.is_active = false;
+      return undefined;
+    }
+    if (method === "PATCH") {
+      const b = (body ?? {}) as Partial<User>;
+      if (b.role) target.role = b.role;
+      if (typeof b.is_active === "boolean") target.is_active = b.is_active;
+      if (b.display_name) target.display_name = b.display_name;
+      return { user: target };
+    }
+    return { user: target };
+  }
+
+  // /users (POST)
+  if (path === "/users" && method === "POST") {
+    const b = (body ?? {}) as {
+      username?: string;
+      email?: string;
+      password?: string;
+      role?: User["role"];
+      display_name?: string;
+    };
+    const username = String(b.username ?? "").trim();
+    if (!username) throw new Error("请输入用户名");
+    if (mockUsers.some((u) => u.username === username)) throw new Error("用户名已存在");
+    const user: User = {
+      id: uuid(++mockSeq),
+      username,
+      display_name: b.display_name?.trim() || username,
+      email: b.email?.trim() || `${username}@example.com`,
+      role: b.role ?? "viewer",
+      is_active: true,
+      created_at: new Date().toISOString(),
+      last_login_at: null,
+    };
+    mockUsers.unshift(user);
+    return { user };
+  }
+
+  throw new MockNotFoundError(path);
 }

@@ -1,8 +1,8 @@
-// 认证 store/context：登录、登出、当前用户、角色判断
+// 认证 store/context：登录、登出、当前用户、角色判断、会话校验
 
-import { createContext, useCallback, useContext, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
-import { clearCsrfToken, isMockMode, apiPost } from "@/lib/api";
+import { apiGet, apiPost, clearCsrfToken, isMockMode, refreshCsrf } from "@/lib/api";
 import { mockLogin } from "@/lib/mock";
 import type { CurrentUserLike } from "@/lib/mock";
 import type { Role } from "@/lib/types";
@@ -35,6 +35,7 @@ function loadStoredUser(): AuthUser | null {
 interface AuthContextValue {
   user: AuthUser | null;
   isAuthenticated: boolean;
+  initializing: boolean;
   login: (username: string, password: string) => Promise<AuthUser>;
   logout: () => Promise<void>;
 }
@@ -43,6 +44,45 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(loadStoredUser);
+  const [initializing, setInitializing] = useState(() => !isMockMode() && loadStoredUser() !== null);
+
+  // 真实 API：启动时用 /auth/me 校验 cookie 会话，避免仅信 sessionStorage
+  useEffect(() => {
+    if (isMockMode()) {
+      setInitializing(false);
+      return;
+    }
+
+    const stored = loadStoredUser();
+    if (!stored) {
+      setInitializing(false);
+      return;
+    }
+
+    (async () => {
+      try {
+        await refreshCsrf().catch(() => undefined);
+        const res = await apiGet<{ user: CurrentUserLike }>("/auth/me");
+        const next = toAuthUser(res.user);
+        window.sessionStorage.setItem(USER_KEY, JSON.stringify(next));
+        setUser(next);
+      } catch {
+        clearCsrfToken();
+        window.sessionStorage.removeItem(USER_KEY);
+        setUser(null);
+      } finally {
+        setInitializing(false);
+      }
+    })();
+  }, []);
+
+  // 真实 API 模式：应用启动时获取 CSRF token（HttpOnly 会话 + X-CSRF-Token）
+  useEffect(() => {
+    if (isMockMode() || initializing) return;
+    refreshCsrf().catch(() => {
+      // 未登录时 CSRF 端点不可用属于正常情况，登录流程会再次刷新
+    });
+  }, [initializing]);
 
   const login = useCallback(async (username: string, password: string): Promise<AuthUser> => {
     let next: AuthUser;
@@ -50,8 +90,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const res = await mockLogin(username, password);
       next = toAuthUser(res.user);
     } else {
+      // 真实后端要求 POST 携带 X-CSRF-Token；先刷新一次拿 token
+      await refreshCsrf().catch(() => undefined);
       const res = await apiPost<{ user: CurrentUserLike }>("/auth/login", { username, password });
       next = toAuthUser(res.user);
+      // 会话建立后 token 可能轮换，重新获取
+      await refreshCsrf().catch(() => undefined);
     }
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(next));
     setUser(next);
@@ -69,8 +113,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo<AuthContextValue>(
-    () => ({ user, isAuthenticated: user !== null, login, logout }),
-    [user, login, logout],
+    () => ({ user, isAuthenticated: user !== null, initializing, login, logout }),
+    [user, initializing, login, logout],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
