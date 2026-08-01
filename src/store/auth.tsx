@@ -58,6 +58,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const res = await mockLogin(username, password);
       next = toAuthUser(res.user);
     } else {
+      // 真实后端要求 POST 携带 X-CSRF-Token；先刷新一次拿 token
+      await refreshCsrf().catch(() => undefined);
       const res = await apiPost<{ user: CurrentUserLike }>("/auth/login", { username, password });
       next = toAuthUser(res.user);
       // 会话建立后 token 可能轮换，重新获取

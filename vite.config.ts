@@ -17,6 +17,22 @@ export default defineConfig({
     outDir: "dist",
     sourcemap: true,
   },
+  server: {
+    port: 5180,
+    strictPort: true,
+    host: "127.0.0.1",
+    proxy: {
+      // 开发模式下把 API 请求转发到 Flask 后端
+      "/api": {
+        target: process.env.HOSTGUARD_API_TARGET || "http://127.0.0.1:5000",
+        changeOrigin: true,
+      },
+      "/health": {
+        target: process.env.HOSTGUARD_API_TARGET || "http://127.0.0.1:5000",
+        changeOrigin: true,
+      },
+    },
+  },
   test: {
     environment: "jsdom",
     globals: true,
